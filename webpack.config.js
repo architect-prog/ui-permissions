@@ -177,14 +177,15 @@ const configurePlugins = () => [
   new CompressionPlugin({
     exclude: /\.s([ac])ss$/,
   }),
-  //new BundleAnalyzerPlugin(), Uncomment to collect bundle tree statistics
 ];
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: process.env.NODE_ENV,
   entry: {
-    app: isDev ? ['core-js/stable', './index.tsx'] : ['core-js/stable', './index.tsx'],
+    app: isDev
+      ? ['core-js/stable', './index.tsx', './importDevAssets.tsx']
+      : ['core-js/stable', './index.tsx'],
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],

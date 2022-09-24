@@ -74,6 +74,10 @@ select {
   font: inherit;
 }
 
+button {
+  border: 0;
+  padding: 10px;
+}
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;

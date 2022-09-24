@@ -7,7 +7,17 @@ root.render(
   <StrictMode>
     <RecoilRoot>
       <Suspense fallback={<div />}>
-        <div>Hi world!</div>
+        <div className="tools">
+          <button className="client-button" title="client">
+            Client
+          </button>
+          <button className="adviser-button" title="Adviser">
+            Adviser
+          </button>
+          <button className="admin-button" title="Admin">
+            Admin
+          </button>
+        </div>
       </Suspense>
     </RecoilRoot>
   </StrictMode>,

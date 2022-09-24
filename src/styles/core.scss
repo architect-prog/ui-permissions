@@ -1,0 +1,27 @@
+.tools {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 10px;
+}
+
+.admin-button {
+  background-color: #ff0000a5;
+  color: #ffffff;
+  width: 100px;
+  border-radius: 5px;
+}
+
+.adviser-button {
+  background-color: #ffc107;
+  color: #ffffff;
+  width: 100px;
+  border-radius: 5px;
+}
+
+.client-button {
+  background-color: #6666fd;
+  color: #ffffff;
+  width: 100px;
+  border-radius: 5px;
+}
