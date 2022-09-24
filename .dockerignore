@@ -1,0 +1,9 @@
+node_modules
+build
+.git
+.git*
+*Dockerfile*
+.vscode/
+*.log
+.idea
+coverage

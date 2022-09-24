@@ -1,0 +1,42 @@
+extends:
+  # eslint-config-airbnb-typescript is not supported by super-linter yet https://github.com/github/super-linter/issues/2050
+  # - airbnb-typescript
+  - airbnb/hooks
+  - 'plugin:@typescript-eslint/recommended'
+  - 'plugin:jest/recommended'
+  - 'plugin:prettier/recommended'
+plugins:
+  - react
+  - '@typescript-eslint'
+  - jest
+env:
+  browser: true
+  es6: true
+  jest: true
+globals:
+  Luigi: readonly
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 2018
+  sourceType: module
+rules:
+  linebreak-style: 'off'
+  prettier/prettier:
+    - error
+    - tabWidth: 2
+      singleQuote: true
+      bracketSameLine: false
+      arrowParens: always
+      printWidth: 100
+      semi: true
+      bracketSpacing: true
+      trailingComma: all
+      endOfLine: auto
+settings:
+  # Auto detection of Jest version not working in 24.1.0 https://github.com/jest-community/eslint-plugin-jest/issues/686
+  jest:
+    version: latest

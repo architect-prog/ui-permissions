@@ -1,0 +1,30 @@
+{
+  "collectCoverageFrom": ["<rootDir>/src/**/*.{ts,tsx}"],
+  "setupFiles": ["<rootDir>/.jest/setup.js"],
+  "roots": ["<rootDir>/src/"],
+  "testEnvironment": "jsdom",
+  "testEnvironmentOptions": {
+    "url": "http://localhost"
+  },
+  "transform": {
+    "^.+\\.(js|ts|tsx)$": "babel-jest"
+  },
+  "modulePaths": ["<rootDir>/src"],
+  "moduleDirectories": ["src", "node_modules"],
+  "transformIgnorePatterns": ["/node_modules/"],
+  "moduleNameMapper": {
+    "^.+\\.(sass|scss)$": "identity-obj-proxy",
+    "\\.(jpg|jpeg|svg|png)$": "<rootDir>/.jest/file-mock.js"
+  },
+  "coverageReporters": ["lcov", "text", "text-summary"],
+  "coverageDirectory": "<rootDir>/coverage",
+  "coveragePathIgnorePatterns": ["node_modules", "index.tsx", "DashboardWidget.tsx"],
+  "coverageThreshold": {
+    "global": {
+      "statements": 100,
+      "branches": 100,
+      "functions": 100,
+      "lines": 100
+    }
+  }
+}

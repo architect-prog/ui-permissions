@@ -1,0 +1,22 @@
+{
+  "recommendations": [
+    "codezombiech.gitignore",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "eg2.vscode-npm-script",
+    "esbenp.prettier-vscode",
+    "mrmlnc.vscode-csscomb",
+    "MS-CEINTL.vscode-language-pack-ru",
+    "ms-vscode-remote.remote-wsl-recommender",
+    "ms-vscode.js-debug",
+    "ms-vscode.js-debug-companion",
+    "ms-vscode.vscode-js-profile-table",
+    "ms-vscode.vscode-typescript-tslint-plugin",
+    "PKief.material-icon-theme",
+    "rvest.vs-code-prettier-eslint",
+    "shardulm94.trailing-spaces",
+    "streetsidesoftware.code-spell-checker",
+    "traBpUkciP.vscode-npm-scripts",
+    "wix.vscode-import-cost"
+  ]
+}

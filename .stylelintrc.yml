@@ -1,0 +1,12 @@
+extends: stylelint-config-sass-guidelines
+rules:
+  scss/at-import-partial-extension-blacklist:
+    - less
+  selector-max-compound-selectors: null
+  max-nesting-depth: null
+  selector-no-qualifying-type:
+    - true
+    - ignore:
+        - class
+        - attribute
+  selector-max-id: 1
