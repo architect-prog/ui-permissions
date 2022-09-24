@@ -4,8 +4,8 @@ name: Application Workflow
 
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - master
 
 jobs:
   build:
