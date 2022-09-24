@@ -5,23 +5,50 @@
   margin-top: 10px;
 }
 
-.admin-button {
-  background-color: #ff0000a5;
-  color: #ffffff;
-  width: 100px;
+.base-button:hover,
+.base-button:focus {
+  color: #fff;
+  outline: 0;
+}
+
+.base-button {
   border-radius: 5px;
+  color: $white;
+  width: 100px;
+  -webkit-transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+}
+
+.admin-button {
+  background-color: $red;
+  &:hover {
+    box-shadow: 0 0 40px 40px red inset;
+  }
 }
 
 .adviser-button {
-  background-color: #ffc107;
-  color: #ffffff;
-  width: 100px;
-  border-radius: 5px;
+  background-color: $orange;
+  &:hover {
+    box-shadow: 0 0 40px 40px orange inset;
+  }
 }
 
 .client-button {
-  background-color: #6666fd;
-  color: #ffffff;
-  width: 100px;
-  border-radius: 5px;
+  background-color: $blue;
+  &:hover {
+    box-shadow: 0 0 40px 40px blue inset;
+  }
+}
+
+.permissions-section {
+  display: flex;
+  justify-content: center;
+}
+
+.permissions-form {
+  width: 496px;
+}
+.permissions-save-changes-button {
+  display: flex;
+  width: 100%;
 }

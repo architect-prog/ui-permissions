@@ -33,14 +33,6 @@ body {
   font-weight: 500;
   line-height: 1.1em;
   min-height: 100vh;
-  -ms-overflow-style: none;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  text-align: left;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 .font-weight {
