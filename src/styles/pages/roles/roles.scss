@@ -1,0 +1,57 @@
+.roles {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.roles-header {
+  display: flex;
+  align-self: flex-end;
+  justify-content: flex-end;
+  justify-content: flex-end;
+  .role-create-action {
+    background-color: green;
+  }
+}
+.roles-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  flex-direction: column;
+  .role {
+    display: flex;
+    flex: 300px 0 1;
+    white-space: normal;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+  }
+
+  .row {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .role-actions {
+    display: flex;
+    flex: 100px 0 1;
+    .role-update-action,
+    .role-delete-action {
+      margin-left: 20px;
+      width: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .role-delete-action {
+      background-color: red;
+    }
+    .role-update-action {
+      background-color: orange;
+    }
+  }
+}
