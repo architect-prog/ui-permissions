@@ -3,13 +3,9 @@ import { Navbar } from './Navbar';
 
 const Sidebar: React.FC = () => {
   return (
-    <>
-      <div id="page">
-        <div id="sideBar">
-          <Navbar />
-        </div>
-      </div>
-    </>
+    <div className="sidebar">
+      <Navbar />
+    </div>
   );
 };
 

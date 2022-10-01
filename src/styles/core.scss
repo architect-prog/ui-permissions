@@ -49,19 +49,3 @@
 #headerContent {
   margin-left: 10px;
 }
-
-#page {
-  display: flex;
-  height: 100vh;
-}
-
-#sideBar {
-  width: 100px;
-  background: red;
-}
-
-#content {
-  background: blue;
-  flex: 1 0 auto;
-  /* enable grow, disable shrink */
-}

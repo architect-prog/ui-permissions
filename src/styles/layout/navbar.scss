@@ -1,0 +1,25 @@
+.navbar {
+  width: 180px;
+  font-size: 14px;
+  background-color: rgba($color: white, $alpha: 1);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.navbar-item {
+  padding: 10px;
+}
+
+.navbar-item__link {
+  color: black;
+  width: 100%;
+  height: 100%;
+  animation: cubic-bezier(0.17, 0.67, 0.83, 0.67) ease;
+}
+.navbar-item__link:hover {
+  color: green;
+}
+.navbar-item_link--active {
+  color: green;
+}

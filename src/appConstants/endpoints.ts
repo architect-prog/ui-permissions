@@ -1,5 +1,3 @@
-const baseUrl = 'api';
-
 const controllers = Object.freeze({
   roles: 'roles',
   permissions: 'permissions',
@@ -14,6 +12,13 @@ const endpoints = Object.freeze({
   getApplication: (applicationId: number) => `${controllers.applications}/${applicationId}`,
   updateApplication: (applicationId: number) => `${controllers.applications}/${applicationId}`,
   deleteApplication: (applicationId: number) => `${controllers.applications}/${applicationId}`,
+
+  //*** Permissions ***//
+  // createPermission: controllers.permissions,
+  getPermissions: controllers.permissions,
+  // getPermission: (applicationId: number) => `${controllers.applications}/${applicationId}`,
+  // updatePermission: (applicationId: number) => `${controllers.applications}/${applicationId}`,
+  // deletePermission: (applicationId: number) => `${controllers.applications}/${applicationId}`,
 
   //*** Areas ***//
   createArea: controllers.areas,

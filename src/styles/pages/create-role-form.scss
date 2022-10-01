@@ -1,0 +1,13 @@
+.create-role-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.create-role-form__input {
+  width: 200px;
+}
+.create-role-form__submit-button {
+  background-color: green;
+}

@@ -1,9 +1,11 @@
 import React from 'react';
-import { CheckboxProps } from 'types/frontend';
+import { InputProps } from 'types/frontend';
 
-const Input: React.FC<CheckboxProps> = (props) => {
-  const { value, label, onChange } = props;
-  return <input type="checkbox" onChange={onChange} checked={value} />;
+const Input: React.FC<InputProps> = (props) => {
+  const { type, value, label, onChange, className } = props;
+  return (
+    <input className={className} type={type} title={label} onChange={onChange} value={value} />
+  );
 };
 
 export default Input;

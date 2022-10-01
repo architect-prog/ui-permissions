@@ -1,0 +1,13 @@
+.update-role-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+
+  .update-role-form__input {
+    width: 200px;
+  }
+  .update-role-form__submit-button {
+    background-color: orange;
+  }
+}

@@ -50,6 +50,11 @@ a:not([class]) {
   text-decoration-skip-ink: auto;
 }
 
+a,
+li {
+  text-decoration: none;
+  list-style: none;
+}
 img {
   display: block;
   max-width: 100%;
