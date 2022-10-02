@@ -1,4 +1,5 @@
 export type ApplicationResponse = {
   id: number;
-  name?: string;
+  name: string;
+  description?: string;
 };

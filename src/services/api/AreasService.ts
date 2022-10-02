@@ -1,10 +1,10 @@
 import api from './api';
 import { endpoints } from 'appConstants';
-import { AreaResponse, CreateAreaRequest, UpdateAreaRequest } from 'types/api';
+import { AreaResponse, CreateAreaRequest, UpdateAreaRequest, Collection } from 'types/api';
 
 const areasService = {
-  getAll: async (): Promise<AreaResponse[]> => {
-    const response = await api.get<AreaResponse[]>(endpoints.getAreas).finally();
+  getAll: async (): Promise<Collection<AreaResponse>> => {
+    const response = await api.get<Collection<AreaResponse>>(endpoints.getAreas).finally();
     return response.data;
   },
   get: async (id: number): Promise<AreaResponse> => {

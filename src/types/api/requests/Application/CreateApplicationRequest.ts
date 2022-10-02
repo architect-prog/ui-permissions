@@ -1,3 +1,4 @@
 export type CreateApplicationRequest = {
-  name?: string;
+  name: string;
+  description?: string;
 };

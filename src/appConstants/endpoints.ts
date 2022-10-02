@@ -14,11 +14,9 @@ const endpoints = Object.freeze({
   deleteApplication: (applicationId: number) => `${controllers.applications}/${applicationId}`,
 
   //*** Permissions ***//
-  // createPermission: controllers.permissions,
   getPermissions: controllers.permissions,
-  // getPermission: (applicationId: number) => `${controllers.applications}/${applicationId}`,
-  // updatePermission: (applicationId: number) => `${controllers.applications}/${applicationId}`,
-  // deletePermission: (applicationId: number) => `${controllers.applications}/${applicationId}`,
+  updatePermissions: controllers.permissions,
+  deletePermissions: controllers.permissions,
 
   //*** Areas ***//
   createArea: controllers.areas,

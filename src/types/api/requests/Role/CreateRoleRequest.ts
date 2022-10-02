@@ -1,3 +1,3 @@
 export type CreateRoleRequest = {
-  name?: string;
+  name: string;
 };

@@ -1,7 +1,12 @@
 import api from './api';
 import { endpoints } from 'appConstants';
-import { CreateRoleRequest, RoleResponse, UpdateRoleRequest } from 'types/api';
-import { Collection } from 'types/api/responses/Collection';
+import {
+  CreateRoleRequest,
+  RoleResponse,
+  UpdateRoleRequest,
+  Collection,
+  NoContentResponse,
+} from 'types/api';
 
 const rolesService = {
   getAll: async (): Promise<Collection<RoleResponse>> => {
@@ -20,8 +25,8 @@ const rolesService = {
     const response = await api.delete<RoleResponse>(endpoints.deleteRole(id)).finally();
     return response.data;
   },
-  update: async (id: number, body: UpdateRoleRequest): Promise<RoleResponse> => {
-    const response = await api.put<RoleResponse>(endpoints.updateRole(id), body).finally();
+  update: async (id: number, body: UpdateRoleRequest): Promise<NoContentResponse> => {
+    const response = await api.put(endpoints.updateRole(id), body).finally();
     return response.data;
   },
 };

@@ -1,3 +1,4 @@
 export type UpdateApplicationRequest = {
-  name?: string;
+  name: string;
+  description?: string;
 };

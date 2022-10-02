@@ -1,10 +1,15 @@
 import api from './api';
 import { endpoints } from 'appConstants';
-import { ApplicationResponse, CreateApplicationRequest, UpdateApplicationRequest } from 'types/api';
+import {
+  ApplicationResponse,
+  CreateApplicationRequest,
+  UpdateApplicationRequest,
+  Collection,
+} from 'types/api';
 
 const applicationsService = {
-  getAll: async (): Promise<ApplicationResponse[]> => {
-    const response = await api.get<ApplicationResponse[]>(endpoints.getAreas).finally();
+  getAll: async (): Promise<Collection<ApplicationResponse>> => {
+    const response = await api.get<Collection<ApplicationResponse>>(endpoints.getAreas).finally();
     return response.data;
   },
   get: async (id: number): Promise<ApplicationResponse> => {

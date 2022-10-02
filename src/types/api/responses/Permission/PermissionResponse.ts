@@ -1,5 +1,4 @@
 export type PermissionResponse = {
-  id: number;
-  name?: string;
+  name: string;
   haveAccess: boolean;
 };

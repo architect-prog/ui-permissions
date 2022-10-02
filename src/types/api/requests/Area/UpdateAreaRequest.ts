@@ -1,3 +1,4 @@
 export type UpdateAreaRequest = {
-  name?: string;
+  applicationId: number;
+  name: string;
 };
