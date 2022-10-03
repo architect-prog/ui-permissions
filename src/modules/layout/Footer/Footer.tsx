@@ -3,9 +3,9 @@ import React from 'react';
 const Footer: React.FC = () => {
   return (
     <footer className="footer">
-      <div>Social network</div>
-      <div>Contact with us</div>
-      <div>Support us</div>
+      <span>Social network </span>
+      <span>Contact with us </span>
+      <span>Support us</span>
     </footer>
   );
 };

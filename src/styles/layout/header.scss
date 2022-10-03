@@ -1,0 +1,17 @@
+.header {
+  height: auto;
+  background-color: $primary;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo {
+  font-size: 2rem;
+}
+
+.header-item {
+  color: $text-primary;
+}

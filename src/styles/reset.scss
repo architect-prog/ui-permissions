@@ -27,7 +27,6 @@ dd {
 }
 
 body {
-  color: #555;
   font-family: 'Quicksand', sans-serif;
   font-size: 0.85rem;
   font-weight: 500;
@@ -71,6 +70,12 @@ button {
   border: 0;
   padding: 10px;
 }
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
