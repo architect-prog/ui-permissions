@@ -1,6 +1,8 @@
 import React from 'react';
 
-export default interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   title?: string;
   type?: 'submit' | 'button';
-}
+};
+
+export default ButtonProps;

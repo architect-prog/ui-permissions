@@ -1,5 +1,7 @@
+import { Button } from 'modules/shared';
 import React from 'react';
 import { FaShieldAlt } from 'react-icons/fa';
+import { IoSettings } from 'react-icons/io5';
 
 const Header: React.FC = () => {
   return (
@@ -8,7 +10,10 @@ const Header: React.FC = () => {
         <div className="header-item header-logo">
           <FaShieldAlt />
         </div>
-        <div className="header-item text-md pl-05">Access && Permissions</div>
+        <div className="header-item text-md pl-05">Access && Permissions</div>{' '}
+        <Button className="header-item ">
+          <IoSettings />
+        </Button>
       </div>
     </header>
   );
