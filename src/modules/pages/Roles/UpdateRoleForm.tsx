@@ -1,10 +1,10 @@
 import { paths } from 'appConstants';
 import { Button, Input } from 'modules/shared';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { RolesService } from 'services';
-import { rolesAtom } from 'store/recoil/atoms';
+import { roleAtom, rolesAtom } from 'store/recoil/atoms';
 import { UpdateRoleRequest } from 'types/api';
 
 const CreateRoleForm: React.FC = () => {
@@ -12,18 +12,19 @@ const CreateRoleForm: React.FC = () => {
   const navigate = useNavigate();
   const roleId = Number.parseInt(id ?? '0');
 
-  const [rolesCollection, setRolesCollection] = useRecoilState(rolesAtom) ?? [];
-  const [name, setName] = useState<string>(
-    rolesCollection.items.find((t) => t.id == roleId)?.name ?? '',
-  );
+  const [, setRolesCollection] = useRecoilState(rolesAtom) ?? [];
+  const role = useRecoilValue(roleAtom(roleId)) ?? [];
+  const [name, setName] = useState<string>(role.name);
+
   const handleOnRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event?.target.value);
     setName(event?.target.value);
   };
+
   const handleOnUpdateButton = useCallback(async () => {
     const request: UpdateRoleRequest = {
       name: name,
     };
+
     await RolesService.update(roleId, request);
     setRolesCollection((rolesCollection) => {
       const { items, count } = rolesCollection;
