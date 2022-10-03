@@ -1,10 +1,10 @@
-import { Button, Input } from 'modules/shared';
 import React, { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router';
 import { useRecoilState } from 'recoil';
-import { RolesService } from 'services';
 import { rolesAtom } from 'store/recoil/atoms';
 import { CreateRoleRequest } from 'types/api';
+import { paths } from 'appConstants';
+import { Input, NavigationButton } from 'modules/shared';
+import { RolesService } from 'services';
 
 const CreateRoleForm: React.FC = () => {
   const [, setRolesCollection] = useRecoilState(rolesAtom) ?? [];
@@ -13,7 +13,6 @@ const CreateRoleForm: React.FC = () => {
     console.log(event?.target.value);
     setName(event?.target.value);
   };
-  const navigate = useNavigate();
   const handleOnAddButton = useCallback(async () => {
     const request: CreateRoleRequest = {
       name: name,
@@ -27,9 +26,7 @@ const CreateRoleForm: React.FC = () => {
       };
       return newCollection;
     });
-    const path = `/roles`;
-    navigate(path);
-  }, [name, navigate, setRolesCollection]);
+  }, [name, setRolesCollection]);
 
   return (
     <div className="create-role-form">
@@ -45,9 +42,13 @@ const CreateRoleForm: React.FC = () => {
         onChange={handleOnRoleChange}
       />
 
-      <Button className="create-role-form__submit-button" onClick={handleOnAddButton}>
+      <NavigationButton
+        to={paths.roles}
+        onClick={handleOnAddButton}
+        className="create-role-form__submit-button"
+      >
         Add role
-      </Button>
+      </NavigationButton>
     </div>
   );
 };

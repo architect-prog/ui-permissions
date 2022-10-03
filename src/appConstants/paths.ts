@@ -4,6 +4,8 @@ const paths = Object.freeze({
   applications: '/applications',
   areas: '/areas',
   roles: '/roles',
+  createRole: '/roles/create',
+  updateRole: (id: number) => `/roles/update/${id}`,
   notFoundError: '*',
 });
 

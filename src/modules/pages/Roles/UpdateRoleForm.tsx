@@ -1,20 +1,19 @@
 import { paths } from 'appConstants';
-import { Button, Input } from 'modules/shared';
-import React, { useCallback, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { Input, NavigationButton } from 'modules/shared';
+import React, { useCallback, useState } from 'react';
+import { useParams } from 'react-router';
+import { useRecoilState } from 'recoil';
 import { RolesService } from 'services';
 import { roleAtom, rolesAtom } from 'store/recoil/atoms';
-import { UpdateRoleRequest } from 'types/api';
+import { RoleResponse, UpdateRoleRequest } from 'types/api';
 
 const CreateRoleForm: React.FC = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const roleId = Number.parseInt(id ?? '0');
 
   const [, setRolesCollection] = useRecoilState(rolesAtom) ?? [];
-  const role = useRecoilValue(roleAtom(roleId)) ?? [];
-  const [name, setName] = useState<string>(role.name);
+  const [atomRole, setAtomRole] = useRecoilState(roleAtom(roleId)) ?? [];
+  const [name, setName] = useState<string>(atomRole.name);
 
   const handleOnRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event?.target.value);
@@ -24,12 +23,15 @@ const CreateRoleForm: React.FC = () => {
     const request: UpdateRoleRequest = {
       name: name,
     };
-
     await RolesService.update(roleId, request);
+    setAtomRole({
+      id: roleId,
+      name: name,
+    });
     setRolesCollection((rolesCollection) => {
       const { items, count } = rolesCollection;
       const filteredItems = items.filter((t) => t.id !== roleId);
-      const role = {
+      const role: RoleResponse = {
         id: roleId,
         name: name,
       };
@@ -39,8 +41,7 @@ const CreateRoleForm: React.FC = () => {
       };
       return newCollection;
     });
-    navigate(paths.roles);
-  }, [name, navigate, roleId, setRolesCollection]);
+  }, [name, roleId, setAtomRole, setRolesCollection]);
 
   return (
     <div className="update-role-form">
@@ -55,9 +56,13 @@ const CreateRoleForm: React.FC = () => {
         key={'role-key'}
         onChange={handleOnRoleChange}
       />
-      <Button className="update-role-form__submit-button" onClick={handleOnUpdateButton}>
+      <NavigationButton
+        to={paths.roles}
+        className="update-role-form__submit-button"
+        onClick={handleOnUpdateButton}
+      >
         Update role
-      </Button>
+      </NavigationButton>
     </div>
   );
 };

@@ -1,47 +1,31 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { rolesAtom } from 'store/recoil/atoms';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import { Button } from 'modules/shared';
+import { Button, NavigationButton } from 'modules/shared';
 import { RolesService } from 'services';
+import { paths } from 'appConstants';
+import Role from './Role';
 
 const Roles: React.FC = () => {
   const [rolesCollection, setRolesCollection] = useRecoilState(rolesAtom) ?? [];
-  const navigate = useNavigate();
-
   return (
     <div className="roles">
       <div className="roles-header">
-        <Button
+        <NavigationButton
+          to={paths.createRole}
           title="Create role"
           className="role-create-action"
-          onClick={() => {
-            const path = `/roles/create`;
-            navigate(path);
-          }}
-        ></Button>
+        />
       </div>
       <div className="roles-view">
-        {rolesCollection.items.map((role, i) => (
+        {rolesCollection.items.map((role) => (
           <div className="row">
-            <div className="role">
-              <div className="role-name">
-                <Link key={`role-${i}`} to={`update/${role.id}`}>
-                  {role.name}
-                </Link>
-              </div>
-            </div>
+            <Role id={role.id} name={role.name}></Role>
             <div className="role-actions">
-              <Button
-                onClick={() => {
-                  const path = `/roles/update/${role.id}`;
-                  navigate(path);
-                }}
-                className="role-update-action"
-              >
+              <NavigationButton to={paths.updateRole(role.id)} className="role-update-action">
                 <FaEdit />
-              </Button>
+              </NavigationButton>
               <Button
                 onClick={async () => {
                   const { id } = role;
