@@ -1,47 +1,52 @@
 import { paths } from 'appConstants';
 import { Input, NavigationButton } from 'modules/shared';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { RolesService } from 'services';
-import { roleAtom, rolesAtom } from 'store/recoil/atoms';
+import { rolesAtom } from 'store/recoil/atoms';
+import { roleSelector } from 'store/recoil/selectors';
 import { RoleResponse, UpdateRoleRequest } from 'types/api';
 
-const CreateRoleForm: React.FC = () => {
+const UpdateRoleForm: React.FC = () => {
   const { id } = useParams();
   const roleId = Number.parseInt(id ?? '0');
+  const [role, setRole] = useState<RoleResponse>();
+
+  useEffect(() => {
+    const fetchAsync = async () => {
+      const result = await RolesService.get(roleId);
+      setRole(result);
+    };
+    fetchAsync();
+  }, [roleId]);
 
   const [, setRolesCollection] = useRecoilState(rolesAtom) ?? [];
-  const [atomRole, setAtomRole] = useRecoilState(roleAtom(roleId)) ?? [];
-  const [name, setName] = useState<string>(atomRole.name);
 
   const handleOnRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event?.target.value);
+    setRole({ id: role?.id ?? 0, name: event?.target.value });
   };
 
   const handleOnUpdateButton = useCallback(async () => {
     const request: UpdateRoleRequest = {
-      name: name,
+      name: role?.name ?? '',
     };
+
     await RolesService.update(roleId, request);
-    setAtomRole({
-      id: roleId,
-      name: name,
-    });
+    if (!role) {
+      return;
+    }
     setRolesCollection((rolesCollection) => {
       const { items, count } = rolesCollection;
       const filteredItems = items.filter((t) => t.id !== roleId);
-      const role: RoleResponse = {
-        id: roleId,
-        name: name,
-      };
+
       const newCollection = {
         items: [...filteredItems, role],
         count: count,
       };
       return newCollection;
     });
-  }, [name, roleId, setAtomRole, setRolesCollection]);
+  }, [role, roleId, setRolesCollection]);
 
   return (
     <div className="update-role-form">
@@ -51,7 +56,7 @@ const CreateRoleForm: React.FC = () => {
       <Input
         className="update-role-form__input"
         type={'text'}
-        value={name}
+        value={role?.name ?? ''}
         label={'update-role'}
         key={'role-key'}
         onChange={handleOnRoleChange}
@@ -67,4 +72,4 @@ const CreateRoleForm: React.FC = () => {
   );
 };
 
-export default CreateRoleForm;
+export default UpdateRoleForm;

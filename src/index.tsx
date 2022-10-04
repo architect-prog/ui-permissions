@@ -1,4 +1,4 @@
-import React, { StrictMode, Suspense } from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter } from 'react-router-dom';
@@ -9,9 +9,7 @@ root.render(
   <StrictMode>
     <RecoilRoot>
       <BrowserRouter>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Application />
-        </Suspense>
+        <Application />
       </BrowserRouter>
     </RecoilRoot>
   </StrictMode>,

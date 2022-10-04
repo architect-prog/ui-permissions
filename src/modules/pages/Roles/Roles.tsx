@@ -9,6 +9,7 @@ import Role from './Role';
 
 const Roles: React.FC = () => {
   const [rolesCollection, setRolesCollection] = useRecoilState(rolesAtom) ?? [];
+
   return (
     <div className="roles">
       <div className="roles-header">
