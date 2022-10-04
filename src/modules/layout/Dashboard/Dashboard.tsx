@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import DashboardRouter from 'routers/DashboardRouter';
 
 const Dashboard: React.FC = () => {
   return (
     <div className="dashboard">
-      <DashboardRouter />
+      <Suspense fallback={<div>Loading...</div>}>
+        <DashboardRouter />
+      </Suspense>
     </div>
   );
 };
