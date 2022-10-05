@@ -4,7 +4,7 @@ import { ButtonProps } from 'types/frontend';
 
 const Button: React.FC<ButtonProps> = (props) => {
   const { children, type, className, title } = props;
-  const comboClassNames = classNames('base-button', className);
+  const comboClassNames = classNames('button', className);
 
   return (
     <button {...props} type={type ?? 'button'} className={comboClassNames}>

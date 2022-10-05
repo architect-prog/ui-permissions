@@ -1,7 +1,7 @@
 @each $dirName, $dir in $directions {
   @each $sizeName, $size in $sizes {
     .m#{$dirName}-#{$sizeName} {
-      padding-#{$dir}: #{$size};
+      margin-#{$dir}: #{$size};
     }
   }
 }
@@ -9,14 +9,14 @@
 @each $dirName, $dir1, $dir2 in ('x' 'left' 'right', 'y' 'top' 'bottom') {
   @each $sizeName, $size in $sizes {
     .m#{$dirName}-#{$sizeName} {
-      padding-#{$dir1}: #{$size};
-      padding-#{$dir2}: #{$size};
+      margin-#{$dir1}: #{$size};
+      margin-#{$dir2}: #{$size};
     }
   }
 }
 
 @each $sizeName, $size in $sizes {
   .m-#{$sizeName} {
-    padding: #{$size};
+    margin: #{$size};
   }
 }

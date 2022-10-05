@@ -4,14 +4,6 @@
   outline: 0;
 }
 
-.base-button {
-  border-radius: 5px;
-  color: $white;
-  width: 100px;
-  -webkit-transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
-  transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
-}
-
 .admin-button {
   background-color: $red;
   &:hover {
@@ -45,4 +37,19 @@
 .permissions-save-changes-button {
   display: flex;
   width: 100%;
+}
+
+.button {
+  border: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+}
+
+.button-primary {
+  color: $text-primary;
+  background-color: $primary;
+  &:hover {
+    background-color: $primary-background;
+  }
 }
