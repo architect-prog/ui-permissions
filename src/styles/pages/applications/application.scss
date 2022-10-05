@@ -1,0 +1,22 @@
+.application {
+  padding: 10px;
+  flex: 0 1 33%;
+
+  .card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 25px;
+    line-height: 22px;
+    border-radius: 5px;
+
+    .card-body {
+      .card-title {
+        color: hsl(234, 12%, 34%);
+        font-weight: 600;
+        font-family: sans-serif;
+      }
+    }
+  }
+}

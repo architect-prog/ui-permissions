@@ -1,14 +1,8 @@
-import React, { Suspense } from 'react';
-import DashboardRouter from 'routers/DashboardRouter';
+import React from 'react';
+import { ChildrenProps } from 'types/frontend';
 
-const Dashboard: React.FC = () => {
-  return (
-    <div className="dashboard">
-      <Suspense fallback={<div>Loading...</div>}>
-        <DashboardRouter />
-      </Suspense>
-    </div>
-  );
+const Dashboard: React.FC<ChildrenProps> = ({ children }) => {
+  return <div className="dashboard">{children}</div>;
 };
 
 export default Dashboard;

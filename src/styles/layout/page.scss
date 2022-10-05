@@ -1,8 +1,10 @@
 .page {
-  background-color: white;
+  display: flex;
+  flex: 1 1 auto;
+  background-color: rgba(171, 172, 165, 0.81);
   width: 100%;
 }
 
 .page-content {
-  display: flex;
+  width: 100%;
 }

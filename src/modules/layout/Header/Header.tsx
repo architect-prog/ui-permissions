@@ -13,28 +13,7 @@ const Header: React.FC = () => {
           </div>
           <div className="text-md ml-05">Access && Permissions</div>
         </div>
-        <div className="header-item">
-          <Button className="button button-primary text-lg">
-            <IoApps />
-          </Button>
-          <Button className="button-primary text-lg ml-1">
-            <IoEllipsisVerticalSharp />
-          </Button>
-          <Button className="button-primary text-lg ml-1">
-            <IoSettings />
-          </Button>
-        </div>
-        <div className="header-item">
-          <Button className="button button-primary text-lg">
-            <IoApps />
-          </Button>
-          <Button className="button-primary text-lg ml-1">
-            <IoEllipsisVerticalSharp />
-          </Button>
-          <Button className="button-primary text-lg ml-1">
-            <IoSettings />
-          </Button>
-        </div>
+
         <div className="header-item">
           <Button className="button button-primary text-lg">
             <IoApps />

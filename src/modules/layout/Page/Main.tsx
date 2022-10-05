@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChildrenProps } from 'types/frontend';
 
-const Main: React.FC<ChildrenProps> = ({ children }) => {
+const Page: React.FC<ChildrenProps> = ({ children }) => {
   return (
     <main className="page">
       <div className="page-content">{children}</div>
@@ -9,4 +9,4 @@ const Main: React.FC<ChildrenProps> = ({ children }) => {
   );
 };
 
-export default Main;
+export default Page;

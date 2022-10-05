@@ -1,7 +1,17 @@
 import React from 'react';
+import { useRecoilState } from 'recoil';
+import { applicationsAtom } from 'store/recoil/atoms';
+import Application from './Application';
 
 const Applications: React.FC = () => {
-  return <div className="applications">Applications</div>;
+  const [applications, setApplications] = useRecoilState(applicationsAtom);
+  return (
+    <div className="applications">
+      {applications.items.map((t) => (
+        <Application key={`application-${t.id}`} name={t.name} id={t.id} />
+      ))}
+    </div>
+  );
 };
 
 export default Applications;
