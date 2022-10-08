@@ -8,6 +8,10 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+
+  @media only screen and (max-width: map-get($screen-breakpoints, 'sm')) {
+    justify-content: space-around;
+  }
 }
 
 .header-logo {

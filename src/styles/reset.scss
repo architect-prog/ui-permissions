@@ -71,9 +71,10 @@ button {
   padding: 10px;
 }
 
-#root {
+.app {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 }
 
 @media (prefers-reduced-motion: reduce) {

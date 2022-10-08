@@ -1,3 +1,3 @@
 export type NoContentResponse = {
-  statusCode: number;
+  isSuccess: boolean;
 };

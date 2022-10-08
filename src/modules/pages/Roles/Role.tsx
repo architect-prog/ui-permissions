@@ -7,9 +7,7 @@ const Role: React.FC<RoleProps> = ({ id, name }) => {
   return (
     <div className="role">
       <div className="role-name">
-        <Link key={`role-${id}`} to={paths.updateRole(id)}>
-          {name}
-        </Link>
+        <Link to={paths.updateRole(id)}>{name}</Link>
       </div>
     </div>
   );
