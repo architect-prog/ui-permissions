@@ -8,6 +8,8 @@
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
     },
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 10000,
     "files.exclude": {
       "**/.git": true,
       "**/node_modules": true,

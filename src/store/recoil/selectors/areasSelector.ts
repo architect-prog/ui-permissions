@@ -1,9 +1,9 @@
-import { selector } from 'recoil';
+import { selectorFamily } from 'recoil';
 import areasService from 'services/api/AreasService';
 
-const areasSelector = selector({
+const areasSelector = selectorFamily({
   key: 'areasSelector',
-  get: areasService.getAll,
+  get: (applicationId?: number) => async () => await areasService.getAll(applicationId),
 });
 
 export default areasSelector;

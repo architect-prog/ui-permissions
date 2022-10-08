@@ -53,3 +53,37 @@
     background-color: $primary-background;
   }
 }
+
+.actions {
+  display: flex;
+  flex: 100px 0 1;
+  .btn-update,
+  .btn-delete {
+    margin-left: 20px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.btn-delete {
+  background-color: #f93e3e;
+}
+
+.btn-update {
+  background-color: orange;
+}
+
+.btn-create {
+  background-color: #40a779;
+}
+
+.btn-update,
+.btn-create,
+.btn-delete {
+  color: white;
+  svg {
+    color: white;
+  }
+}

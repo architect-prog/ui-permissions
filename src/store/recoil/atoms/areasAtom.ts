@@ -1,8 +1,7 @@
-import { atom } from 'recoil';
-import { AreaResponse, Collection } from 'types/api';
+import { atomFamily } from 'recoil';
 import { areasSelector } from '../selectors';
 
-const areasAtom = atom<Collection<AreaResponse>>({
+const areasAtom = atomFamily({
   key: 'areasAtom',
   default: areasSelector,
 });

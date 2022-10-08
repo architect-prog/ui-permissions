@@ -1,9 +1,7 @@
 import { atom } from 'recoil';
-import { RoleResponse } from 'types/api';
-import { Collection } from 'types/api/responses/common/Collection';
 import { rolesSelector } from '../selectors';
 
-const rolesAtom = atom<Collection<RoleResponse>>({
+const rolesAtom = atom({
   key: 'rolesAtom',
   default: rolesSelector,
 });

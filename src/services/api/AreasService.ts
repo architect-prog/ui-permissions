@@ -3,8 +3,10 @@ import { endpoints } from 'appConstants';
 import { AreaResponse, CreateAreaRequest, UpdateAreaRequest, Collection } from 'types/api';
 
 const areasService = {
-  getAll: async (): Promise<Collection<AreaResponse>> => {
-    const response = await api.get<Collection<AreaResponse>>(endpoints.getAreas).finally();
+  getAll: async (applicationId?: number): Promise<Collection<AreaResponse>> => {
+    const response = await api
+      .get<Collection<AreaResponse>>(endpoints.getAreas(applicationId))
+      .finally();
     return response.data;
   },
   get: async (id: number): Promise<AreaResponse> => {

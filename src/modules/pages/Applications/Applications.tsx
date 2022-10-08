@@ -21,18 +21,6 @@ const Applications: React.FC = () => {
             name={t.name}
             id={t.id}
           />
-          <Application
-            key={`application-${t.id}`}
-            description={t.description}
-            name={t.name}
-            id={t.id}
-          />
-          <Application
-            key={`application-${t.id}`}
-            description={t.description}
-            name={t.name}
-            id={t.id}
-          />
         </>
       ))}
     </div>

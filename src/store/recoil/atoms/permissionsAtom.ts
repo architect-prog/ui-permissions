@@ -1,8 +1,7 @@
 import { atom } from 'recoil';
-import { PermissionCollectionResponse } from 'types/api';
 import { permissionsSelector } from '../selectors';
 
-const permissionsAtom = atom<PermissionCollectionResponse[]>({
+const permissionsAtom = atom({
   key: 'permissionsAtom',
   default: permissionsSelector,
 });

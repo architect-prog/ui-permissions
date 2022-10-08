@@ -22,7 +22,11 @@ export default function DashboardRouter() {
         element={<CreateRoleForm />}
       />
       <Route key={paths.permissions} path={paths.permissions} element={<Permissions />} />
-      <Route key={paths.areas} path={paths.areas} element={<Areas />} />
+      <Route
+        key={`${paths.applications}/:id/areas`}
+        path={`${paths.applications}/:id/areas`}
+        element={<Areas />}
+      />
       <Route key={paths.roles} path={paths.roles} element={<Roles />} />
       <Route key={paths.notFoundError} path={paths.notFoundError} element={<>error</>} />
     </Routes>

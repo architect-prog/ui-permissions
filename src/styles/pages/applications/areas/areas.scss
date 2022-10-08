@@ -1,2 +1,16 @@
 .areas {
+  .areas-table {
+    background-color: rgba(86, 86, 81, 0.173);
+    border: 1px solid rgba(86, 86, 81, 0.173);
+    border-collapse: collapse;
+    th,
+    td {
+      padding: 10px;
+    }
+    tbody {
+      tr {
+        border: 1px solid rgba(86, 86, 81, 0.173);
+      }
+    }
+  }
 }

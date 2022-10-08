@@ -20,7 +20,8 @@ const endpoints = Object.freeze({
 
   //*** Areas ***//
   createArea: controllers.areas,
-  getAreas: controllers.areas,
+  getAreas: (applicationId?: number) => `${controllers.areas}?applicationId=${applicationId}`,
+
   getArea: (areaId: number) => `${controllers.areas}/${areaId}`,
   updateArea: (areaId: number) => `${controllers.areas}/${areaId}`,
   deleteArea: (areaId: number) => `${controllers.areas}/${areaId}`,

@@ -1,8 +1,7 @@
 import { atom } from 'recoil';
-import { Collection, ApplicationResponse } from 'types/api';
 import { applicationsSelector } from '../selectors';
 
-const areasAtom = atom<Collection<ApplicationResponse>>({
+const areasAtom = atom({
   key: 'applicationsAtom',
   default: applicationsSelector,
 });
