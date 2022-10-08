@@ -3,7 +3,7 @@ import { useRoles } from 'modules/hooks';
 import { Input, NavigationButton } from 'modules/shared';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { rolesService } from 'services';
+import { RolesService } from 'services';
 import { RoleResponse, UpdateRoleRequest } from 'types/api';
 
 const UpdateRoleForm: React.FC = () => {
@@ -18,7 +18,7 @@ const UpdateRoleForm: React.FC = () => {
 
   useEffect(() => {
     const fetchAsync = async () => {
-      const result = await rolesService.get(roleId);
+      const result = await RolesService.get(roleId);
       setRole(result);
     };
     fetchAsync();

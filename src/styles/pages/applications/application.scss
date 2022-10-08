@@ -4,8 +4,6 @@
 
   .card {
     display: flex;
-    justify-content: center;
-    align-items: center;
     background-color: white;
     padding: 25px;
     line-height: 22px;
@@ -15,7 +13,17 @@
       .card-title {
         color: hsl(234, 12%, 34%);
         font-weight: 600;
-        font-family: sans-serif;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .card-description {
+        text-align: justify;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
     }
   }

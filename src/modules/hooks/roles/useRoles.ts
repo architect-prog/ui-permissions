@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { rolesService } from 'services';
+import { RolesService } from 'services';
 import { useRecoilState } from 'recoil';
 import { rolesAtom } from 'store/recoil/atoms';
 import { Collection, RoleResponse, CreateRoleRequest, UpdateRoleRequest } from 'types/api';
@@ -16,7 +16,7 @@ const useRoles = (): UseRoles => {
 
   const createRole = useCallback(
     async (request: CreateRoleRequest) => {
-      const createdRole = await rolesService.create(request);
+      const createdRole = await RolesService.create(request);
 
       setRolesCollection((rolesCollection) => {
         const { items, count } = rolesCollection;
@@ -32,7 +32,7 @@ const useRoles = (): UseRoles => {
 
   const updateRole = useCallback(
     async (roleId: number, request: UpdateRoleRequest) => {
-      await rolesService.update(roleId, request);
+      await RolesService.update(roleId, request);
       const updatedRole: RoleResponse = { id: roleId, name: request.name };
 
       setRolesCollection((rolesCollection) => {
@@ -51,7 +51,7 @@ const useRoles = (): UseRoles => {
 
   const deleteRole = useCallback(
     async (roleId: number) => {
-      const result = await rolesService.delete(roleId);
+      const result = await RolesService.delete(roleId);
 
       setRolesCollection((roles) => {
         const { items, count } = roles;

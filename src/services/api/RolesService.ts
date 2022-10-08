@@ -8,7 +8,7 @@ import {
   NoContentResponse,
 } from 'types/api';
 
-const rolesService = {
+const RolesService = {
   getAll: async (): Promise<Collection<RoleResponse>> => {
     const response = await api.get<Collection<RoleResponse>>(endpoints.getRoles).finally();
     return response.data;
@@ -32,4 +32,4 @@ const rolesService = {
   },
 };
 
-export default rolesService;
+export default RolesService;

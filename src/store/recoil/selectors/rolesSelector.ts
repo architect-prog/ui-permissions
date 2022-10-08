@@ -1,4 +1,4 @@
-import { rolesService } from 'services';
+import { RolesService } from 'services';
 import { selector } from 'recoil';
 import { RoleResponse } from 'types/api';
 import { Collection } from 'types/api/responses/common/Collection';
@@ -6,7 +6,7 @@ import { Collection } from 'types/api/responses/common/Collection';
 const rolesSelector = selector({
   key: 'rolesSelector',
   get: async (): Promise<Collection<RoleResponse>> => {
-    const response = await rolesService.getAll();
+    const response = await RolesService.getAll();
     return response;
   },
 });

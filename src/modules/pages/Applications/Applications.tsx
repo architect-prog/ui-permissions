@@ -8,7 +8,32 @@ const Applications: React.FC = () => {
   return (
     <div className="applications">
       {applications.items.map((t) => (
-        <Application key={`application-${t.id}`} name={t.name} id={t.id} />
+        <>
+          <Application
+            key={`application-${t.id}`}
+            description={t.description}
+            name={t.name}
+            id={t.id}
+          />
+          <Application
+            key={`application-${t.id}`}
+            description={t.description}
+            name={t.name}
+            id={t.id}
+          />
+          <Application
+            key={`application-${t.id}`}
+            description={t.description}
+            name={t.name}
+            id={t.id}
+          />
+          <Application
+            key={`application-${t.id}`}
+            description={t.description}
+            name={t.name}
+            id={t.id}
+          />
+        </>
       ))}
     </div>
   );

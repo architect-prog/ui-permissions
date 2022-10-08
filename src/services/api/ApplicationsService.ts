@@ -9,7 +9,9 @@ import {
 
 const applicationsService = {
   getAll: async (): Promise<Collection<ApplicationResponse>> => {
-    const response = await api.get<Collection<ApplicationResponse>>(endpoints.getAreas).finally();
+    const response = await api
+      .get<Collection<ApplicationResponse>>(endpoints.getApplications)
+      .finally();
     return response.data;
   },
   get: async (id: number): Promise<ApplicationResponse> => {
