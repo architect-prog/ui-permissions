@@ -1,28 +1,28 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
-import { applicationsAtom } from 'store/recoil/atoms';
+import { paths } from 'appConstants';
+import { useApplications } from 'modules/hooks';
+import { NavigationButton } from 'modules/shared';
 import Application from './Application';
 
 const Applications: React.FC = () => {
-  const [applications, setApplications] = useRecoilState(applicationsAtom);
+  const { applicationsCollection } = useApplications();
   return (
-    <div className="applications">
-      {applications.items.map((t) => (
-        <>
+    <div className="p-1">
+      <div className="d-flex justify-content-center ">
+        <NavigationButton className="btn-create" to={paths.createApplication}>
+          Create application
+        </NavigationButton>
+      </div>
+      <div className="applications">
+        {applicationsCollection.items.map((application) => (
           <Application
-            key={`application-${t.id}`}
-            description={t.description}
-            name={t.name}
-            id={t.id}
+            key={`application-${application.id}`}
+            description={application.description}
+            name={application.name}
+            id={application.id}
           />
-          <Application
-            key={`application-${t.id}`}
-            description={t.description}
-            name={t.name}
-            id={t.id}
-          />
-        </>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

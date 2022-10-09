@@ -16,25 +16,30 @@ const CreateRoleForm: React.FC = () => {
   };
 
   return (
-    <div className="create-role-form">
-      <label>
-        <b>Enter role name:</b>
-      </label>
+    <form className="create-roles-form m-2 p-2">
+      <h3 className="mb-05">Create role form</h3>
+      <p className="areas-description mb-1">
+        To create <b>role</b> you need to fill name field in this form.
+      </p>
+
       <Input
-        className="create-role-form__input"
+        placeholder="Enter role name"
+        label={'Enter role name'}
+        className="mb-1"
         type={'text'}
         value={request.name}
         onChange={handleOnNameChange}
       />
-
-      <NavigationButton
-        to={paths.roles}
-        onClick={() => createRole(request)}
-        className="create-role-form__submit-button"
-      >
-        Add role
-      </NavigationButton>
-    </div>
+      <div className="footer d-flex justify-content-end align-items-end">
+        <NavigationButton
+          to={paths.roles}
+          onClick={() => createRole(request)}
+          className="btn-create w-40"
+        >
+          Add role
+        </NavigationButton>
+      </div>
+    </form>
   );
 };
 

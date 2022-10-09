@@ -1,13 +1,17 @@
-.create-role-form {
+.create-roles-form {
+  background-color: rgba(86, 86, 81, 0.173);
+  border: 1px solid rgba(86, 86, 81, 0.173);
+  width: 500px;
+  height: calc(100% - 4rem);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 20px;
-}
 
-.create-role-form__input {
-  width: 200px;
-}
-.create-role-form__submit-button {
-  background-color: green;
+  .footer {
+    flex: none;
+    background: none;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    margin-bottom: 5px;
+  }
 }

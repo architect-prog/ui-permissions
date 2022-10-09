@@ -15,19 +15,25 @@ const applicationsService = {
     return response.data;
   },
   get: async (id: number): Promise<ApplicationResponse> => {
-    const response = await api.get<ApplicationResponse>(endpoints.getArea(id)).finally();
+    const response = await api.get<ApplicationResponse>(endpoints.getApplication(id)).finally();
     return response.data;
   },
   create: async (body: CreateApplicationRequest): Promise<ApplicationResponse> => {
-    const response = await api.post<ApplicationResponse>(endpoints.createRole, body).finally();
+    const response = await api
+      .post<ApplicationResponse>(endpoints.createApplication, body)
+      .finally();
     return response.data;
   },
   delete: async (id: number): Promise<ApplicationResponse> => {
-    const response = await api.delete<ApplicationResponse>(endpoints.deleteArea(id)).finally();
+    const response = await api
+      .delete<ApplicationResponse>(endpoints.deleteApplication(id))
+      .finally();
     return response.data;
   },
   update: async (id: number, body: UpdateApplicationRequest): Promise<ApplicationResponse> => {
-    const response = await api.put<ApplicationResponse>(endpoints.updateArea(id), body).finally();
+    const response = await api
+      .put<ApplicationResponse>(endpoints.updateApplication(id), body)
+      .finally();
     return response.data;
   },
 };

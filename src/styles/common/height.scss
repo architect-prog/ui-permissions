@@ -1,0 +1,9 @@
+@each $heightName, $percentage in $heights {
+  .h-#{$heightName} {
+    height: #{$percentage};
+  }
+}
+
+.h-inherit {
+  height: inherit;
+}

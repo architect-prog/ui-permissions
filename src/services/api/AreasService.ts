@@ -14,7 +14,7 @@ const areasService = {
     return response.data;
   },
   create: async (body: CreateAreaRequest): Promise<AreaResponse> => {
-    const response = await api.post<AreaResponse>(endpoints.createRole, body).finally();
+    const response = await api.post<AreaResponse>(endpoints.createArea, body).finally();
     return response.data;
   },
   delete: async (id: number): Promise<AreaResponse> => {

@@ -26,7 +26,7 @@ const RolesService = {
     return response.data;
   },
   update: async (id: number, body: UpdateRoleRequest): Promise<NoContentResponse> => {
-    const response = await api.put(endpoints.updateRole(111), body).catch((x) => x.response);
+    const response = await api.put(endpoints.updateRole(id), body).catch((x) => x.response);
     console.log(response);
     return response.data;
   },

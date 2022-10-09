@@ -40,10 +40,16 @@ const useAreas = (applicationId?: number): UseAreas => {
       };
 
       setAreasCollection((areasCollection) => {
-        const { items } = areasCollection;
-        items[items.findIndex((item) => item.id == areaId)] = updateArea;
+        const { items, count } = areasCollection;
+        const areaItems = [...items];
+        areaItems[items.findIndex((item) => item.id == areaId)] = updateArea;
 
-        return areasCollection;
+        const newAreasCollection = {
+          items: areaItems,
+          count: count,
+        };
+
+        return newAreasCollection;
       });
     },
     [setAreasCollection],

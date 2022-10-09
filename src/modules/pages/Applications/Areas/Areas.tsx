@@ -38,7 +38,10 @@ const Areas: React.FC = () => {
                 <td>{area.name}</td>
                 <td>Currently there no counter for permissions</td>
                 <td>
-                  <NavigationButton to={paths.updateRole(area.id)} className="btn-update">
+                  <NavigationButton
+                    to={paths.updateArea(applicationId, area.id)}
+                    className="btn-update"
+                  >
                     <FaEdit />
                   </NavigationButton>
                   <Button

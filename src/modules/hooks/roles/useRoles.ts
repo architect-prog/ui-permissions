@@ -37,13 +37,14 @@ const useRoles = (): UseRoles => {
 
       setRolesCollection((rolesCollection) => {
         const { items, count } = rolesCollection;
-        const otherItems = items.filter((t) => t.id !== roleId);
+        const roleItems = [...items];
+        roleItems[items.findIndex((item) => item.id == roleId)] = updatedRole;
 
-        const updatedRoles = {
-          items: [...otherItems, updatedRole],
+        const newRolesCollection = {
+          items: roleItems,
           count: count,
         };
-        return updatedRoles;
+        return newRolesCollection;
       });
     },
     [setRolesCollection],

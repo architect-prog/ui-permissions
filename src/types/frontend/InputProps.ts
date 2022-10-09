@@ -3,7 +3,11 @@ export interface InputProps {
   className?: string;
   style?: React.CSSProperties;
   label?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  name?: string;
+  labelClassName?: string;
   value: string | number;
+  title?: string;
+  placeholder?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type: 'number' | 'text';
 }

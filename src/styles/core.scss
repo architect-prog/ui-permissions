@@ -72,7 +72,7 @@
 }
 
 .btn-update {
-  background-color: orange;
+  background-color: #fca130;
 }
 
 .btn-create {
@@ -86,4 +86,16 @@
   svg {
     color: white;
   }
+}
+
+.base-input {
+  display: block;
+  padding: 7px 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type='submit']:hover {
+  background-color: #45a049;
 }
