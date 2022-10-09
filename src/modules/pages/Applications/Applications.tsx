@@ -1,6 +1,6 @@
 import React from 'react';
 import { paths } from 'appConstants';
-import { useApplications } from 'modules/hooks';
+import { useApplications } from 'hooks';
 import { NavigationButton } from 'modules/shared';
 import Application from './Application';
 

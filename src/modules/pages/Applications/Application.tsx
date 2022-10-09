@@ -1,5 +1,5 @@
 import { paths } from 'appConstants';
-import { useApplications } from 'modules/hooks';
+import { useApplications } from 'hooks';
 import { Button, NavigationButton } from 'modules/shared';
 import React from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';

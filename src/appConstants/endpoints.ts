@@ -1,11 +1,6 @@
-const controllers = Object.freeze({
-  roles: 'roles',
-  permissions: 'permissions',
-  applications: 'applications',
-  areas: 'areas',
-});
+import { controllers } from './controllers';
 
-const endpoints = Object.freeze({
+export const endpoints = Object.freeze({
   //*** Applications ***//
   createApplication: controllers.applications,
   getApplications: controllers.applications,
@@ -33,5 +28,3 @@ const endpoints = Object.freeze({
   updateRole: (roleId: number) => `${controllers.roles}/${roleId}`,
   deleteRole: (roleId: number) => `${controllers.roles}/${roleId}`,
 });
-
-export default endpoints;

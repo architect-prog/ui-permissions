@@ -1,13 +1,11 @@
 import React, { useCallback, useState } from 'react';
-import { paths } from 'appConstants';
-import { useRoles } from 'modules/hooks';
+import { params, paths } from 'appConstants';
+import { useParamNumber, useRoles } from 'hooks';
 import { Input, NavigationButton } from 'modules/shared';
-import { useParams } from 'react-router';
 import { UpdateRoleRequest } from 'types/api';
 
 const UpdateRoleForm: React.FC = () => {
-  const { id } = useParams();
-  const roleId = Number.parseInt(id ?? '0');
+  const roleId = useParamNumber(params.roleId);
 
   const { updateRole } = useRoles();
   const [request, setRequest] = useState<UpdateRoleRequest>({

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CreateRoleRequest } from 'types/api';
 import { paths } from 'appConstants';
 import { Input, NavigationButton } from 'modules/shared';
-import { useRoles } from 'modules/hooks';
+import { useRoles } from 'hooks';
 
 const CreateRoleForm: React.FC = () => {
   const { createRole } = useRoles();

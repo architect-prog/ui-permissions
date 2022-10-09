@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useApplications } from 'modules/hooks';
+import { useApplications } from 'hooks';
 import { UpdateApplicationRequest } from 'types/api';
 import { Input, NavigationButton } from 'modules/shared';
-import { paths } from 'appConstants';
+import { params, paths } from 'appConstants';
 import { useParamNumber } from 'hooks';
 
 const UpdateApplicationForm: React.FC = () => {
-  const applicationId = useParamNumber('applicationId');
+  const applicationId = useParamNumber(params.applicationId);
 
   const { updateApplication } = useApplications();
   const [request, setRequest] = useState<UpdateApplicationRequest>({

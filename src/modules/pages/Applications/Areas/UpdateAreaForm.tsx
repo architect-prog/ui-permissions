@@ -1,13 +1,12 @@
-import { paths } from 'appConstants';
-import { useParamNumber } from 'hooks';
-import { useAreas } from 'modules/hooks';
+import { params, paths } from 'appConstants';
+import { useAreas, useParamNumber } from 'hooks';
 import { Input, NavigationButton } from 'modules/shared';
 import React, { useState } from 'react';
 import { UpdateAreaRequest } from 'types/api';
 
 const UpdateAreaForm: React.FC = () => {
-  const applicationId = useParamNumber('applicationId');
-  const areaId = useParamNumber('areaId');
+  const applicationId = useParamNumber(params.applicationId);
+  const areaId = useParamNumber(params.areaId);
   const { updateArea } = useAreas(applicationId);
   const [request, setRequest] = useState<UpdateAreaRequest>({
     name: '',

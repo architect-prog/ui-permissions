@@ -1,9 +1,12 @@
-import { selector } from 'recoil';
+import { selectorFamily } from 'recoil';
 import permissionsService from 'services/api/PermissionsService';
 
-const permissionsSelector = selector({
+const permissionsSelector = selectorFamily({
   key: 'permissionsSelector',
-  get: permissionsService.getAll,
+  get:
+    (areaIds: number[] = [], roleIds: number[] = []) =>
+    async () =>
+      await permissionsService.getAll(areaIds, roleIds),
 });
 
 export default permissionsSelector;

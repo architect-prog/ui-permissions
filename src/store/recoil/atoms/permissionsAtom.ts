@@ -1,7 +1,7 @@
-import { atom } from 'recoil';
+import { atomFamily } from 'recoil';
 import { permissionsSelector } from '../selectors';
 
-const permissionsAtom = atom({
+const permissionsAtom = atomFamily({
   key: 'permissionsAtom',
   default: permissionsSelector,
 });

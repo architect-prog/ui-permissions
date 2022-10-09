@@ -1,2 +1,6 @@
-export { default as endpoints } from './endpoints';
-export { default as paths } from './paths';
+export * from './controllers';
+export * from './operations';
+export * from './params';
+export * from './routes';
+export * from './endpoints';
+export * from './paths';

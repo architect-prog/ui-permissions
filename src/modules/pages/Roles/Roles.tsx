@@ -2,7 +2,7 @@ import React from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Button, NavigationButton } from 'modules/shared';
 import { paths } from 'appConstants';
-import { useRoles } from 'modules/hooks';
+import { useRoles } from 'hooks';
 
 const Roles: React.FC = () => {
   const { rolesCollection, deleteRole } = useRoles();

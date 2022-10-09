@@ -8,56 +8,60 @@ import {
   CreateAreaForm,
   UpdateAreaForm,
 } from 'modules/pages';
-import paths from 'appConstants/paths';
 import UpdateRoleForm from 'modules/pages/Roles/UpdateRoleForm';
 import CreateRoleForm from 'modules/pages/Roles/CreateRoleForm';
 import CreateApplicationForm from 'modules/pages/Applications/CreateApplicationForm';
 import UpdateApplicationForm from 'modules/pages/Applications/UpdateApplicationForm';
+import { routes } from 'appConstants';
 
 export default function DashboardRouter() {
   return (
     <Routes>
-      {[paths.main, paths.applications].map((path) => (
+      {[routes.main, routes.dashboard.applications].map((path) => (
         <Route key={path} path={path} element={<Applications />} />
       ))}
       <Route
-        key={paths.createApplication}
-        path={paths.createApplication}
+        key={routes.dashboard.createApplication}
+        path={routes.dashboard.createApplication}
         element={<CreateApplicationForm />}
       />
       <Route
-        key={`${paths.applications}/:applicationId/update`}
-        path={`${paths.applications}/:applicationId/update`}
+        key={routes.dashboard.updateApplication}
+        path={routes.dashboard.updateApplication}
         element={<UpdateApplicationForm />}
       />
       <Route
-        key={`${paths.roles}/:id/update`}
-        path={`${paths.roles}/:id/update`}
+        key={routes.dashboard.updateRole}
+        path={routes.dashboard.updateRole}
         element={<UpdateRoleForm />}
       />
       <Route
-        key={`${paths.roles}/create`}
-        path={`${paths.roles}/create`}
+        key={routes.dashboard.createRole}
+        path={routes.dashboard.createRole}
         element={<CreateRoleForm />}
       />
-      <Route key={paths.permissions} path={paths.permissions} element={<Permissions />} />
       <Route
-        key={`${paths.applications}/:id/areas`}
-        path={`${paths.applications}/:id/areas`}
-        element={<Areas />}
+        key={routes.dashboard.permissions}
+        path={routes.dashboard.permissions}
+        element={<Permissions />}
       />
+      <Route key={routes.dashboard.areas} path={routes.dashboard.areas} element={<Areas />} />
       <Route
-        key={`${paths.applications}/:applicationId/areas/create`}
-        path={`${paths.applications}/:applicationId/areas/create`}
+        key={routes.dashboard.createArea}
+        path={routes.dashboard.createArea}
         element={<CreateAreaForm />}
       />
       <Route
-        key={`${paths.applications}/:applicationId/areas/:areaId/update`}
-        path={`${paths.applications}/:applicationId/areas/:areaId/update`}
+        key={routes.dashboard.updateArea}
+        path={routes.dashboard.updateArea}
         element={<UpdateAreaForm />}
       />
-      <Route key={paths.roles} path={paths.roles} element={<Roles />} />
-      <Route key={paths.notFoundError} path={paths.notFoundError} element={<>error</>} />
+      <Route key={routes.dashboard.roles} path={routes.dashboard.roles} element={<Roles />} />
+      <Route
+        key={routes.dashboard.notFoundError}
+        path={routes.dashboard.notFoundError}
+        element={<>error</>}
+      />
     </Routes>
   );
 }

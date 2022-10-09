@@ -1,12 +1,12 @@
 import React from 'react';
-import { paths } from 'appConstants';
-import { useAreas } from 'modules/hooks';
+import { params, paths } from 'appConstants';
+import { useAreas } from 'hooks';
 import { Button, NavigationButton } from 'modules/shared';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { useParamNumber } from 'hooks';
 
 const Areas: React.FC = () => {
-  const applicationId = useParamNumber('id');
+  const applicationId = useParamNumber(params.applicationId);
   const { areasCollection, deleteArea } = useAreas(applicationId);
   return (
     <div className="areas p-2">

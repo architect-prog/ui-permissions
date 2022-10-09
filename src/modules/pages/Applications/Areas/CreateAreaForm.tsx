@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { paths } from 'appConstants';
-import { useParamNumber } from 'hooks';
-import { useAreas } from 'modules/hooks';
+import { useAreas, useParamNumber } from 'hooks';
 import { Input, NavigationButton } from 'modules/shared';
 import { CreateAreaRequest } from 'types/api';
 

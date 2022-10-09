@@ -1,5 +1,5 @@
-import paths from 'appConstants/paths';
 import React from 'react';
+import { paths } from 'appConstants';
 import { NavbarItem } from './NavbarItem';
 
 const Navbar: React.FC = () => {

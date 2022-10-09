@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { paths } from 'appConstants';
-import { useApplications } from 'modules/hooks';
+import { useApplications } from 'hooks';
 import { Input, NavigationButton } from 'modules/shared';
 import { CreateApplicationRequest } from 'types/api';
 
