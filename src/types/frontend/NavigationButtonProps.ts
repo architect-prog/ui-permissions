@@ -1,6 +1,4 @@
-import { ButtonProps } from './base';
-
-export interface NavigateButtonProps extends ButtonProps {
-  /* This is a required field to redirect within application pages*/
+import { ButtonProps } from 'types/frontend';
+export type NavigateButtonProps = ButtonProps & {
   to: string;
-}
+};

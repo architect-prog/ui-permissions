@@ -1,4 +1,4 @@
-export interface InputProps {
+export type InputProps = {
   children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
@@ -10,4 +10,4 @@ export interface InputProps {
   placeholder?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type: 'number' | 'text';
-}
+};

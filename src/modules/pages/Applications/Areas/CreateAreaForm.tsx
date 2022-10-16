@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { paths } from 'appConstants';
+import { params, paths } from 'appConstants';
 import { useAreas, useParamNumber } from 'hooks';
 import { Input, NavigationButton } from 'modules/shared';
 import { CreateAreaRequest } from 'types/api';
 
 const CreateAreaForm: React.FC = () => {
-  const applicationId = useParamNumber('applicationId');
+  const applicationId = useParamNumber(params.applicationId);
   const { createArea } = useAreas(applicationId);
   const [request, setRequest] = useState<CreateAreaRequest>({
     name: '',

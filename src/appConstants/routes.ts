@@ -11,7 +11,7 @@ export const routes = Object.freeze({
     updateApplication: `/${controllers.applications}/:${params.applicationId}/${operations.update}`,
 
     /* Areas */
-    areas: controllers.applications,
+    areas: `/${controllers.applications}/:${params.applicationId}/${controllers.areas}`,
     createArea: `/${controllers.applications}/:${params.applicationId}/${controllers.areas}/${operations.create}`,
     updateArea: `/${controllers.applications}/:${params.applicationId}/${controllers.areas}/:${params.areaId}/${operations.update}`,
 
@@ -27,4 +27,3 @@ export const routes = Object.freeze({
     notFoundError: '*',
   },
 });
-//   <Route key={paths.notFoundError} path={paths.notFoundError} element={<>error</>} />

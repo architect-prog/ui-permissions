@@ -1,7 +1,8 @@
-export type FormProps<T> = {
-  title: string;
-  data: T;
-  onClick?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+import { ReactNode } from 'react';
 
-export default FormProps;
+export type FormProps = {
+  children: ReactNode;
+  title?: string;
+  description?: string;
+  className?: string;
+};

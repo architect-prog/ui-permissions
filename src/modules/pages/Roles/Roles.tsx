@@ -1,11 +1,11 @@
 import React from 'react';
-import { FaEdit, FaTrash } from 'react-icons/fa';
-import { Button, NavigationButton } from 'modules/shared';
+import { NavigationButton } from 'modules/shared';
 import { paths } from 'appConstants';
 import { useRoles } from 'hooks';
+import RoleRow from './RoleRow';
 
 const Roles: React.FC = () => {
-  const { rolesCollection, deleteRole } = useRoles();
+  const { rolesCollection } = useRoles();
 
   return (
     <div className="roles p-2">
@@ -28,23 +28,8 @@ const Roles: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {rolesCollection.items.map((roles) => (
-              <tr>
-                <td>{roles.name}</td>
-                <td>
-                  <NavigationButton to={paths.updateRole(roles.id)} className="btn-update">
-                    <FaEdit />
-                  </NavigationButton>
-                  <Button
-                    onClick={async () => {
-                      await deleteRole(roles.id);
-                    }}
-                    className="btn-delete ml-2"
-                  >
-                    <FaTrash />
-                  </Button>
-                </td>
-              </tr>
+            {rolesCollection.items.map((x) => (
+              <RoleRow key={x.id} id={x.id} name={x.name}></RoleRow>
             ))}
           </tbody>
         </table>

@@ -1,50 +1,35 @@
 import React, { useCallback, useState } from 'react';
 import { params, paths } from 'appConstants';
 import { useParamNumber, useRoles } from 'hooks';
-import { Input, NavigationButton } from 'modules/shared';
+import { Form, NameFieldset, NavigationButton } from 'modules/shared';
 import { UpdateRoleRequest } from 'types/api';
 
 const UpdateRoleForm: React.FC = () => {
+  const { updateRole } = useRoles();
+  const [request, setRequest] = useState<UpdateRoleRequest>();
   const roleId = useParamNumber(params.roleId);
 
-  const { updateRole } = useRoles();
-  const [request, setRequest] = useState<UpdateRoleRequest>({
-    name: '',
-  });
-
-  const handleOnNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
-    setRequest({ name: event.target.value });
+  const handleNameChange = (name: string) => {
+    setRequest({ ...request, name: name });
   };
 
-  const handleOnUpdateButton = useCallback(async () => {
-    await updateRole(roleId, request);
+  const handleSubmit = useCallback(async () => {
+    if (request) {
+      await updateRole(roleId, request);
+    }
   }, [roleId, request, updateRole]);
 
   return (
-    <form className="update-role-form m-2 p-2">
-      <h3 className="mb-05">Update role form</h3>
-      <p className="role-form-description mb-1">
-        To update <b>role</b> you need to fill name field in this form.
-      </p>
-      <Input
-        placeholder="Enter role name"
-        label={'Enter role name'}
-        className="mb-1"
-        type={'text'}
-        value={request.name}
-        onChange={handleOnNameChange}
-      />
-      <div className="footer d-flex justify-content-end align-items-end">
-        <NavigationButton
-          to={paths.roles}
-          onClick={handleOnUpdateButton}
-          className="btn-update w-40"
-        >
-          Update role
-        </NavigationButton>
-      </div>
-    </form>
+    <Form
+      title="Update role form"
+      description="To update role you need to fill name field in this form."
+      className="update-role-form m-2 p-2"
+    >
+      <NameFieldset onChange={handleNameChange}></NameFieldset>
+      <NavigationButton className="btn-update w-40" to={paths.roles} onClick={handleSubmit}>
+        Update role
+      </NavigationButton>
+    </Form>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import DashboardRouter from 'routers/DashboardRouter';
-import { Header, Page, Sidebar, Dashboard } from '../';
+import { Header, Page, Sidebar, Dashboard } from '..';
 
 const App: React.FC = () => {
   return (
