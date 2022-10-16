@@ -1,13 +1,13 @@
 import React from 'react';
-import { paths } from 'appConstants';
+import { routes } from 'appConstants';
 import { NavbarItem } from './NavbarItem';
 
 const Navbar: React.FC = () => {
   return (
     <nav className="navbar">
-      <NavbarItem title="Applications" to={paths.applications} key={1} />
-      <NavbarItem title="Permissions" to={paths.permissions} key={2} />
-      <NavbarItem title="Roles" to={paths.roles} key={3} />
+      <NavbarItem title="Applications" to={routes.dashboard.applications} />
+      <NavbarItem title="Permissions" to={routes.dashboard.permissions} />
+      <NavbarItem title="Roles" to={routes.dashboard.roles} />
     </nav>
   );
 };

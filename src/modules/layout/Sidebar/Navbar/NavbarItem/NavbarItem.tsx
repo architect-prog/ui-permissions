@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { NavbarItemProps } from 'types/frontend/NavbarItemProps';
+import { NavbarItemProps } from 'types/frontend';
 
 const NavbarItem: React.FC<NavbarItemProps> = ({ to, title }) => (
   <li className="navbar-item">

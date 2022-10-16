@@ -14,7 +14,7 @@ import CreateApplicationForm from 'modules/pages/Applications/CreateApplicationF
 import UpdateApplicationForm from 'modules/pages/Applications/UpdateApplicationForm';
 import { routes } from 'appConstants';
 
-export default function DashboardRouter() {
+const DashboardRouter: React.FC = () => {
   return (
     <Routes>
       <Route path={routes.main} element={<Applications />} />
@@ -31,4 +31,6 @@ export default function DashboardRouter() {
       <Route path={routes.dashboard.notFoundError} element={<>error</>} />
     </Routes>
   );
-}
+};
+
+export default DashboardRouter;

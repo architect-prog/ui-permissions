@@ -7,16 +7,16 @@ const apiResponseFactory = {
       success: true,
     };
   },
-  error: (error: string, statusCode: number): ApiError => {
+  error: (message: string, statusCode: number): ApiError => {
     return {
-      error: error,
+      message: message,
       statusCode: statusCode,
       success: false,
     };
   },
   emptyError: (statusCode: number): ApiError => {
     return {
-      error: '',
+      message: '',
       statusCode: statusCode,
       success: false,
     };

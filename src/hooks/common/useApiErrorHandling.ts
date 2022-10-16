@@ -1,27 +1,10 @@
+import { statusCodePages } from 'appConstants';
 import { useNavigate } from 'react-router';
 import { ApiError } from 'types/api';
+import { ApiErrorHandlingActions } from 'types/frontend';
+import { toaster } from 'utils';
 
-type StatusCodePage = {
-  path: string;
-  statusCode: number;
-};
-
-type UseApiErrorHandling = {
-  handleApiError: (error: ApiError) => void;
-};
-
-const statusCodePages: StatusCodePage[] = [
-  {
-    path: '*',
-    statusCode: 404,
-  },
-  {
-    path: '*',
-    statusCode: 500,
-  },
-];
-
-export const useApiErrorHandling = (): UseApiErrorHandling => {
+const useApiErrorHandling = (): ApiErrorHandlingActions => {
   const navigate = useNavigate();
 
   const handleApiError = (error: ApiError) => {
@@ -31,10 +14,12 @@ export const useApiErrorHandling = (): UseApiErrorHandling => {
       return;
     }
 
-    //toast.error(error.error, { position: right_bottom});
+    toaster.error(error.message);
   };
 
   return {
     handleApiError: handleApiError,
   };
 };
+
+export default useApiErrorHandling;

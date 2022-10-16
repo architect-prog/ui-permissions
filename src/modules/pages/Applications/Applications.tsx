@@ -1,5 +1,5 @@
 import React from 'react';
-import { paths } from 'appConstants';
+import { routes } from 'appConstants';
 import { useApplications } from 'hooks';
 import { NavigationButton } from 'modules/shared';
 import Application from './Application';
@@ -9,7 +9,7 @@ const Applications: React.FC = () => {
   return (
     <div className="p-1">
       <div className="d-flex justify-content-center ">
-        <NavigationButton className="btn-create" to={paths.createApplication}>
+        <NavigationButton className="btn-create" to={routes.dashboard.createApplication}>
           Create application
         </NavigationButton>
       </div>

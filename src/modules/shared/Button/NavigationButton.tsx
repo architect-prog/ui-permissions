@@ -3,11 +3,10 @@ import { useNavigate } from 'react-router';
 import { NavigateButtonProps } from 'types/frontend';
 import { Button } from '..';
 
-const NavigationButton: React.FC<NavigateButtonProps> = ({ to, onClick, ...props }) => {
+const NavigationButton: React.FC<NavigateButtonProps> = ({ to, ...props }) => {
   const navigate = useNavigate();
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (onClick) onClick(e);
+  const handleClick = () => {
     if (to) navigate(to);
   };
 

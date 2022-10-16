@@ -1,3 +1,4 @@
+import { StatusCodePage } from 'types/frontend';
 import { controllers } from './controllers';
 import { operations } from './operations';
 import { params } from './params';
@@ -23,7 +24,19 @@ export const routes = Object.freeze({
     createRole: `/${controllers.roles}/${operations.create}`,
     updateRole: `/${controllers.roles}/:${params.roleId}/${operations.update}`,
 
-    /* 404 */
+    /* Errors */
     notFoundError: '*',
+    internalServerError: '*',
   },
 });
+
+export const statusCodePages: StatusCodePage[] = [
+  {
+    path: routes.dashboard.notFoundError,
+    statusCode: 404,
+  },
+  {
+    path: routes.dashboard.internalServerError,
+    statusCode: 500,
+  },
+];

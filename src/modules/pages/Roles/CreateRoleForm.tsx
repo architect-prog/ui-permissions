@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { CreateRoleRequest } from 'types/api';
-import { paths } from 'appConstants';
+import { routes } from 'appConstants';
 import { Form, NameFieldset, NavigationButton } from 'modules/shared';
 import { useRoles } from 'hooks';
 
@@ -29,7 +29,11 @@ const CreateRoleForm: React.FC = () => {
         placeholder="Enter role name..."
         onChange={handleNameChange}
       />
-      <NavigationButton className="btn-create w-40" to={paths.roles} onClick={handleSubmit}>
+      <NavigationButton
+        className="btn-create w-40"
+        to={routes.dashboard.roles}
+        onClick={handleSubmit}
+      >
         Add role
       </NavigationButton>
     </Form>

@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
-import DashboardRouter from 'routers/DashboardRouter';
+import { ToastContainer } from 'react-toastify';
+import { DashboardRouter } from 'routers';
 import { Header, Page, Sidebar, Dashboard } from '..';
 
 const App: React.FC = () => {
@@ -15,6 +16,7 @@ const App: React.FC = () => {
             </Suspense>
           </Page>
         </Dashboard>
+        <ToastContainer />
       </div>
 
       {/* <Footer /> */}

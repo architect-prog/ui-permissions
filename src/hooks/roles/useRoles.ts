@@ -1,74 +1,63 @@
 import { useCallback } from 'react';
 import { rolesService } from 'services';
 import { useRecoilState } from 'recoil';
+import { useApiErrorHandling } from 'hooks';
+import { collection, safeApiRequest } from 'utils';
 import { rolesAtom } from 'store/recoil/atoms';
-import { Collection, RoleResponse, CreateRoleRequest, UpdateRoleRequest } from 'types/api';
-import { safeApiRequest } from 'utils';
-
-type RoleActions = {
-  rolesCollection: Collection<RoleResponse>;
-  deleteRole: (roleId: number) => Promise<void>;
-  createRole: (request: CreateRoleRequest) => Promise<void>;
-  updateRole: (roleId: number, request: UpdateRoleRequest) => Promise<void>;
-};
+import { RoleResponse, CreateRoleRequest, UpdateRoleRequest } from 'types/api';
+import { RoleActions } from 'types/frontend';
 
 const useRoles = (): RoleActions => {
+  const { handleApiError } = useApiErrorHandling();
   const [rolesCollection, setRolesCollection] = useRecoilState(rolesAtom);
 
   const createRole = useCallback(
     async (request: CreateRoleRequest) => {
       const response = await safeApiRequest(async () => await rolesService.create(request));
-      if (response.success) {
-        setRolesCollection((rolesCollection) => {
-          const { items, count } = rolesCollection;
-          const updatedRoles = {
-            items: [...items, response.data],
-            count: count + 1,
-          };
-          return updatedRoles;
-        });
+      if (!response.success) {
+        handleApiError(response);
+        return;
       }
+
+      setRolesCollection((roles) => {
+        const updatedRoles = collection(roles).add(response.data);
+        return updatedRoles;
+      });
     },
-    [setRolesCollection],
+    [setRolesCollection, handleApiError],
   );
 
   const updateRole = useCallback(
     async (roleId: number, request: UpdateRoleRequest) => {
       const response = await safeApiRequest(async () => await rolesService.update(roleId, request));
-      if (response.success) {
-        const updatedRole: RoleResponse = { id: roleId, name: request.name };
-
-        setRolesCollection((rolesCollection) => {
-          const { items, count } = rolesCollection;
-          const roleItems = [...items];
-          roleItems[items.findIndex((item) => item.id == roleId)] = updatedRole;
-
-          const newRolesCollection = {
-            items: roleItems,
-            count: count,
-          };
-          return newRolesCollection;
-        });
+      if (!response.success) {
+        handleApiError(response);
+        return;
       }
+
+      const updatedRole: RoleResponse = { id: roleId, name: request.name };
+      setRolesCollection((roles) => {
+        const updatedRoles = collection(roles).replace((x) => x.id === roleId, updatedRole);
+        return updatedRoles;
+      });
     },
-    [setRolesCollection],
+    [setRolesCollection, handleApiError],
   );
 
   const deleteRole = useCallback(
     async (roleId: number) => {
       const response = await safeApiRequest(async () => await rolesService.delete(roleId));
-      if (response.success) {
-        setRolesCollection((roles) => {
-          const { items, count } = roles;
-          const updatedRoles = {
-            items: items.filter((x) => x.id !== roleId),
-            count: count - 1,
-          };
-          return updatedRoles;
-        });
+      if (!response.success) {
+        handleApiError(response);
+        return;
       }
+
+      setRolesCollection((roles) => {
+        const updatedRoles = collection(roles).remove((x) => x.id !== roleId);
+        return updatedRoles;
+      });
     },
-    [setRolesCollection],
+    [setRolesCollection, handleApiError],
   );
 
   return {

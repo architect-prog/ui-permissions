@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useApplications } from 'hooks';
 import { UpdateApplicationRequest } from 'types/api';
 import { Input, NavigationButton } from 'modules/shared';
-import { params, paths } from 'appConstants';
+import { params, routes } from 'appConstants';
 import { useParamNumber } from 'hooks';
 
 const UpdateApplicationForm: React.FC = () => {
@@ -47,7 +47,7 @@ const UpdateApplicationForm: React.FC = () => {
       />
       <div className="footer d-flex justify-content-end align-items-end">
         <NavigationButton
-          to={paths.applications}
+          to={routes.dashboard.applications}
           onClick={async () => await updateApplication(applicationId, request)}
           className="btn-update w-40"
         >

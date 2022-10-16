@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationButton } from 'modules/shared';
-import { paths } from 'appConstants';
+import { routes } from 'appConstants';
 import { useRoles } from 'hooks';
 import RoleRow from './RoleRow';
 
@@ -17,7 +17,11 @@ const Roles: React.FC = () => {
         permissions.
       </div>
       <div className="d-flex justify-content-center mb-1">
-        <NavigationButton to={paths.createRole} title="Create role" className="btn-create" />
+        <NavigationButton
+          to={routes.dashboard.createRole}
+          title="Create role"
+          className="btn-create"
+        />
       </div>
       <div className="d-flex justify-content-center">
         <table className="roles-table w-80 p-1">

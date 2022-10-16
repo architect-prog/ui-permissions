@@ -4,7 +4,7 @@ export type ApiResult<T> = {
 };
 
 export type ApiError = {
-  error: string;
+  message: string;
   statusCode: number;
   success: false;
 };

@@ -1,22 +1,22 @@
 import React, { useCallback, useState } from 'react';
-import { params, paths } from 'appConstants';
+import { params } from 'appConstants';
 import { useParamNumber, useRoles } from 'hooks';
-import { Form, NameFieldset, NavigationButton } from 'modules/shared';
+import { Button, Form, NameFieldset } from 'modules/shared';
 import { UpdateRoleRequest } from 'types/api';
 
 const UpdateRoleForm: React.FC = () => {
   const { updateRole } = useRoles();
   const roleId = useParamNumber(params.roleId);
-  const [request, setRequest] = useState<UpdateRoleRequest>();
+  const [request, setRequest] = useState<UpdateRoleRequest>({
+    name: '',
+  });
 
   const handleNameChange = (name: string) => {
     setRequest({ ...request, name: name });
   };
 
   const handleSubmit = useCallback(async () => {
-    if (request) {
-      await updateRole(roleId, request);
-    }
+    await updateRole(roleId, request);
   }, [roleId, request, updateRole]);
 
   return (
@@ -30,9 +30,9 @@ const UpdateRoleForm: React.FC = () => {
         placeholder="Enter role name..."
         onChange={handleNameChange}
       />
-      <NavigationButton className="btn-update w-40" to={paths.roles} onClick={handleSubmit}>
+      <Button className="btn-update w-40" type="button" onClick={handleSubmit}>
         Update role
-      </NavigationButton>
+      </Button>
     </Form>
   );
 };

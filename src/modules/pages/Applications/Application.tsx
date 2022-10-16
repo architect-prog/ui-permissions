@@ -1,10 +1,10 @@
-import { paths } from 'appConstants';
+import { paths, routes } from 'appConstants';
 import { useApplications } from 'hooks';
 import { Button, NavigationButton } from 'modules/shared';
 import React from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { NavLink } from 'react-router-dom';
-import { ApplicationProps } from 'types/frontend/ApplicationProps';
+import { ApplicationProps } from 'types/frontend/props/ApplicationProps';
 
 const Application: React.FC<ApplicationProps> = ({ id, name, description }) => {
   const { deleteApplication } = useApplications();
@@ -13,7 +13,7 @@ const Application: React.FC<ApplicationProps> = ({ id, name, description }) => {
     <div className="application">
       <div className="card ">
         <div className="card-body">
-          <NavLink to={`${paths.applications}/${id}/areas`}>
+          <NavLink to={`${routes.dashboard.applications}/${id}/areas`}>
             <h2 className="card-title mb-05">{name}</h2>
           </NavLink>
 

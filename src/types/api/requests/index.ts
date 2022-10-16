@@ -4,5 +4,5 @@ export * from './Area/CreateAreaRequest';
 export * from './Area/UpdateAreaRequest';
 export * from './Role/CreateRoleRequest';
 export * from './Role/UpdateRoleRequest';
-export * from './Permission/PermissionRequest'
-export * from './Permission/UpdatePermissionRequest'
+export * from './Permission/PermissionRequest';
+export * from './Permission/UpdatePermissionRequest';

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { paths } from 'appConstants';
+import { routes } from 'appConstants';
 import { useApplications } from 'hooks';
 import { Input, NavigationButton } from 'modules/shared';
 import { CreateApplicationRequest } from 'types/api';
@@ -43,7 +43,7 @@ const CreateApplicationForm: React.FC = () => {
       />
       <div className="footer d-flex justify-content-end align-items-end">
         <NavigationButton
-          to={paths.applications}
+          to={routes.dashboard.applications}
           onClick={() => createApplication(request)}
           className="btn-create w-40"
         >
