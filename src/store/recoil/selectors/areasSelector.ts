@@ -1,5 +1,5 @@
 import { selectorFamily } from 'recoil';
-import areasService from 'services/api/AreasService';
+import areasService from 'services/api/areasService';
 
 const areasSelector = selectorFamily({
   key: 'areasSelector',

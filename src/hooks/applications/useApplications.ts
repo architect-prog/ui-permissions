@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { ApplicationsService } from 'services';
+import { applicationsService } from 'services';
 import { useRecoilState } from 'recoil';
 import { applicationsAtom } from 'store/recoil/atoms';
 import {
@@ -21,7 +21,7 @@ const useApplications = (): UseApplications => {
 
   const createApplication = useCallback(
     async (request: CreateApplicationRequest) => {
-      const createdApplication = await ApplicationsService.create(request);
+      const createdApplication = await applicationsService.create(request);
 
       setApplicationsCollection((applicationsCollection) => {
         const { items, count } = applicationsCollection;
@@ -37,7 +37,7 @@ const useApplications = (): UseApplications => {
 
   const updateApplication = useCallback(
     async (applicationId: number, request: UpdateApplicationRequest) => {
-      await ApplicationsService.update(applicationId, request);
+      await applicationsService.update(applicationId, request);
       const updateApplication: ApplicationResponse = {
         id: applicationId,
         name: request.name,
@@ -63,7 +63,7 @@ const useApplications = (): UseApplications => {
 
   const deleteApplication = useCallback(
     async (applicationId: number) => {
-      const result = await ApplicationsService.delete(applicationId);
+      const result = await applicationsService.delete(applicationId);
 
       setApplicationsCollection((roles) => {
         const { items, count } = roles;

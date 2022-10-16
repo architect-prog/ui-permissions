@@ -2,8 +2,16 @@ import classNames from 'classnames';
 import React from 'react';
 import { InputProps } from 'types/frontend';
 
-const Input: React.FC<InputProps> = (props) => {
-  const { type, value, label, labelClassName, placeholder, title, onChange, className } = props;
+const Input: React.FC<InputProps> = ({
+  type,
+  value,
+  label,
+  labelClassName,
+  placeholder,
+  title,
+  onChange,
+  className,
+}) => {
   const comboClassNames = classNames('base-input', className);
 
   return (

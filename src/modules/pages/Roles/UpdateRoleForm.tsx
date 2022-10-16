@@ -6,8 +6,8 @@ import { UpdateRoleRequest } from 'types/api';
 
 const UpdateRoleForm: React.FC = () => {
   const { updateRole } = useRoles();
-  const [request, setRequest] = useState<UpdateRoleRequest>();
   const roleId = useParamNumber(params.roleId);
+  const [request, setRequest] = useState<UpdateRoleRequest>();
 
   const handleNameChange = (name: string) => {
     setRequest({ ...request, name: name });
@@ -25,7 +25,11 @@ const UpdateRoleForm: React.FC = () => {
       description="To update role you need to fill name field in this form."
       className="update-role-form m-2 p-2"
     >
-      <NameFieldset onChange={handleNameChange}></NameFieldset>
+      <NameFieldset
+        label="Enter role name"
+        placeholder="Enter role name..."
+        onChange={handleNameChange}
+      />
       <NavigationButton className="btn-update w-40" to={paths.roles} onClick={handleSubmit}>
         Update role
       </NavigationButton>

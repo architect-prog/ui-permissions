@@ -24,7 +24,11 @@ const CreateRoleForm: React.FC = () => {
       description="To create role you need to fill name field in this form."
       className="create-roles-form m-2 p-2"
     >
-      <NameFieldset onChange={handleNameChange}></NameFieldset>
+      <NameFieldset
+        label="Enter role name"
+        placeholder="Enter role name..."
+        onChange={handleNameChange}
+      />
       <NavigationButton className="btn-create w-40" to={paths.roles} onClick={handleSubmit}>
         Add role
       </NavigationButton>

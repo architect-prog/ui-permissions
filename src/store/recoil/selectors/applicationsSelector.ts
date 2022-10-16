@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import applicationsService from 'services/api/ApplicationsService';
+import applicationsService from 'services/api/applicationsService';
 
 const applicationsSelector = selector({
   key: 'applicationsSelector',

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { AreasService } from 'services';
+import { areasService } from 'services';
 import { useRecoilState } from 'recoil';
 import { areasAtom } from 'store/recoil/atoms';
 import { Collection, AreaResponse, CreateAreaRequest, UpdateAreaRequest } from 'types/api';
@@ -16,7 +16,7 @@ const useAreas = (applicationId?: number): UseAreas => {
 
   const createArea = useCallback(
     async (request: CreateAreaRequest) => {
-      const createdArea = await AreasService.create(request);
+      const createdArea = await areasService.create(request);
 
       setAreasCollection((areasCollection) => {
         const { items, count } = areasCollection;
@@ -32,7 +32,7 @@ const useAreas = (applicationId?: number): UseAreas => {
 
   const updateArea = useCallback(
     async (areaId: number, request: UpdateAreaRequest) => {
-      await AreasService.update(areaId, request);
+      await areasService.update(areaId, request);
       const updateArea: AreaResponse = {
         id: areaId,
         applicationId: request.applicationId,
@@ -57,7 +57,7 @@ const useAreas = (applicationId?: number): UseAreas => {
 
   const deleteArea = useCallback(
     async (areaId: number) => {
-      const result = await AreasService.delete(areaId);
+      const result = await areasService.delete(areaId);
 
       setAreasCollection((roles) => {
         const { items, count } = roles;

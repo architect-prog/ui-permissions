@@ -1,5 +1,5 @@
 import { selectorFamily } from 'recoil';
-import permissionsService from 'services/api/PermissionsService';
+import permissionsService from 'services/api/permissionsService';
 
 const permissionsSelector = selectorFamily({
   key: 'permissionsSelector',

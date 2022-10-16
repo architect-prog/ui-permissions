@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { paths } from 'appConstants';
 import { Button, NavigationButton } from 'modules/shared';
 import { FaEdit, FaTrash } from 'react-icons/fa';
@@ -12,6 +12,10 @@ type RoleRowProps = {
 const RoleRow: React.FC<RoleRowProps> = ({ id, name }) => {
   const { deleteRole } = useRoles();
 
+  const handleDelete = useCallback(async () => {
+    await deleteRole(id);
+  }, [deleteRole, id]);
+
   return (
     <tr>
       <td>{name}</td>
@@ -19,12 +23,7 @@ const RoleRow: React.FC<RoleRowProps> = ({ id, name }) => {
         <NavigationButton to={paths.updateRole(id)} className="btn-update">
           <FaEdit />
         </NavigationButton>
-        <Button
-          onClick={async () => {
-            await deleteRole(id);
-          }}
-          className="btn-delete ml-2"
-        >
+        <Button onClick={handleDelete} className="btn-delete ml-2">
           <FaTrash />
         </Button>
       </td>
