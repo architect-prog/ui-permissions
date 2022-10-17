@@ -6,9 +6,7 @@ const NavbarItem: React.FC<NavbarItemProps> = ({ to, title }) => (
   <li className="navbar-item">
     <i className="navbar-item-icon"></i>
     <NavLink
-      className={({ isActive }) =>
-        isActive ? 'navbar-item-link navbar-item-link-active' : 'navbar-item-link'
-      }
+      className={({ isActive }) => (isActive ? 'navbar-item-link navbar-item-link-active' : 'navbar-item-link')}
       to={to}
       title={title}
     >

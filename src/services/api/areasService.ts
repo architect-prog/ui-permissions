@@ -4,9 +4,7 @@ import { AreaResponse, CreateAreaRequest, UpdateAreaRequest, Collection } from '
 
 const areasService = {
   getAll: async (applicationId?: number): Promise<Collection<AreaResponse>> => {
-    const response = await api
-      .get<Collection<AreaResponse>>(endpoints.getAreas(applicationId))
-      .finally();
+    const response = await api.get<Collection<AreaResponse>>(endpoints.getAreas(applicationId)).finally();
     return response.data;
   },
   get: async (id: number): Promise<AreaResponse> => {

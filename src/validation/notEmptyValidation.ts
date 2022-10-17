@@ -1,12 +1,11 @@
-import { ValidationResult } from 'types/frontend';
-import { validationResultFactory } from 'utils';
+import { isNullOrWhiteSpace } from 'utils';
 
-const nonEmptyValidation = (value: string | undefined, errorMessage: string): ValidationResult => {
-  if (value) {
-    return validationResultFactory.success();
+const nonEmptyValidation = (value: string | undefined): boolean => {
+  if (isNullOrWhiteSpace(value)) {
+    return false;
   }
 
-  return validationResultFactory.error(errorMessage);
+  return true;
 };
 
 export default nonEmptyValidation;

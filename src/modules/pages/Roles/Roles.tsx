@@ -13,15 +13,10 @@ const Roles: React.FC = () => {
       <div className="roles-description mb-1">
         A role is a group of permissions that you can assign to principals.
         <br />
-        You can create a role and add permissions to it, or copy an existing role and adjust its
-        permissions.
+        You can create a role and add permissions to it, or copy an existing role and adjust its permissions.
       </div>
       <div className="d-flex justify-content-center mb-1">
-        <NavigationButton
-          to={routes.dashboard.createRole}
-          title="Create role"
-          className="btn-create"
-        />
+        <NavigationButton to={routes.dashboard.createRole} title="Create role" className="btn-create" />
       </div>
       <div className="d-flex justify-content-center">
         <table className="roles-table w-80 p-1">

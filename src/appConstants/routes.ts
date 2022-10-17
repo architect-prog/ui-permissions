@@ -3,19 +3,25 @@ import { controllers } from './controllers';
 import { operations } from './operations';
 import { params } from './params';
 
+type param = string | number;
+
 export const routes = Object.freeze({
   main: '/',
   dashboard: {
     /* Applications */
     applications: `/${controllers.applications}`,
     createApplication: `/${controllers.applications}/${operations.create}`,
-    updateApplication: `/${controllers.applications}/:${params.applicationId}/${operations.update}`,
+    updateApplication: (applicationId: param = `:${params.applicationId}`) =>
+      `/${controllers.applications}/${applicationId}/${operations.update}`,
 
     /* Areas */
     area: `/${controllers.applications}/:${params.applicationId}/${controllers.areas}/:${params.areaId}`,
-    areas: `/${controllers.applications}/:${params.applicationId}/${controllers.areas}`,
-    createArea: `/${controllers.applications}/:${params.applicationId}/${controllers.areas}/${operations.create}`,
-    updateArea: `/${controllers.applications}/:${params.applicationId}/${controllers.areas}/:${params.areaId}/${operations.update}`,
+    areas: (applicationId: param = `:${params.applicationId}`) =>
+      `/${controllers.applications}/${applicationId}/${controllers.areas}`,
+    createArea: (applicationId: param = `:${params.applicationId}`) =>
+      `/${controllers.applications}/${applicationId}/${controllers.areas}/${operations.create}`,
+    updateArea: (applicationId: param = `:${params.applicationId}`, areaId: param = `:${params.areaId}`) =>
+      `/${controllers.applications}/${applicationId}/${controllers.areas}/${areaId}/${operations.update}`,
 
     /* Permissions */
     permissions: `/${controllers.applications}/:${params.applicationId}/${controllers.areas}/:${params.areaId}/${controllers.permissions}`,
@@ -23,7 +29,7 @@ export const routes = Object.freeze({
     /* Roles */
     roles: `/${controllers.roles}`,
     createRole: `/${controllers.roles}/${operations.create}`,
-    updateRole: `/${controllers.roles}/:${params.roleId}/${operations.update}`,
+    updateRole: (roleId: param = `:${params.roleId}`) => `/${controllers.roles}/${roleId}/${operations.update}`,
 
     /* Errors */
     notFoundError: '*',

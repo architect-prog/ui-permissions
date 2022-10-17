@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { routes } from 'appConstants';
 import { useApplications } from 'hooks';
-import { Input, NavigationButton } from 'modules/shared';
+import { Form, NavigationButton } from 'modules/shared';
 import { CreateApplicationRequest } from 'types/api';
+import { DescriptionFieldset, NameFieldset } from 'modules/fieldset';
 
 const CreateApplicationForm: React.FC = () => {
   const { createApplication } = useApplications();
@@ -11,46 +12,38 @@ const CreateApplicationForm: React.FC = () => {
     description: '',
   });
 
-  const handleOnNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRequest({ name: event.target.value });
+  const handleNameChange = (name: string) => {
+    setRequest({ ...request, name: name });
   };
 
-  const handleOnDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRequest({ ...request, description: event.target.value });
+  const handleDescriptionChange = (description: string) => {
+    setRequest({ ...request, description: description });
   };
+
+  const handleSubmit = useCallback(async () => {
+    await createApplication(request);
+  }, [request, createApplication]);
 
   return (
-    <form className="create-application-form m-2 p-2">
-      <h3 className="mb-05">Create application form</h3>
-      <p className="application-description mb-1">
-        To create <b>application</b> you need to fill name and description fields in this form.
-      </p>
-      <Input
+    <Form
+      title="Create application form"
+      description="To create application you need to fill name and description fields in this form."
+      className="create-application-form m-2 p-2"
+    >
+      <NameFieldset
         label={'Enter application name'}
         placeholder={'Enter application name'}
-        className="mb-1"
-        type={'text'}
-        value={request.name}
-        onChange={handleOnNameChange}
-      />
-      <Input
+        onChange={handleNameChange}
+      ></NameFieldset>
+      <DescriptionFieldset
         label={'Enter description'}
         placeholder={'Enter description'}
-        className="mb-1"
-        type={'text'}
-        value={request.description ?? ''}
-        onChange={handleOnDescriptionChange}
-      />
-      <div className="footer d-flex justify-content-end align-items-end">
-        <NavigationButton
-          to={routes.dashboard.applications}
-          onClick={() => createApplication(request)}
-          className="btn-create w-40"
-        >
-          Create
-        </NavigationButton>
-      </div>
-    </form>
+        onChange={handleDescriptionChange}
+      ></DescriptionFieldset>
+      <NavigationButton to={routes.dashboard.applications} onClick={handleSubmit} className="btn-create w-40">
+        Create
+      </NavigationButton>
+    </Form>
   );
 };
 

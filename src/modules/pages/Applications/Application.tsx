@@ -1,4 +1,4 @@
-import { paths, routes } from 'appConstants';
+import { routes } from 'appConstants';
 import { useApplications } from 'hooks';
 import { Button, NavigationButton } from 'modules/shared';
 import React from 'react';
@@ -21,7 +21,7 @@ const Application: React.FC<ApplicationProps> = ({ id, name, description }) => {
         </div>
 
         <div className="card-footer d-flex justify-content-end mt-1">
-          <NavigationButton to={paths.updateApplication(id)} className="btn-update">
+          <NavigationButton to={routes.dashboard.updateApplication(id)} className="btn-update">
             <FaEdit />
           </NavigationButton>
           <Button onClick={async () => await deleteApplication(id)} className="btn-delete ml-1">

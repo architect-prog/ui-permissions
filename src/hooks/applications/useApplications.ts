@@ -2,78 +2,67 @@ import { useCallback } from 'react';
 import { applicationsService } from 'services';
 import { useRecoilState } from 'recoil';
 import { applicationsAtom } from 'store/recoil/atoms';
-import {
-  Collection,
-  ApplicationResponse,
-  CreateApplicationRequest,
-  UpdateApplicationRequest,
-} from 'types/api';
+import { ApplicationActions } from 'types/frontend';
+import { collection, safeApiRequest } from 'utils';
+import { useApiErrorHandling } from 'hooks';
+import { ApplicationResponse, CreateApplicationRequest, UpdateApplicationRequest } from 'types/api';
 
-export type UseApplications = {
-  applicationsCollection: Collection<ApplicationResponse>;
-  deleteApplication: (applicationId: number) => Promise<void>;
-  createApplication: (request: CreateApplicationRequest) => Promise<void>;
-  updateApplication: (applicationId: number, request: UpdateApplicationRequest) => Promise<void>;
-};
-
-const useApplications = (): UseApplications => {
+const useApplications = (): ApplicationActions => {
+  const { handleApiError } = useApiErrorHandling();
   const [applicationsCollection, setApplicationsCollection] = useRecoilState(applicationsAtom);
 
   const createApplication = useCallback(
     async (request: CreateApplicationRequest) => {
-      const createdApplication = await applicationsService.create(request);
+      const response = await safeApiRequest(async () => await applicationsService.create(request));
+      if (!response.success) {
+        handleApiError(response);
+        return;
+      }
 
-      setApplicationsCollection((applicationsCollection) => {
-        const { items, count } = applicationsCollection;
-        const updatedApplications = {
-          items: [...items, createdApplication],
-          count: count + 1,
-        };
+      setApplicationsCollection((applications) => {
+        const updatedApplications = collection(applications).add(response.data);
         return updatedApplications;
       });
     },
-    [setApplicationsCollection],
+    [setApplicationsCollection, handleApiError],
   );
 
   const updateApplication = useCallback(
     async (applicationId: number, request: UpdateApplicationRequest) => {
-      await applicationsService.update(applicationId, request);
-      const updateApplication: ApplicationResponse = {
+      const response = await safeApiRequest(async () => await applicationsService.update(applicationId, request));
+      if (!response.success) {
+        handleApiError(response);
+        return;
+      }
+
+      const updatedApplication: ApplicationResponse = {
         id: applicationId,
         name: request.name,
         description: request.description,
       };
 
-      setApplicationsCollection((applicationsCollection) => {
-        const { items, count } = applicationsCollection;
-        const applicationItems = [...items];
-        applicationItems[applicationItems.findIndex((item) => item.id == applicationId)] =
-          updateApplication;
-
-        const newApplicationsCollection: Collection<ApplicationResponse> = {
-          items: applicationItems,
-          count: count,
-        };
-
-        return newApplicationsCollection;
+      setApplicationsCollection((applications) => {
+        const updatedApplications = collection(applications).replace((x) => x.id == applicationId, updatedApplication);
+        return updatedApplications;
       });
     },
-    [setApplicationsCollection],
+    [setApplicationsCollection, handleApiError],
   );
 
   const deleteApplication = useCallback(
     async (applicationId: number) => {
-      await applicationsService.delete(applicationId);
-      setApplicationsCollection((roles) => {
-        const { items, count } = roles;
-        const updatedRoles = {
-          items: items.filter((x) => x.id !== applicationId),
-          count: count - 1,
-        };
-        return updatedRoles;
+      const response = await safeApiRequest(async () => await applicationsService.delete(applicationId));
+      if (!response.success) {
+        handleApiError(response);
+        return;
+      }
+
+      setApplicationsCollection((applications) => {
+        const updatedApplications = collection(applications).remove((x) => x.id !== applicationId);
+        return updatedApplications;
       });
     },
-    [setApplicationsCollection],
+    [setApplicationsCollection, handleApiError],
   );
 
   return {

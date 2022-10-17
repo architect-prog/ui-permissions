@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useApplications } from 'hooks';
 import { UpdateApplicationRequest } from 'types/api';
-import { Input, NavigationButton } from 'modules/shared';
+import { Form, NavigationButton } from 'modules/shared';
 import { params, routes } from 'appConstants';
 import { useParamNumber } from 'hooks';
+import { DescriptionFieldset, NameFieldset } from 'modules/fieldset';
 
 const UpdateApplicationForm: React.FC = () => {
   const applicationId = useParamNumber(params.applicationId);
@@ -14,47 +15,38 @@ const UpdateApplicationForm: React.FC = () => {
     description: '',
   });
 
-  const handleOnNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRequest({ ...request, name: event.target.value });
+  const handleNameChange = (name: string) => {
+    setRequest({ ...request, name: name });
   };
 
-  const handleOnDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
-    setRequest({ ...request, description: event.target.value });
+  const handleDescriptionChange = (description: string) => {
+    setRequest({ ...request, description: description });
   };
+
+  const handleSubmit = useCallback(async () => {
+    await updateApplication(applicationId, request);
+  }, [applicationId, request, updateApplication]);
 
   return (
-    <form className="create-application-form m-2 p-2">
-      <h3 className="mb-05">Update application form</h3>
-      <p className="application-description mb-1">
-        To update <b>application</b> you need to fill name and description fields in this form.
-      </p>
-      <Input
+    <Form
+      title="Update application form"
+      description="To update application you need to fill name and description fields in this form."
+      className="create-application-form m-2 p-2"
+    >
+      <NameFieldset
         label={'Enter application name'}
         placeholder={'Enter application name'}
-        className="mb-1"
-        type={'text'}
-        value={request.name}
-        onChange={handleOnNameChange}
-      />
-      <Input
+        onChange={handleNameChange}
+      ></NameFieldset>
+      <DescriptionFieldset
         label={'Enter description'}
         placeholder={'Enter description'}
-        className="mb-1"
-        type={'text'}
-        value={request.description ?? ''}
-        onChange={handleOnDescriptionChange}
-      />
-      <div className="footer d-flex justify-content-end align-items-end">
-        <NavigationButton
-          to={routes.dashboard.applications}
-          onClick={async () => await updateApplication(applicationId, request)}
-          className="btn-update w-40"
-        >
-          Update
-        </NavigationButton>
-      </div>
-    </form>
+        onChange={handleDescriptionChange}
+      ></DescriptionFieldset>
+      <NavigationButton to={routes.dashboard.applications} onClick={handleSubmit} className="btn-update w-40">
+        Update
+      </NavigationButton>
+    </Form>
   );
 };
 

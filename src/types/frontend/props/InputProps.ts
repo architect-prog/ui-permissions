@@ -1,13 +1,9 @@
 export type InputProps = {
-  children?: React.ReactNode;
-  className?: string;
-  style?: React.CSSProperties;
-  label?: string;
-  name?: string;
-  labelClassName?: string;
   value: string | number;
-  title?: string;
-  placeholder?: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type: 'number' | 'text';
+  title?: string;
+  className?: string;
+  placeholder?: string;
+  children?: React.ReactNode;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };

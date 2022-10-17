@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { paths } from 'appConstants';
+import { routes } from 'appConstants';
 import { Button, NavigationButton } from 'modules/shared';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { useRoles } from 'hooks';
@@ -20,7 +20,7 @@ const RoleRow: React.FC<RoleRowProps> = ({ id, name }) => {
     <tr>
       <td>{name}</td>
       <td>
-        <NavigationButton to={paths.updateRole(id)} className="btn-update">
+        <NavigationButton to={routes.dashboard.updateRole(id)} className="btn-update">
           <FaEdit />
         </NavigationButton>
         <Button onClick={handleDelete} className="btn-delete ml-2">

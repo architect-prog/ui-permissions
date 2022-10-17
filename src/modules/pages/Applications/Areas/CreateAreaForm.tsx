@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { params, paths } from 'appConstants';
+import React, { useCallback, useState } from 'react';
+import { params, routes } from 'appConstants';
 import { useAreas, useParamNumber } from 'hooks';
-import { Input, NavigationButton } from 'modules/shared';
+import { Form, NavigationButton } from 'modules/shared';
 import { CreateAreaRequest } from 'types/api';
+import { NameFieldset } from 'modules/fieldset';
 
 const CreateAreaForm: React.FC = () => {
   const applicationId = useParamNumber(params.applicationId);
@@ -12,34 +13,29 @@ const CreateAreaForm: React.FC = () => {
     applicationId: applicationId,
   });
 
-  const handleOnNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRequest({ name: event.target.value, applicationId: applicationId });
+  const handleNameChange = (name: string) => {
+    setRequest({ ...request, name: name });
   };
 
+  const handleSubmit = useCallback(async () => {
+    await createArea(request);
+  }, [request, createArea]);
+
   return (
-    <form className="create-area-form m-2 p-2">
-      <h3 className="mb-05">Create area form</h3>
-      <p className="areas-description mb-1">
-        To create <b>area</b> you need to fill name field in this form.
-      </p>
-      <Input
+    <Form
+      title="Create area form"
+      description="To create area you need to fill name field in this form."
+      className="create-area-form m-2 p-2"
+    >
+      <NameFieldset
         label={'Enter area name'}
         placeholder={'Enter area name'}
-        className="mb-1"
-        type={'text'}
-        value={request.name}
-        onChange={handleOnNameChange}
-      />
-      <div className="footer d-flex justify-content-end align-items-end">
-        <NavigationButton
-          to={paths.areas(applicationId)}
-          onClick={() => createArea(request)}
-          className="btn-create w-40"
-        >
-          Create
-        </NavigationButton>
-      </div>
-    </form>
+        onChange={handleNameChange}
+      ></NameFieldset>
+      <NavigationButton to={routes.dashboard.areas(applicationId)} onClick={handleSubmit} className="btn-create w-40">
+        Create
+      </NavigationButton>
+    </Form>
   );
 };
 

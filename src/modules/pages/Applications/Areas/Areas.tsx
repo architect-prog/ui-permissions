@@ -1,5 +1,5 @@
 import React from 'react';
-import { params, paths } from 'appConstants';
+import { params, routes } from 'appConstants';
 import { useAreas } from 'hooks';
 import { Button, NavigationButton } from 'modules/shared';
 import { FaEdit, FaTrash } from 'react-icons/fa';
@@ -13,15 +13,10 @@ const Areas: React.FC = () => {
       <h3 className="mb-05">Areas Page</h3>
       <p className="areas-description mb-1">
         A areas is a group of permissions that you can assign to principals.
-        <br /> You can create a area and add permissions to it, or copy an existing role and adjust
-        its permissions.
+        <br /> You can create a area and add permissions to it, or copy an existing role and adjust its permissions.
       </p>
       <div className="d-flex justify-content-center mb-1">
-        <NavigationButton
-          to={paths.createArea(applicationId)}
-          title="Create area"
-          className="btn-create"
-        />
+        <NavigationButton to={routes.dashboard.createArea(applicationId)} title="Create area" className="btn-create" />
       </div>
       <div className="d-flex justify-content-center">
         <table className="areas-table w-80 p-1">
@@ -38,10 +33,7 @@ const Areas: React.FC = () => {
                 <td>{area.name}</td>
                 <td>Currently there no counter for permissions</td>
                 <td>
-                  <NavigationButton
-                    to={paths.updateArea(applicationId, area.id)}
-                    className="btn-update"
-                  >
+                  <NavigationButton to={routes.dashboard.updateArea(applicationId, area.id)} className="btn-update">
                     <FaEdit />
                   </NavigationButton>
                   <Button

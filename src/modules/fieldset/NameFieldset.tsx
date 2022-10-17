@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
-import { Input } from 'modules/shared';
-
-type NameFieldsetProps = {
-  label: string;
-  placeholder: string;
-  onChange: (name: string) => void;
-};
+import { Input, Label } from 'modules/shared';
+import { NameFieldsetProps } from 'types/frontend';
 
 const NameFieldset: React.FC<NameFieldsetProps> = ({ label, placeholder, onChange }) => {
   const [name, setName] = useState<string>('');
@@ -17,14 +12,10 @@ const NameFieldset: React.FC<NameFieldsetProps> = ({ label, placeholder, onChang
   };
 
   return (
-    <Input
-      type="text"
-      value={name}
-      label={label}
-      className=""
-      placeholder={placeholder}
-      onChange={handleChange}
-    />
+    <div>
+      <Label label={label}></Label>
+      <Input type="text" value={name} placeholder={placeholder} onChange={handleChange} />
+    </div>
   );
 };
 

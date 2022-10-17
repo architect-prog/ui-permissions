@@ -3,4 +3,3 @@ export * from './operations';
 export * from './params';
 export * from './routes';
 export * from './endpoints';
-export * from './paths';

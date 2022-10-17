@@ -4,8 +4,8 @@ import { useRecoilState } from 'recoil';
 import { useApiErrorHandling } from 'hooks';
 import { collection, safeApiRequest } from 'utils';
 import { rolesAtom } from 'store/recoil/atoms';
-import { RoleResponse, CreateRoleRequest, UpdateRoleRequest } from 'types/api';
 import { RoleActions } from 'types/frontend';
+import { RoleResponse, CreateRoleRequest, UpdateRoleRequest } from 'types/api';
 
 const useRoles = (): RoleActions => {
   const { handleApiError } = useApiErrorHandling();

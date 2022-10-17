@@ -1,47 +1,42 @@
-import { params, paths } from 'appConstants';
+import { params, routes } from 'appConstants';
 import { useAreas, useParamNumber } from 'hooks';
-import { Input, NavigationButton } from 'modules/shared';
-import React, { useState } from 'react';
+import { NameFieldset } from 'modules/fieldset';
+import { Form, NavigationButton } from 'modules/shared';
+import React, { useCallback, useState } from 'react';
 import { UpdateAreaRequest } from 'types/api';
 
 const UpdateAreaForm: React.FC = () => {
-  const applicationId = useParamNumber(params.applicationId);
   const areaId = useParamNumber(params.areaId);
+  const applicationId = useParamNumber(params.applicationId);
   const { updateArea } = useAreas(applicationId);
   const [request, setRequest] = useState<UpdateAreaRequest>({
     name: '',
     applicationId: applicationId,
   });
 
-  const handleOnNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRequest({ name: event.target.value, applicationId: applicationId });
+  const handleNameChange = (name: string) => {
+    setRequest({ ...request, name: name });
   };
 
+  const handleSubmit = useCallback(async () => {
+    await updateArea(areaId, request);
+  }, [areaId, request, updateArea]);
+
   return (
-    <form className="update-area-form m-2 p-2">
-      <h3 className="mb-05">Update area form</h3>
-      <p className="areas-description mb-1">
-        To update <b>area</b> you need to fill name field in this form.
-      </p>
-      <Input
+    <Form
+      title="Update area form"
+      description="To update area you need to fill name field in this form."
+      className="update-area-form m-2 p-2"
+    >
+      <NameFieldset
         label={'Enter area name'}
         placeholder={'Enter area name'}
-        className="mb-1"
-        type={'text'}
-        value={request.name}
-        onChange={handleOnNameChange}
-      />
-
-      <div className="footer d-flex justify-content-end align-items-end">
-        <NavigationButton
-          to={paths.areas(applicationId)}
-          onClick={async () => await updateArea(areaId, request)}
-          className="btn-update w-40"
-        >
-          Create
-        </NavigationButton>
-      </div>
-    </form>
+        onChange={handleNameChange}
+      ></NameFieldset>
+      <NavigationButton to={routes.dashboard.areas(applicationId)} onClick={handleSubmit} className="btn-update w-40">
+        Create
+      </NavigationButton>
+    </Form>
   );
 };
 

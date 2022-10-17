@@ -21,15 +21,18 @@ const DashboardRouter: React.FC = () => {
       <Route path={routes.main} element={<Applications />} />
       <Route path={routes.dashboard.applications} element={<Applications />} />
       <Route path={routes.dashboard.createApplication} element={<CreateApplicationForm />} />
-      <Route path={routes.dashboard.updateApplication} element={<UpdateApplicationForm />} />
-      <Route path={routes.dashboard.updateRole} element={<UpdateRoleForm />} />
-      <Route path={routes.dashboard.createRole} element={<CreateRoleForm />} />
-      <Route path={routes.dashboard.permissions} element={<Permissions />} />
-      <Route path={routes.dashboard.areas} element={<Areas />} />
-      <Route path={routes.dashboard.area} element={<Area />} />
-      <Route path={routes.dashboard.createArea} element={<CreateAreaForm />} />
-      <Route path={routes.dashboard.updateArea} element={<UpdateAreaForm />} />
+      <Route path={routes.dashboard.updateApplication()} element={<UpdateApplicationForm />} />
+
       <Route path={routes.dashboard.roles} element={<Roles />} />
+      <Route path={routes.dashboard.createRole} element={<CreateRoleForm />} />
+      <Route path={routes.dashboard.updateRole()} element={<UpdateRoleForm />} />
+
+      <Route path={routes.dashboard.permissions} element={<Permissions />} />
+
+      <Route path={routes.dashboard.area} element={<Area />} />
+      <Route path={routes.dashboard.areas()} element={<Areas />} />
+      <Route path={routes.dashboard.createArea()} element={<CreateAreaForm />} />
+      <Route path={routes.dashboard.updateArea()} element={<UpdateAreaForm />} />
       <Route path={routes.dashboard.notFoundError} element={<>error</>} />
     </Routes>
   );

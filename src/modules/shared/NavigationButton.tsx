@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 import { NavigateButtonProps } from 'types/frontend';
-import { Button } from '..';
+import { Button } from './';
 
 const NavigationButton: React.FC<NavigateButtonProps> = ({ to, ...props }) => {
   const navigate = useNavigate();
