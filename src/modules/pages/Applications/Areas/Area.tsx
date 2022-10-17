@@ -1,7 +1,9 @@
 import React from 'react';
-
-const Area: React.FC = () => {
-  return <div className="area"></div>;
-};
+import { Permissions } from './Permissions';
+const Area: React.FC = () => (
+  <div className="area">
+    <Permissions />
+  </div>
+);
 
 export default Area;

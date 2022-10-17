@@ -13,6 +13,7 @@ import CreateRoleForm from 'modules/pages/Roles/CreateRoleForm';
 import CreateApplicationForm from 'modules/pages/Applications/CreateApplicationForm';
 import UpdateApplicationForm from 'modules/pages/Applications/UpdateApplicationForm';
 import { routes } from 'appConstants';
+import Area from 'modules/pages/Applications/Areas/Area';
 
 const DashboardRouter: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const DashboardRouter: React.FC = () => {
       <Route path={routes.dashboard.createRole} element={<CreateRoleForm />} />
       <Route path={routes.dashboard.permissions} element={<Permissions />} />
       <Route path={routes.dashboard.areas} element={<Areas />} />
+      <Route path={routes.dashboard.area} element={<Area />} />
       <Route path={routes.dashboard.createArea} element={<CreateAreaForm />} />
       <Route path={routes.dashboard.updateArea} element={<UpdateAreaForm />} />
       <Route path={routes.dashboard.roles} element={<Roles />} />

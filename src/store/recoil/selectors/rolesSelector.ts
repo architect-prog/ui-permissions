@@ -1,7 +1,7 @@
-import { rolesService } from 'services';
 import { selector } from 'recoil';
 import { RoleResponse } from 'types/api';
 import { Collection } from 'types/api/responses/common/Collection';
+import { rolesService } from 'services';
 
 const rolesSelector = selector({
   key: 'rolesSelector',

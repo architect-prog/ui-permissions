@@ -63,8 +63,7 @@ const useApplications = (): UseApplications => {
 
   const deleteApplication = useCallback(
     async (applicationId: number) => {
-      const result = await applicationsService.delete(applicationId);
-
+      await applicationsService.delete(applicationId);
       setApplicationsCollection((roles) => {
         const { items, count } = roles;
         const updatedRoles = {
