@@ -1,40 +1,36 @@
 import { useCallback, useState } from 'react';
-import { ValidationResult } from 'types/frontend';
+import { ValidationResult, Validator } from 'types/frontend';
 
-type ValidationActions = {
-  valid: boolean;
-  errorMessages: string[];
-  validate: () => ValidationResult;
-};
+const useValidation = <T>(
+  initialValue: T,
+  ...validators: Validator<T>[]
+): [value: T, setValue: (updatedValue: T) => void, validationResult: ValidationResult] => {
+  const [value, setValue] = useState<T>(initialValue);
+  const [validationResult, setValidationResult] = useState<ValidationResult>({ success: true, errorMessages: [] });
 
-type Validator<T> = {
-  errorMessage: string;
-  validationFunction: (property: T | undefined) => boolean;
-};
+  const validate = useCallback(
+    (updatedValue: T): ValidationResult => {
+      const errorMessages = validators.filter((x) => !x.validationFunction(updatedValue)).map((x) => x.errorMessage);
 
-const useValidation = <T>(propertyGetter: () => T | undefined, validators: Validator<T>[]): ValidationActions => {
-  const [valid, setValid] = useState<boolean>(true);
-  const [errorMessages, setErrorMessages] = useState<string[]>([]);
+      return {
+        success: errorMessages.length === 0,
+        errorMessages: errorMessages,
+      };
+    },
+    [validators],
+  );
 
-  const validate = useCallback((): ValidationResult => {
-    const property = propertyGetter();
-    console.log(property);
-    const errorMessages = validators.filter((x) => !x.validationFunction(property)).map((x) => x.errorMessage);
+  const setValidatedValue = useCallback(
+    (updatedValue: T) => {
+      const validationResult = validate(updatedValue);
 
-    setValid(errorMessages.length === 0);
-    setErrorMessages(errorMessages);
+      setValue(updatedValue);
+      setValidationResult(validationResult);
+    },
+    [validate],
+  );
 
-    return {
-      success: errorMessages.length === 0,
-      errorMessages: errorMessages,
-    };
-  }, [propertyGetter, validators]);
-
-  return {
-    valid: valid,
-    errorMessages: errorMessages,
-    validate: validate,
-  };
+  return [value, setValidatedValue, validationResult];
 };
 
 export default useValidation;

@@ -5,22 +5,18 @@ import { Header, Page, Sidebar, Dashboard } from '..';
 
 const App: React.FC = () => {
   return (
-    <>
-      <div className="app">
-        <Header />
-        <Dashboard>
-          <Sidebar></Sidebar>
-          <Page>
-            <Suspense fallback={<div>Loading...</div>}>
-              <DashboardRouter />
-            </Suspense>
-          </Page>
-        </Dashboard>
-        <ToastContainer />
-      </div>
-
-      {/* <Footer /> */}
-    </>
+    <div className="app">
+      <Header />
+      <Dashboard>
+        <Sidebar></Sidebar>
+        <Page>
+          <Suspense fallback={<div>Loading...</div>}>
+            <DashboardRouter />
+          </Suspense>
+        </Page>
+      </Dashboard>
+      <ToastContainer />
+    </div>
   );
 };
 

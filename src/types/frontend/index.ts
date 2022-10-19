@@ -1,3 +1,4 @@
+export * from './Validator';
 export * from './ValidationResult';
 export * from './StatusCodePage';
 export * from './CollectionExtensions';

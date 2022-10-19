@@ -18,7 +18,7 @@ const DescriptionFieldset: React.FC<DescriptionFieldsetProps> = ({ label, placeh
 
   return (
     <div>
-      <Label label={label}></Label>
+      <Label>{label}</Label>
       <TextArea value={name} placeholder={placeholder} onChange={handleChange}></TextArea>
     </div>
   );

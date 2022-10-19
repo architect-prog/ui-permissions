@@ -2,10 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 import { LabelProps } from 'types/frontend';
 
-const Label: React.FC<LabelProps> = ({ label, className }) => {
+const Label: React.FC<LabelProps> = ({ children, className }) => {
   const labelClassName = classNames('label', className ?? '');
 
-  return <label className={labelClassName}>{label}</label>;
+  return <label className={labelClassName}>{children}</label>;
 };
 
 export default Label;

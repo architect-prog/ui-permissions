@@ -4,4 +4,5 @@ export * from './extensions/stringExtensions';
 export { default as toaster } from './extensions/toaster';
 export { default as collection } from './extensions/collection';
 
+export { default as validatorFactory } from './factories/validatorFactory';
 export { default as apiResponseFactory } from './factories/apiResponseFactory';

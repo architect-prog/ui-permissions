@@ -3,6 +3,7 @@ import { CheckboxProps } from 'types/frontend';
 
 const Checkbox: React.FC<CheckboxProps> = (props) => {
   const { value, label, onChange } = props;
+  // useState
   return (
     <div className="checkbox-wrapper">
       <label>

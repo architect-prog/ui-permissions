@@ -9,11 +9,10 @@ const safeApiRequest = async <T>(request: () => Promise<T>): Promise<ApiResponse
   } catch (error: unknown) {
     const axiosError = error as AxiosError;
     const response = axiosError.response as AxiosResponse<ErrorResponse | undefined>;
-    if (response.data) {
-      return apiResponseFactory.error(response.data.error, response.data.statusCode);
-    }
 
-    return apiResponseFactory.emptyError(response.status);
+    return response.data
+      ? apiResponseFactory.error(response.data.error, response.data.statusCode)
+      : apiResponseFactory.emptyError(response.status);
   }
 };
 
