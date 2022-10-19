@@ -5,14 +5,14 @@ import { UpdateRoleRequest } from 'types/api';
 import { Button, Form } from 'modules/shared';
 import { NameFieldset } from 'modules/fieldset';
 import { nonEmptyValidation } from 'validation';
-import createValidator from 'utils/factories/validatorFactory';
+import { validatorFactory } from 'utils';
 
 const UpdateRoleForm: React.FC = () => {
   const { updateRole } = useRoles();
   const roleId = useParamNumber(params.roleId);
   const [name, setName, nameValidationResult] = useValidation<string>(
     '',
-    createValidator('Please provide a role name.', nonEmptyValidation),
+    validatorFactory.create('Please provide a role name.', nonEmptyValidation),
   );
 
   const handleNameChange = (name: string) => {
@@ -20,13 +20,15 @@ const UpdateRoleForm: React.FC = () => {
   };
 
   const handleSubmit = useCallback(async () => {
-    if (nameValidationResult.success) {
-      const request: UpdateRoleRequest = {
-        name: name,
-      };
-
-      await updateRole(roleId, request);
+    if (!nameValidationResult.success) {
+      return;
     }
+
+    const request: UpdateRoleRequest = {
+      name: name,
+    };
+
+    await updateRole(roleId, request);
   }, [roleId, name, nameValidationResult, updateRole]);
 
   return (

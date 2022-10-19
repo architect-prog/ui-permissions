@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationButton } from 'modules/shared';
 import { routes } from 'appConstants';
 import { useRoles } from 'hooks';
-import RoleRow from './RoleRow';
+import Role from './Role';
 
 const Roles: React.FC = () => {
   const { rolesCollection } = useRoles();
@@ -28,7 +28,7 @@ const Roles: React.FC = () => {
           </thead>
           <tbody>
             {rolesCollection.items.map((x) => (
-              <RoleRow key={x.id} id={x.id} name={x.name}></RoleRow>
+              <Role key={x.id} id={x.id} name={x.name}></Role>
             ))}
           </tbody>
         </table>

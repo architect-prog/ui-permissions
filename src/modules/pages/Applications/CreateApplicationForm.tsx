@@ -1,28 +1,40 @@
 import React, { useCallback, useState } from 'react';
 import { routes } from 'appConstants';
-import { useApplications } from 'hooks';
+import { useApplications, useValidation } from 'hooks';
 import { Form, NavigationButton } from 'modules/shared';
 import { CreateApplicationRequest } from 'types/api';
 import { DescriptionFieldset, NameFieldset } from 'modules/fieldset';
+import { validatorFactory } from 'utils';
+import { nonEmptyValidation } from 'validation';
 
 const CreateApplicationForm: React.FC = () => {
   const { createApplication } = useApplications();
-  const [request, setRequest] = useState<CreateApplicationRequest>({
-    name: '',
-    description: '',
-  });
+  const [description, setDescription] = useState<string>('');
+  const [name, setName, nameValidationResult] = useValidation<string>(
+    '',
+    validatorFactory.create('Please provide a role name.', nonEmptyValidation),
+  );
 
   const handleNameChange = (name: string) => {
-    setRequest({ ...request, name: name });
+    setName(name);
   };
 
   const handleDescriptionChange = (description: string) => {
-    setRequest({ ...request, description: description });
+    setDescription(description);
   };
 
   const handleSubmit = useCallback(async () => {
+    if (!nameValidationResult.success) {
+      return;
+    }
+
+    const request: CreateApplicationRequest = {
+      name: name,
+      description: description,
+    };
+
     await createApplication(request);
-  }, [request, createApplication]);
+  }, [name, description, nameValidationResult, createApplication]);
 
   return (
     <Form
@@ -31,9 +43,11 @@ const CreateApplicationForm: React.FC = () => {
       className="create-application-form m-2 p-2"
     >
       <NameFieldset
-        label={'Enter application name'}
-        placeholder={'Enter application name'}
+        label="Enter application name"
+        placeholder="Enter application name"
         onChange={handleNameChange}
+        isValid={nameValidationResult.success}
+        validationErrors={nameValidationResult.errorMessages}
       ></NameFieldset>
       <DescriptionFieldset
         label={'Enter description'}

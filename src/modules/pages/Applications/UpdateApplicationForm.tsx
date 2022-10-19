@@ -1,31 +1,43 @@
 import React, { useCallback, useState } from 'react';
-import { useApplications } from 'hooks';
+import { useApplications, useValidation } from 'hooks';
 import { UpdateApplicationRequest } from 'types/api';
 import { Form, NavigationButton } from 'modules/shared';
 import { params, routes } from 'appConstants';
 import { useParamNumber } from 'hooks';
 import { DescriptionFieldset, NameFieldset } from 'modules/fieldset';
+import { nonEmptyValidation } from 'validation';
+import { validatorFactory } from 'utils';
 
 const UpdateApplicationForm: React.FC = () => {
   const applicationId = useParamNumber(params.applicationId);
 
   const { updateApplication } = useApplications();
-  const [request, setRequest] = useState<UpdateApplicationRequest>({
-    name: '',
-    description: '',
-  });
+  const [description, setDescription] = useState<string>('');
+  const [name, setName, nameValidationResult] = useValidation<string>(
+    '',
+    validatorFactory.create('Please provide a role name.', nonEmptyValidation),
+  );
 
   const handleNameChange = (name: string) => {
-    setRequest({ ...request, name: name });
+    setName(name);
   };
 
   const handleDescriptionChange = (description: string) => {
-    setRequest({ ...request, description: description });
+    setDescription(description);
   };
 
   const handleSubmit = useCallback(async () => {
+    if (!nameValidationResult.success) {
+      return;
+    }
+
+    const request: UpdateApplicationRequest = {
+      name: name,
+      description: description,
+    };
+
     await updateApplication(applicationId, request);
-  }, [applicationId, request, updateApplication]);
+  }, [applicationId, name, description, nameValidationResult, updateApplication]);
 
   return (
     <Form
@@ -34,9 +46,11 @@ const UpdateApplicationForm: React.FC = () => {
       className="create-application-form m-2 p-2"
     >
       <NameFieldset
-        label={'Enter application name'}
-        placeholder={'Enter application name'}
+        label="Enter application name"
+        placeholder="Enter application name"
         onChange={handleNameChange}
+        isValid={nameValidationResult.success}
+        validationErrors={nameValidationResult.errorMessages}
       ></NameFieldset>
       <DescriptionFieldset
         label={'Enter description'}

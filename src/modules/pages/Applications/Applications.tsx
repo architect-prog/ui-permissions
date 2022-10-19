@@ -16,7 +16,7 @@ const Applications: React.FC = () => {
       <div className="applications">
         {applicationsCollection.items.map((application) => (
           <Application
-            key={`application-${application.id}`}
+            key={application.id}
             description={application.description}
             name={application.name}
             id={application.id}

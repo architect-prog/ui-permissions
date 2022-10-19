@@ -3,13 +3,9 @@ import { routes } from 'appConstants';
 import { Button, NavigationButton } from 'modules/shared';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { useRoles } from 'hooks';
+import { RoleProps } from 'types/frontend';
 
-type RoleRowProps = {
-  id: number;
-  name: string;
-};
-
-const RoleRow: React.FC<RoleRowProps> = ({ id, name }) => {
+const Role: React.FC<RoleProps> = ({ id, name }) => {
   const { deleteRole } = useRoles();
 
   const handleDelete = useCallback(async () => {
@@ -31,4 +27,4 @@ const RoleRow: React.FC<RoleRowProps> = ({ id, name }) => {
   );
 };
 
-export default RoleRow;
+export default Role;

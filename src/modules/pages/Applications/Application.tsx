@@ -16,7 +16,6 @@ const Application: React.FC<ApplicationProps> = ({ id, name, description }) => {
           <NavLink to={`${routes.dashboard.applications}/${id}/areas`}>
             <h2 className="card-title mb-05">{name}</h2>
           </NavLink>
-
           <p className="card-description">{description}</p>
         </div>
 

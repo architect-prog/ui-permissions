@@ -1,23 +1,34 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { CreateRoleRequest } from 'types/api';
 import { routes } from 'appConstants';
 import { Form, NavigationButton } from 'modules/shared';
-import { useRoles } from 'hooks';
+import { useRoles, useValidation } from 'hooks';
 import { NameFieldset } from 'modules/fieldset';
+import { validatorFactory } from 'utils';
+import { nonEmptyValidation } from 'validation';
 
 const CreateRoleForm: React.FC = () => {
   const { createRole } = useRoles();
-  const [request, setRequest] = useState<CreateRoleRequest>();
+  const [name, setName, nameValidationResult] = useValidation<string>(
+    '',
+    validatorFactory.create('Please provide a role name.', nonEmptyValidation),
+  );
 
   const handleNameChange = (name: string) => {
-    setRequest({ ...request, name: name });
+    setName(name);
   };
 
   const handleSubmit = useCallback(async () => {
-    if (request) {
-      await createRole(request);
+    if (!nameValidationResult.success) {
+      return;
     }
-  }, [request, createRole]);
+
+    const request: CreateRoleRequest = {
+      name: name,
+    };
+
+    await createRole(request);
+  }, [name, nameValidationResult, createRole]);
 
   return (
     <Form
@@ -25,7 +36,13 @@ const CreateRoleForm: React.FC = () => {
       description="To create role you need to fill name field in this form."
       className="create-roles-form m-2 p-2"
     >
-      <NameFieldset label="Enter role name" placeholder="Enter role name..." onChange={handleNameChange} />
+      <NameFieldset
+        label="Enter role name"
+        placeholder="Enter role name..."
+        onChange={handleNameChange}
+        isValid={nameValidationResult.success}
+        validationErrors={nameValidationResult.errorMessages}
+      ></NameFieldset>
       <NavigationButton className="btn-create w-40" to={routes.dashboard.roles} onClick={handleSubmit}>
         Add role
       </NavigationButton>
