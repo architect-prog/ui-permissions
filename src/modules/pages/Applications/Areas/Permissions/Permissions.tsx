@@ -13,9 +13,12 @@ const Permissions: React.FC = () => {
   const roles = useRecoilValue(rolesAtom);
   const [role, setRole] = useState<RoleResponse>();
   useEffect(() => {
-    if (!role) return;
-  }, [role]);
-  console.log(role);
+    if (!role) {
+      const fetchedRoles = roles.items[0];
+      setRole(fetchedRoles);
+      return;
+    }
+  }, [role, roles.items]);
   const query: PermissionsQuery = {
     areaIds: [areaId],
     roleIds: !role?.id ? [] : [+role.id],
@@ -26,15 +29,18 @@ const Permissions: React.FC = () => {
     const roleItem = roles.items.find((t) => t.id == roleId);
     setRole(roleItem);
   };
+
   return (
     <div className="permissions">
       <section className="permissions-section">
         <form className="permissions-form">
-          <select onChange={onChangeRole} name="cars" id="cars">
-            {roles.items.map((role) => (
-              <option value={role.id}>{role.name}</option>
-            ))}
-          </select>
+          <div className="mt-2 mb-2 d-flex justify-content-center">
+            <select className="w-100 p-05" onChange={onChangeRole} name="cars" id="cars">
+              {roles.items.map((role) => (
+                <option value={role.id}>{role.name}</option>
+              ))}
+            </select>
+          </div>
           <h1 className="permissions-form-header-label">Permissions:</h1>
           <hr />
           {permissions.map((permission) => (
@@ -49,7 +55,7 @@ const Permissions: React.FC = () => {
             </>
           ))}
           <hr />
-          <Button className="permissions-save-changes-button" type="submit">
+          <Button className="permissions-save-changes-button" type="button">
             Save changes
           </Button>
         </form>

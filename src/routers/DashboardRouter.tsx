@@ -1,13 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import {
-  Applications,
-  Permissions,
-  Areas,
-  Roles,
-  CreateAreaForm,
-  UpdateAreaForm,
-} from 'modules/pages';
+import { Applications, Permissions, Areas, Roles, CreateAreaForm, UpdateAreaForm } from 'modules/pages';
 import UpdateRoleForm from 'modules/pages/Roles/UpdateRoleForm';
 import CreateRoleForm from 'modules/pages/Roles/CreateRoleForm';
 import CreateApplicationForm from 'modules/pages/Applications/CreateApplicationForm';
@@ -29,7 +22,7 @@ const DashboardRouter: React.FC = () => {
 
       <Route path={routes.dashboard.permissions} element={<Permissions />} />
 
-      <Route path={routes.dashboard.area} element={<Area />} />
+      <Route path={routes.dashboard.area()} element={<Area />} />
       <Route path={routes.dashboard.areas()} element={<Areas />} />
       <Route path={routes.dashboard.createArea()} element={<CreateAreaForm />} />
       <Route path={routes.dashboard.updateArea()} element={<UpdateAreaForm />} />

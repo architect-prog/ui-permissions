@@ -15,7 +15,8 @@ export const routes = Object.freeze({
       `/${controllers.applications}/${applicationId}/${operations.update}`,
 
     /* Areas */
-    area: `/${controllers.applications}/:${params.applicationId}/${controllers.areas}/:${params.areaId}`,
+    area: (applicationId: param = `:${params.applicationId}`, areaId: param = `:${params.areaId}`) =>
+      `/${controllers.applications}/${applicationId}/${controllers.areas}/${areaId}`,
     areas: (applicationId: param = `:${params.applicationId}`) =>
       `/${controllers.applications}/${applicationId}/${controllers.areas}`,
     createArea: (applicationId: param = `:${params.applicationId}`) =>

@@ -4,6 +4,7 @@ import { useAreas } from 'hooks';
 import { Button, NavigationButton } from 'modules/shared';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { useParamNumber } from 'hooks';
+import { Link } from 'react-router-dom';
 
 const Areas: React.FC = () => {
   const applicationId = useParamNumber(params.applicationId);
@@ -30,7 +31,9 @@ const Areas: React.FC = () => {
           <tbody>
             {areasCollection.items.map((area) => (
               <tr>
-                <td>{area.name}</td>
+                <td>
+                  <Link to={routes.dashboard.area(area.applicationId, area.id)}>{area.name}</Link>
+                </td>
                 <td>Currently there no counter for permissions</td>
                 <td>
                   <NavigationButton to={routes.dashboard.updateArea(applicationId, area.id)} className="btn-update">
