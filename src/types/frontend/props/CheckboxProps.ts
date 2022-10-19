@@ -1,7 +1,5 @@
 export type CheckboxProps = {
-  children?: React.ReactNode;
-  style?: React.CSSProperties;
-  label?: string;
-  onChange?: () => void;
   value: boolean;
+  label?: string;
+  onChange?: (checked: boolean) => void;
 };

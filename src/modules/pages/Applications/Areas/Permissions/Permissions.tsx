@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Checkbox } from 'modules/shared';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { permissionsAtom, rolesAtom } from 'store/recoil/atoms';
 import { RoleResponse } from 'types/api';
 import { useParamNumber } from 'hooks';
@@ -21,9 +21,9 @@ const Permissions: React.FC = () => {
   }, [role, roles.items]);
   const query: PermissionsQuery = {
     areaIds: [areaId],
-    roleIds: !role?.id ? [] : [+role.id],
+    roleIds: !role?.id ? [] : [role.id],
   };
-  const permissions = useRecoilValue(permissionsAtom(query));
+  const [permissionCollection, setPermissionCollection] = useRecoilState(permissionsAtom(query));
   const onChangeRole = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const roleId = +e.target.value;
     const roleItem = roles.items.find((t) => t.id == roleId);
@@ -43,17 +43,27 @@ const Permissions: React.FC = () => {
           </div>
           <h1 className="permissions-form-header-label">Permissions:</h1>
           <hr />
-          {permissions.map((permission) => (
+          {permissionCollection && (
             <>
-              <Checkbox value={permission.canCreate} label={'canCreate'} />
-              <Checkbox value={permission.canDelete} label={'canDelete'} />
-              <Checkbox value={permission.canUpdate} label={'canUpdate'} />
-              <Checkbox value={permission.canRead} label={'canRead'} />
-              {permission.customPermissions.map((customPermission) => (
+              <Checkbox
+                value={permissionCollection.canCreate}
+                onChange={(checked) => {
+                  console.log(permissionCollection);
+                  setPermissionCollection((permissions) => {
+                    const newPermissions = { ...permissions };
+                    return newPermissions;
+                  });
+                }}
+                label={'canCreate'}
+              />
+              <Checkbox value={permissionCollection.canDelete} label={'canDelete'} />
+              <Checkbox value={permissionCollection.canUpdate} label={'canUpdate'} />
+              <Checkbox value={permissionCollection.canRead} label={'canRead'} />
+              {permissionCollection.customPermissions.map((customPermission) => (
                 <Checkbox value={customPermission.haveAccess} label={customPermission.name} />
               ))}
             </>
-          ))}
+          )}
           <hr />
           <Button className="permissions-save-changes-button" type="button">
             Save changes

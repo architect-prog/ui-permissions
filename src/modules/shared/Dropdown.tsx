@@ -1,12 +1,11 @@
 import React from 'react';
 import { CheckboxProps } from 'types/frontend';
 
-const Dropdown: React.FC<CheckboxProps> = (props) => {
-  const { value, label, onChange } = props;
+const Dropdown: React.FC<CheckboxProps> = ({ value, label, onChange }) => {
   return (
     <div className="checkbox-wrapper">
       <label>
-        <input type="checkbox" onChange={onChange} checked={value} />
+        <input type="checkbox" />
         {label}
       </label>
     </div>
