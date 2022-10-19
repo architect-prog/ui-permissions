@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Checkbox } from 'modules/shared';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { permissionsAtom, rolesAtom } from 'store/recoil/atoms';
-import { RoleResponse } from 'types/api';
+import { PermissionCollectionResponse, RoleResponse } from 'types/api';
 import { useParamNumber } from 'hooks';
 import { params } from 'appConstants';
 import { PermissionsQuery } from 'store/recoil/queries';
@@ -50,7 +50,9 @@ const Permissions: React.FC = () => {
                 onChange={(checked) => {
                   console.log(permissionCollection);
                   setPermissionCollection((permissions) => {
-                    const newPermissions = { ...permissions };
+                    const newPermissions: PermissionCollectionResponse = JSON.parse(JSON.stringify(permissions));
+                    newPermissions.canCreate = checked;
+                    console.log(newPermissions);
                     return newPermissions;
                   });
                 }}
