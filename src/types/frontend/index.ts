@@ -15,6 +15,7 @@ export * from './props/NameFieldsetProps';
 export * from './props/TextAreaProps';
 export * from './props/RoleProps';
 export * from './props/WrapperProps';
+export * from './props/AreaProps';
 
 export * from './hooks/ApiErrorHandlingActions';
 export * from './hooks/RoleActions';

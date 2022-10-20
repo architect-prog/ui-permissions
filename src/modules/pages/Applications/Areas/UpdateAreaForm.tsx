@@ -1,19 +1,21 @@
+import React, { useCallback } from 'react';
 import { params, routes } from 'appConstants';
 import { useAreas, useParamNumber, useValidation } from 'hooks';
 import { NameFieldset } from 'modules/fieldset';
-import { Form, NavigationButton } from 'modules/shared';
-import React, { useCallback } from 'react';
 import { UpdateAreaRequest } from 'types/api';
 import { validatorFactory } from 'utils';
 import { nonEmptyValidation } from 'validation';
+import { Button, Description, Form, FormContent, FormFooter, Title } from 'modules/shared';
+import { useNavigate } from 'react-router';
 
 const UpdateAreaForm: React.FC = () => {
   const areaId = useParamNumber(params.areaId);
   const applicationId = useParamNumber(params.applicationId);
+  const navigate = useNavigate();
   const { updateArea } = useAreas(applicationId);
-  const [name, setName, nameValidationResult] = useValidation<string>(
+  const [name, setName, nameValidationResult, validateCurrentName] = useValidation<string>(
     '',
-    validatorFactory.create('Please provide a role name.', nonEmptyValidation),
+    validatorFactory.create('Please provide an area name.', nonEmptyValidation),
   );
 
   const handleNameChange = (name: string) => {
@@ -21,38 +23,38 @@ const UpdateAreaForm: React.FC = () => {
   };
 
   const handleSubmit = useCallback(async () => {
-    if (!nameValidationResult.success) {
-      return;
+    const result = validateCurrentName();
+    if (result.success) {
+      const request: UpdateAreaRequest = {
+        name: name,
+        applicationId: applicationId,
+      };
+
+      if (await updateArea(areaId, request)) {
+        navigate(routes.dashboard.areas(applicationId));
+      }
     }
-
-    const request: UpdateAreaRequest = {
-      name: name,
-      applicationId: applicationId,
-    };
-
-    await updateArea(areaId, request);
-  }, [applicationId, areaId, name, nameValidationResult, updateArea]);
+  }, [applicationId, areaId, name, navigate, updateArea, validateCurrentName]);
 
   return (
-    <Form
-      title="Update area form"
-      description="To update area you need to fill name field in this form."
-      className="update-area-form m-2 p-2"
-    >
-      <NameFieldset
-        label="Enter area name"
-        placeholder="Enter area name"
-        onChange={handleNameChange}
-        isValid={nameValidationResult.success}
-        validationErrors={nameValidationResult.errorMessages}
-      ></NameFieldset>
-      <NavigationButton
-        to={routes.dashboard.areas(applicationId)}
-        onClick={handleSubmit}
-        className="button-warning w-40"
-      >
-        Create
-      </NavigationButton>
+    <Form className="area-form">
+      <FormContent>
+        <Title>Update area</Title>
+        <Description>To update area you need to fill name field. Name is required for area.</Description>
+        <hr />
+        <NameFieldset
+          label="Name*"
+          placeholder="Enter area name..."
+          onChange={handleNameChange}
+          isValid={nameValidationResult.success}
+          validationErrors={nameValidationResult.errorMessages}
+        ></NameFieldset>
+      </FormContent>
+      <FormFooter>
+        <Button className="button-warning w-30" type="button" onClick={handleSubmit}>
+          Update area
+        </Button>
+      </FormFooter>
     </Form>
   );
 };

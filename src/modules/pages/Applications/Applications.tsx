@@ -14,7 +14,7 @@ const Applications: React.FC = () => {
       <Description>
         An application is a group of areas for which you create specific permissions.
         <br />
-        You can create/update a application and add areas to it.
+        You can create/update an application and add areas to it.
         <br />
         You can see list of applications in list below.
       </Description>

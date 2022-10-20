@@ -14,7 +14,7 @@ const CreateApplicationForm: React.FC = () => {
   const [description, setDescription] = useState<string>('');
   const [name, setName, nameValidationResult, validateCurrentName] = useValidation<string>(
     '',
-    validatorFactory.create('Please provide a application name.', nonEmptyValidation),
+    validatorFactory.create('Please provide an application name.', nonEmptyValidation),
   );
 
   const handleNameChange = (name: string) => {

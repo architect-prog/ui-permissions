@@ -16,13 +16,15 @@ const useAreas = (applicationId?: number): AreaActions => {
       const response = await safeApiRequest(async () => await areasService.create(request));
       if (!response.success) {
         handleApiError(response);
-        return;
+        return false;
       }
 
       setAreasCollection((areas) => {
         const updatedAreas = collection(areas).add(response.data);
         return updatedAreas;
       });
+
+      return true;
     },
     [setAreasCollection, handleApiError],
   );
@@ -32,7 +34,7 @@ const useAreas = (applicationId?: number): AreaActions => {
       const response = await safeApiRequest(async () => await areasService.update(areaId, request));
       if (!response.success) {
         handleApiError(response);
-        return;
+        return false;
       }
 
       const updatedArea: AreaResponse = {
@@ -45,6 +47,8 @@ const useAreas = (applicationId?: number): AreaActions => {
         const updatedAreas = collection(areas).replace((x) => x.id == areaId, updatedArea);
         return updatedAreas;
       });
+
+      return true;
     },
     [setAreasCollection, handleApiError],
   );
@@ -54,13 +58,15 @@ const useAreas = (applicationId?: number): AreaActions => {
       const response = await safeApiRequest(async () => await areasService.delete(areaId));
       if (!response.success) {
         handleApiError(response);
-        return;
+        return false;
       }
 
       setAreasCollection((areas) => {
         const updatedRoles = collection(areas).remove((x) => x.id !== areaId);
         return updatedRoles;
       });
+
+      return true;
     },
     [setAreasCollection, handleApiError],
   );

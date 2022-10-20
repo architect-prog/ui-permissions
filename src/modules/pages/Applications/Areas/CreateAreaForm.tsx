@@ -1,18 +1,20 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { params, routes } from 'appConstants';
 import { useAreas, useParamNumber, useValidation } from 'hooks';
-import { Form, NavigationButton } from 'modules/shared';
 import { CreateAreaRequest } from 'types/api';
 import { NameFieldset } from 'modules/fieldset';
 import { validatorFactory } from 'utils';
 import { nonEmptyValidation } from 'validation';
+import { useNavigate } from 'react-router';
+import { Button, Description, Form, FormContent, FormFooter, Title } from 'modules/shared';
 
 const CreateAreaForm: React.FC = () => {
+  const navigate = useNavigate();
   const applicationId = useParamNumber(params.applicationId);
   const { createArea } = useAreas(applicationId);
-  const [name, setName, nameValidationResult] = useValidation<string>(
+  const [name, setName, nameValidationResult, validateCurrentName] = useValidation<string>(
     '',
-    validatorFactory.create('Please provide a role name.', nonEmptyValidation),
+    validatorFactory.create('Please provide an area name.', nonEmptyValidation),
   );
 
   const handleNameChange = (name: string) => {
@@ -20,38 +22,38 @@ const CreateAreaForm: React.FC = () => {
   };
 
   const handleSubmit = useCallback(async () => {
-    if (!nameValidationResult.success) {
-      return;
+    const result = validateCurrentName();
+    if (result.success) {
+      const request: CreateAreaRequest = {
+        name: name,
+        applicationId: applicationId,
+      };
+
+      if (await createArea(request)) {
+        navigate(routes.dashboard.areas(applicationId));
+      }
     }
-
-    const request: CreateAreaRequest = {
-      name: name,
-      applicationId: applicationId,
-    };
-
-    await createArea(request);
-  }, [applicationId, name, nameValidationResult, createArea]);
+  }, [name, applicationId, createArea, validateCurrentName, navigate]);
 
   return (
-    <Form
-      title="Create area form"
-      description="To create area you need to fill name field in this form."
-      className="create-area-form m-2 p-2"
-    >
-      <NameFieldset
-        label="Enter area name"
-        placeholder="Enter area name"
-        onChange={handleNameChange}
-        isValid={nameValidationResult.success}
-        validationErrors={nameValidationResult.errorMessages}
-      ></NameFieldset>
-      <NavigationButton
-        to={routes.dashboard.areas(applicationId)}
-        onClick={handleSubmit}
-        className="button-primary w-40"
-      >
-        Create
-      </NavigationButton>
+    <Form className="area-form">
+      <FormContent>
+        <Title>Create area</Title>
+        <Description>To create area you need to fill name field. Name is required for area.</Description>
+        <hr />
+        <NameFieldset
+          label="Name*"
+          placeholder="Enter area name..."
+          onChange={handleNameChange}
+          isValid={nameValidationResult.success}
+          validationErrors={nameValidationResult.errorMessages}
+        ></NameFieldset>
+      </FormContent>
+      <FormFooter>
+        <Button className="button-primary w-30" type="button" onClick={handleSubmit}>
+          Create area
+        </Button>
+      </FormFooter>
     </Form>
   );
 };
