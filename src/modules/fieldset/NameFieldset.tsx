@@ -6,7 +6,7 @@ import classNames from 'classnames';
 const NameFieldset: React.FC<NameFieldsetProps> = ({ isValid, validationErrors, label, placeholder, onChange }) => {
   const [name, setName] = useState<string>('');
   const labelStyle = classNames('label-bold', isValid ? '' : 'label-error');
-  const inputStyle = isValid ? '' : 'input-error';
+  const inputStyle = classNames('w-100', isValid ? '' : 'input-error');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.value;

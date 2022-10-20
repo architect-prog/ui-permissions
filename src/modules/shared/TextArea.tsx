@@ -6,13 +6,7 @@ const TextArea: React.FC<TextAreaProps> = ({ value, placeholder, title, classNam
   const textAreaClassName = classNames('textarea', className);
 
   return (
-    <textarea
-      title={title}
-      value={value}
-      placeholder={placeholder}
-      onChange={onChange}
-      className={textAreaClassName}
-    />
+    <textarea className={textAreaClassName} title={title} value={value} placeholder={placeholder} onChange={onChange} />
   );
 };
 

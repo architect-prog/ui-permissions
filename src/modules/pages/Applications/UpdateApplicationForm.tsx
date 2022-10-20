@@ -1,19 +1,21 @@
 import React, { useCallback, useState } from 'react';
 import { useApplications, useValidation } from 'hooks';
 import { UpdateApplicationRequest } from 'types/api';
-import { Form, NavigationButton } from 'modules/shared';
 import { params, routes } from 'appConstants';
 import { useParamNumber } from 'hooks';
 import { DescriptionFieldset, NameFieldset } from 'modules/fieldset';
 import { nonEmptyValidation } from 'validation';
 import { validatorFactory } from 'utils';
+import { useNavigate } from 'react-router';
+import { Button, Description, Form, FormContent, FormFooter, Title } from 'modules/shared';
 
 const UpdateApplicationForm: React.FC = () => {
   const applicationId = useParamNumber(params.applicationId);
 
+  const navigate = useNavigate();
   const { updateApplication } = useApplications();
   const [description, setDescription] = useState<string>('');
-  const [name, setName, nameValidationResult] = useValidation<string>(
+  const [name, setName, nameValidationResult, validateCurrentName] = useValidation<string>(
     '',
     validatorFactory.create('Please provide a role name.', nonEmptyValidation),
   );
@@ -27,39 +29,44 @@ const UpdateApplicationForm: React.FC = () => {
   };
 
   const handleSubmit = useCallback(async () => {
-    if (!nameValidationResult.success) {
-      return;
+    const result = validateCurrentName();
+    if (result.success) {
+      const request: UpdateApplicationRequest = {
+        name: name,
+        description: description,
+      };
+
+      if (await updateApplication(applicationId, request)) {
+        navigate(routes.dashboard.applications);
+      }
     }
-
-    const request: UpdateApplicationRequest = {
-      name: name,
-      description: description,
-    };
-
-    await updateApplication(applicationId, request);
-  }, [applicationId, name, description, nameValidationResult, updateApplication]);
+  }, [applicationId, name, description, updateApplication, validateCurrentName, navigate]);
 
   return (
-    <Form
-      title="Update application form"
-      description="To update application you need to fill name and description fields in this form."
-      className="create-application-form m-2 p-2"
-    >
-      <NameFieldset
-        label="Enter application name"
-        placeholder="Enter application name"
-        onChange={handleNameChange}
-        isValid={nameValidationResult.success}
-        validationErrors={nameValidationResult.errorMessages}
-      ></NameFieldset>
-      <DescriptionFieldset
-        label={'Enter description'}
-        placeholder={'Enter description'}
-        onChange={handleDescriptionChange}
-      ></DescriptionFieldset>
-      <NavigationButton to={routes.dashboard.applications} onClick={handleSubmit} className="button-warning w-40">
-        Update
-      </NavigationButton>
+    <Form className="application-form">
+      <FormContent>
+        <Title>Update application</Title>
+        <Description>To update application you need to fill name field below.</Description>
+        <hr />
+        <NameFieldset
+          label="Name*"
+          placeholder="Enter application name..."
+          onChange={handleNameChange}
+          isValid={nameValidationResult.success}
+          validationErrors={nameValidationResult.errorMessages}
+        ></NameFieldset>
+        <div className="mt-1"></div>
+        <DescriptionFieldset
+          label="Description"
+          placeholder="Enter application description..."
+          onChange={handleDescriptionChange}
+        ></DescriptionFieldset>
+      </FormContent>
+      <FormFooter>
+        <Button className="button-warning w-30" type="button" onClick={handleSubmit}>
+          Update application
+        </Button>
+      </FormFooter>
     </Form>
   );
 };

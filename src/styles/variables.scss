@@ -3,14 +3,15 @@ $screen-breakpoints: (
   md: 768px,
   lg: 992px,
   xl: 1200px,
-  xxl: 1400px
+  xxl: 1400px,
 );
 
-$card-shadow: -8px 10px 30px -22px rgba(66, 68, 90, 1);
+$card-shadow: -10px 10px 30px -18px rgba(66, 68, 90, 1);
 
 $error: #f20505;
 $page-background: #ffffff;
 $form-background: #f2f2f2;
+$card-background: #f2f2f2;
 $sidebar-background: #f2f2f2;
 $header-background: #0477bf;
 $border-color: #5656512c;
@@ -26,6 +27,6 @@ $background-warning: #ffc929;
 $background-danger: #cc0439;
 
 $text-primary: #f2f2f2;
-$text-secondary: #8694D9;
+$text-secondary: #8694d9;
 $text-warning: #ffffff;
 $text-danger: #f2f2f2;

@@ -16,13 +16,15 @@ const useApplications = (): ApplicationActions => {
       const response = await safeApiRequest(async () => await applicationsService.create(request));
       if (!response.success) {
         handleApiError(response);
-        return;
+        return false;
       }
 
       setApplicationsCollection((applications) => {
         const updatedApplications = collection(applications).add(response.data);
         return updatedApplications;
       });
+
+      return true;
     },
     [setApplicationsCollection, handleApiError],
   );
@@ -32,7 +34,7 @@ const useApplications = (): ApplicationActions => {
       const response = await safeApiRequest(async () => await applicationsService.update(applicationId, request));
       if (!response.success) {
         handleApiError(response);
-        return;
+        return false;
       }
 
       const updatedApplication: ApplicationResponse = {
@@ -45,6 +47,8 @@ const useApplications = (): ApplicationActions => {
         const updatedApplications = collection(applications).replace((x) => x.id == applicationId, updatedApplication);
         return updatedApplications;
       });
+
+      return true;
     },
     [setApplicationsCollection, handleApiError],
   );
@@ -54,13 +58,15 @@ const useApplications = (): ApplicationActions => {
       const response = await safeApiRequest(async () => await applicationsService.delete(applicationId));
       if (!response.success) {
         handleApiError(response);
-        return;
+        return false;
       }
 
       setApplicationsCollection((applications) => {
         const updatedApplications = collection(applications).remove((x) => x.id !== applicationId);
         return updatedApplications;
       });
+
+      return true;
     },
     [setApplicationsCollection, handleApiError],
   );

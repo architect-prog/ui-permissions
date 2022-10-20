@@ -1,18 +1,20 @@
 import React, { useCallback, useState } from 'react';
 import { routes } from 'appConstants';
 import { useApplications, useValidation } from 'hooks';
-import { Form, NavigationButton } from 'modules/shared';
 import { CreateApplicationRequest } from 'types/api';
 import { DescriptionFieldset, NameFieldset } from 'modules/fieldset';
 import { validatorFactory } from 'utils';
 import { nonEmptyValidation } from 'validation';
+import { useNavigate } from 'react-router';
+import { Button, Description, Form, FormContent, FormFooter, Title } from 'modules/shared';
 
 const CreateApplicationForm: React.FC = () => {
+  const navigate = useNavigate();
   const { createApplication } = useApplications();
   const [description, setDescription] = useState<string>('');
-  const [name, setName, nameValidationResult] = useValidation<string>(
+  const [name, setName, nameValidationResult, validateCurrentName] = useValidation<string>(
     '',
-    validatorFactory.create('Please provide a role name.', nonEmptyValidation),
+    validatorFactory.create('Please provide a application name.', nonEmptyValidation),
   );
 
   const handleNameChange = (name: string) => {
@@ -24,39 +26,44 @@ const CreateApplicationForm: React.FC = () => {
   };
 
   const handleSubmit = useCallback(async () => {
-    if (!nameValidationResult.success) {
-      return;
+    const result = validateCurrentName();
+    if (result.success) {
+      const request: CreateApplicationRequest = {
+        name: name,
+        description: description,
+      };
+
+      if (await createApplication(request)) {
+        navigate(routes.dashboard.applications);
+      }
     }
-
-    const request: CreateApplicationRequest = {
-      name: name,
-      description: description,
-    };
-
-    await createApplication(request);
-  }, [name, description, nameValidationResult, createApplication]);
+  }, [name, description, createApplication, validateCurrentName, navigate]);
 
   return (
-    <Form
-      title="Create application form"
-      description="To create application you need to fill name and description fields in this form."
-      className="create-application-form m-2 p-2"
-    >
-      <NameFieldset
-        label="Enter application name"
-        placeholder="Enter application name"
-        onChange={handleNameChange}
-        isValid={nameValidationResult.success}
-        validationErrors={nameValidationResult.errorMessages}
-      ></NameFieldset>
-      <DescriptionFieldset
-        label={'Enter description'}
-        placeholder={'Enter description'}
-        onChange={handleDescriptionChange}
-      ></DescriptionFieldset>
-      <NavigationButton to={routes.dashboard.applications} onClick={handleSubmit} className="button-primary w-40">
-        Create
-      </NavigationButton>
+    <Form className="application-form">
+      <FormContent>
+        <Title>Create application</Title>
+        <Description>To create application you need to fill name field below.</Description>
+        <hr />
+        <NameFieldset
+          label="Name*"
+          placeholder="Enter application name..."
+          onChange={handleNameChange}
+          isValid={nameValidationResult.success}
+          validationErrors={nameValidationResult.errorMessages}
+        ></NameFieldset>
+        <div className="mt-1"></div>
+        <DescriptionFieldset
+          label="Description"
+          placeholder="Enter application description..."
+          onChange={handleDescriptionChange}
+        ></DescriptionFieldset>
+      </FormContent>
+      <FormFooter>
+        <Button className="button-primary w-30" type="button" onClick={handleSubmit}>
+          Create application
+        </Button>
+      </FormFooter>
     </Form>
   );
 };

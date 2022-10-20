@@ -1,0 +1,39 @@
+.card {
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  line-height: 1.25rem;
+  border-radius: 0.5rem;
+  box-shadow: $card-shadow;
+  background-color: $card-background;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .card-body {
+    .card-title {
+      overflow: hidden;
+      font-weight: 600;
+      color: $secondary;
+      padding-bottom: 0.25rem;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .card-description {
+      overflow: hidden;
+      text-align: justify;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+  }
+
+  .card-footer {
+    margin-top: 1rem;
+    display: flex;
+  }
+}

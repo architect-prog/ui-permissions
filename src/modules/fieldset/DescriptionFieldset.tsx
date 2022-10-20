@@ -8,19 +8,19 @@ type DescriptionFieldsetProps = {
 };
 
 const DescriptionFieldset: React.FC<DescriptionFieldsetProps> = ({ label, placeholder, onChange }) => {
-  const [name, setName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const name = event.target.value;
-    setName(name);
+    setDescription(name);
     onChange(name);
   };
 
   return (
-    <div>
-      <Label>{label}</Label>
-      <TextArea value={name} placeholder={placeholder} onChange={handleChange}></TextArea>
-    </div>
+    <>
+      <Label className="label-bold">{label}</Label>
+      <TextArea className="w-100" value={description} placeholder={placeholder} onChange={handleChange}></TextArea>
+    </>
   );
 };
 

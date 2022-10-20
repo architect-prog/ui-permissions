@@ -3,6 +3,7 @@ export * from './ValidationResult';
 export * from './StatusCodePage';
 export * from './CollectionExtensions';
 
+export * from './props/ApplicationProps';
 export * from './props/NavigationButtonProps';
 export * from './props/NavbarItemProps';
 export * from './props/CheckboxProps';

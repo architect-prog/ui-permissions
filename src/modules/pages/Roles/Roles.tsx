@@ -26,21 +26,19 @@ const Roles: React.FC = () => {
         </ButtonContent>
       </NavigationButton>
       <hr />
-      <div className="mt-1">
-        <table className="roles">
-          <thead className="roles-header">
-            <tr>
-              <th className="text-align-left">Name</th>
-              <th className="text-align-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rolesCollection.items.map((x) => (
-              <Role key={x.id} id={x.id} name={x.name}></Role>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <table className="roles">
+        <thead className="roles-header">
+          <tr>
+            <th className="text-align-left">Name</th>
+            <th className="text-align-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rolesCollection.items.map((x) => (
+            <Role key={x.id} id={x.id} name={x.name}></Role>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

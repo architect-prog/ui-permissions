@@ -2,7 +2,7 @@ import { ApplicationResponse, Collection, CreateApplicationRequest, UpdateApplic
 
 export type ApplicationActions = {
   applicationsCollection: Collection<ApplicationResponse>;
-  deleteApplication: (applicationId: number) => Promise<void>;
-  createApplication: (request: CreateApplicationRequest) => Promise<void>;
-  updateApplication: (applicationId: number, request: UpdateApplicationRequest) => Promise<void>;
+  deleteApplication: (applicationId: number) => Promise<boolean>;
+  createApplication: (request: CreateApplicationRequest) => Promise<boolean>;
+  updateApplication: (applicationId: number, request: UpdateApplicationRequest) => Promise<boolean>;
 };

@@ -1,7 +1,13 @@
 .textarea {
+  outline: none;
   display: block;
-  padding: 7px 10px;
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 0.5rem;
+  margin: 0.2rem 0;
+  border: 1px solid $border-color;
+  border-radius: 0.5rem;
+  max-width: 100%;
+
+  &:focus {
+    border: 2px solid $border-color;
+  }
 }
