@@ -1,35 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Button, Checkbox } from 'modules/shared';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { permissionsAtom, rolesAtom } from 'store/recoil/atoms';
-import { PermissionCollectionResponse, RoleResponse } from 'types/api';
-import { useParamNumber } from 'hooks';
+import { useRecoilValue } from 'recoil';
+import { rolesAtom } from 'store/recoil/atoms';
+import { PermissionRequest, PermissionResponse, UpdatePermissionRequest } from 'types/api';
+import { useParamNumber, usePermissionCollection } from 'hooks';
 import { params } from 'appConstants';
-import { PermissionsQuery } from 'store/recoil/queries';
+import { toaster } from 'utils';
 
 const Permissions: React.FC = () => {
   const areaId = useParamNumber(params.areaId);
-
   const roles = useRecoilValue(rolesAtom);
-  const [role, setRole] = useState<RoleResponse>();
-  useEffect(() => {
-    if (!role) {
-      const fetchedRoles = roles.items[0];
-      setRole(fetchedRoles);
-      return;
-    }
-  }, [role, roles.items]);
-  const query: PermissionsQuery = {
-    areaIds: [areaId],
-    roleIds: !role?.id ? [] : [role.id],
-  };
-  const [permissionCollection, setPermissionCollection] = useRecoilState(permissionsAtom(query));
-  const onChangeRole = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const roleId = +e.target.value;
-    const roleItem = roles.items.find((t) => t.id == roleId);
-    setRole(roleItem);
-  };
 
+  const { permissionCollection, role, onChecked, onChangeRole, updatePermissionCollection } =
+    usePermissionCollection(areaId);
+  const mappedCheckboxes = permissionCollection?.customPermissions.map((customPermission) => (
+    <Checkbox
+      key={customPermission.name}
+      onChange={(checked) => onChecked(customPermission.name, checked)}
+      value={customPermission.haveAccess}
+      label={customPermission.name}
+      id={`${role?.id}-${customPermission.name}`}
+    />
+  ));
+  console.log(JSON.stringify(permissionCollection?.customPermissions));
   return (
     <div className="permissions">
       <section className="permissions-section">
@@ -43,33 +36,28 @@ const Permissions: React.FC = () => {
           </div>
           <h1 className="permissions-form-header-label">Permissions:</h1>
           <hr />
-          {permissionCollection && (
-            <>
-              <Checkbox
-                value={permissionCollection.canCreate}
-                onChange={(checked) => {
-                  console.log(permissionCollection);
-                  setPermissionCollection((permissions) => {
-                    const newPermissions: PermissionCollectionResponse = JSON.parse(JSON.stringify(permissions));
-                    newPermissions.canCreate = checked;
-                    console.log(newPermissions);
-                    return newPermissions;
-                  });
-                }}
-                label={'canCreate'}
-              />
-              <Checkbox value={permissionCollection.canDelete} label={'canDelete'} />
-              <Checkbox value={permissionCollection.canUpdate} label={'canUpdate'} />
-              <Checkbox value={permissionCollection.canRead} label={'canRead'} />
-              {permissionCollection.customPermissions.map((customPermission) => (
-                <Checkbox value={customPermission.haveAccess} label={customPermission.name} />
-              ))}
-            </>
-          )}
+          {mappedCheckboxes}
           <hr />
-          <Button className="permissions-save-changes-button" type="button">
-            Save changes
-          </Button>
+          <Button
+            onClick={async () => {
+              const customPermissions = permissionCollection?.customPermissions ?? [];
+              const mapToRequest = (response: PermissionResponse): PermissionRequest => {
+                const result: PermissionRequest = { name: response.name, hasAccess: response.haveAccess };
+                return result;
+              };
+              const customPermissionRequest = customPermissions.map(mapToRequest) ?? [];
+              const request: UpdatePermissionRequest = {
+                areaId: permissionCollection?.areaId ?? 0,
+                roleId: permissionCollection?.roleId ?? 0,
+                permissions: customPermissionRequest,
+              };
+              console.log(request);
+              await updatePermissionCollection(request);
+              toaster.success('updated');
+            }}
+            className="permissions-save-changes-button"
+            type="button"
+          ></Button>
         </form>
       </section>
     </div>

@@ -3,7 +3,7 @@ import { atomFamily } from 'recoil';
 import { permissionsSelector } from '../selectors';
 import { PermissionCollectionResponse } from 'types/api';
 
-const permissionsAtom = atomFamily<PermissionCollectionResponse | undefined, PermissionsQuery>({
+const permissionsAtom = atomFamily<PermissionCollectionResponse | undefined, PermissionsQuery | undefined>({
   key: 'permissionsAtom',
   default: permissionsSelector,
 });

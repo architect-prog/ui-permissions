@@ -19,4 +19,5 @@ export * from './props/WrapperProps';
 export * from './hooks/ApiErrorHandlingActions';
 export * from './hooks/RoleActions';
 export * from './hooks/ApplicationActions';
+export * from './hooks/PermissionCollectionActions';
 export * from './hooks/AreaActions';
