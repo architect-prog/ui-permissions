@@ -1,15 +1,17 @@
 import React, { useCallback } from 'react';
 import { CreateRoleRequest } from 'types/api';
-import { routes } from 'appConstants';
-import { Form, NavigationButton } from 'modules/shared';
 import { useRoles, useValidation } from 'hooks';
 import { NameFieldset } from 'modules/fieldset';
 import { validatorFactory } from 'utils';
 import { nonEmptyValidation } from 'validation';
+import { routes } from 'appConstants';
+import { useNavigate } from 'react-router';
+import { Button, Description, Form, FormContent, FormFooter, Title } from 'modules/shared';
 
 const CreateRoleForm: React.FC = () => {
+  const navigate = useNavigate();
   const { createRole } = useRoles();
-  const [name, setName, nameValidationResult] = useValidation<string>(
+  const [name, setName, nameValidationResult, validateCurrentName] = useValidation<string>(
     '',
     validatorFactory.create('Please provide a role name.', nonEmptyValidation),
   );
@@ -19,33 +21,37 @@ const CreateRoleForm: React.FC = () => {
   };
 
   const handleSubmit = useCallback(async () => {
-    if (!nameValidationResult.success) {
-      return;
+    const result = validateCurrentName();
+    if (result.success) {
+      const request: CreateRoleRequest = {
+        name: name,
+      };
+
+      if (await createRole(request)) {
+        navigate(routes.dashboard.roles);
+      }
     }
-
-    const request: CreateRoleRequest = {
-      name: name,
-    };
-
-    await createRole(request);
-  }, [name, nameValidationResult, createRole]);
+  }, [name, createRole, navigate, validateCurrentName]);
 
   return (
-    <Form
-      title="Create role form"
-      description="To create role you need to fill name field in this form."
-      className="create-roles-form m-2 p-2"
-    >
-      <NameFieldset
-        label="Enter role name"
-        placeholder="Enter role name..."
-        onChange={handleNameChange}
-        isValid={nameValidationResult.success}
-        validationErrors={nameValidationResult.errorMessages}
-      ></NameFieldset>
-      <NavigationButton className="btn-create w-40" to={routes.dashboard.roles} onClick={handleSubmit}>
-        Add role
-      </NavigationButton>
+    <Form className="role-form">
+      <FormContent>
+        <Title>Create role</Title>
+        <Description>To create role you need to fill name field. Name is required for role.</Description>
+        <hr />
+        <NameFieldset
+          label="Name*"
+          placeholder="Enter role name..."
+          onChange={handleNameChange}
+          isValid={nameValidationResult.success}
+          validationErrors={nameValidationResult.errorMessages}
+        ></NameFieldset>
+      </FormContent>
+      <FormFooter>
+        <Button className="button-primary w-30" type="button" onClick={handleSubmit}>
+          Create role
+        </Button>
+      </FormFooter>
     </Form>
   );
 };

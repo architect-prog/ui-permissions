@@ -1,21 +1,24 @@
 import React, { Suspense } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { DashboardRouter } from 'routers';
-import { Header, Page, Sidebar, Dashboard } from '..';
+import Dashboard from './Dashboard';
+import Header from './Header';
+import Page from './Page';
+import Sidebar from './Sidebar';
 
 const App: React.FC = () => {
   return (
     <div className="app">
-      <Header />
+      <Header></Header>
       <Dashboard>
         <Sidebar></Sidebar>
         <Page>
           <Suspense fallback={<div>Loading...</div>}>
-            <DashboardRouter />
+            <DashboardRouter></DashboardRouter>
           </Suspense>
         </Page>
       </Dashboard>
-      <ToastContainer />
+      <ToastContainer></ToastContainer>
     </div>
   );
 };

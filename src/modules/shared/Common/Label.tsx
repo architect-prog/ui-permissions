@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
-import { LabelProps } from 'types/frontend';
+import { WrapperProps } from 'types/frontend';
 
-const Label: React.FC<LabelProps> = ({ children, className }) => {
+const Label: React.FC<WrapperProps> = ({ children, className }) => {
   const labelClassName = classNames('label', className ?? '');
 
   return <label className={labelClassName}>{children}</label>;

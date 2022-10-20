@@ -1,11 +1,11 @@
 .page {
   display: flex;
   flex: 1 1 auto;
-  background-color: rgba(171, 172, 165, 0.81);
   width: 100%;
+  background-color: $page-background;
+  box-shadow: inset 0px 0px 20px -6px rgba(66, 68, 90, 1);
 }
 
 .page-content {
   width: 100%;
-  max-width: calc(1920px - 180px);
 }

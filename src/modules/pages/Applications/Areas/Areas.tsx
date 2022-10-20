@@ -5,7 +5,6 @@ import { Button, NavigationButton } from 'modules/shared';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { useParamNumber } from 'hooks';
 import { Link } from 'react-router-dom';
-
 const Areas: React.FC = () => {
   const applicationId = useParamNumber(params.applicationId);
   const { areasCollection, deleteArea } = useAreas(applicationId);
@@ -17,7 +16,11 @@ const Areas: React.FC = () => {
         <br /> You can create a area and add permissions to it, or copy an existing role and adjust its permissions.
       </p>
       <div className="d-flex justify-content-center mb-1">
-        <NavigationButton to={routes.dashboard.createArea(applicationId)} title="Create area" className="btn-create" />
+        <NavigationButton
+          to={routes.dashboard.createArea(applicationId)}
+          title="Create area"
+          className="button-primary"
+        ></NavigationButton>
       </div>
       <div className="d-flex justify-content-center">
         <table className="areas-table w-80 p-1">
@@ -36,14 +39,14 @@ const Areas: React.FC = () => {
                 </td>
                 <td>Currently there no counter for permissions</td>
                 <td>
-                  <NavigationButton to={routes.dashboard.updateArea(applicationId, area.id)} className="btn-update">
+                  <NavigationButton to={routes.dashboard.updateArea(applicationId, area.id)} className="button-warning">
                     <FaEdit />
                   </NavigationButton>
                   <Button
                     onClick={async () => {
                       await deleteArea(area.id);
                     }}
-                    className="btn-delete ml-2"
+                    className="button-danger ml-1"
                   >
                     <FaTrash />
                   </Button>

@@ -4,7 +4,12 @@ import { ValidationResult, Validator } from 'types/frontend';
 const useValidation = <T>(
   initialValue: T,
   ...validators: Validator<T>[]
-): [value: T, setValue: (updatedValue: T) => void, validationResult: ValidationResult] => {
+): [
+  value: T,
+  setValue: (updatedValue: T) => void,
+  validationResult: ValidationResult,
+  validateCurrent: () => ValidationResult,
+] => {
   const [value, setValue] = useState<T>(initialValue);
   const [validationResult, setValidationResult] = useState<ValidationResult>({ success: true, errorMessages: [] });
 
@@ -20,6 +25,13 @@ const useValidation = <T>(
     [validators],
   );
 
+  const validateCurrent = useCallback((): ValidationResult => {
+    const validationResult = validate(value);
+    setValidationResult(validationResult);
+
+    return validationResult;
+  }, [value, validate]);
+
   const setValidatedValue = useCallback(
     (updatedValue: T) => {
       const validationResult = validate(updatedValue);
@@ -30,7 +42,7 @@ const useValidation = <T>(
     [validate],
   );
 
-  return [value, setValidatedValue, validationResult];
+  return [value, setValidatedValue, validationResult, validateCurrent];
 };
 
 export default useValidation;

@@ -20,10 +20,10 @@ const Application: React.FC<ApplicationProps> = ({ id, name, description }) => {
         </div>
 
         <div className="card-footer d-flex justify-content-end mt-1">
-          <NavigationButton to={routes.dashboard.updateApplication(id)} className="btn-update">
+          <NavigationButton to={routes.dashboard.updateApplication(id)} className="button-warning">
             <FaEdit />
           </NavigationButton>
-          <Button onClick={async () => await deleteApplication(id)} className="btn-delete ml-1">
+          <Button onClick={async () => await deleteApplication(id)} className="button-danger ml-1">
             <FaTrash />
           </Button>
         </div>

@@ -1,28 +1,12 @@
-.base-button:hover,
-.base-button:focus {
-  color: #fff;
-  outline: 0;
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.admin-button {
-  background-color: $red;
-  &:hover {
-    box-shadow: 0 0 40px 40px red inset;
-  }
-}
-
-.adviser-button {
-  background-color: $orange;
-  &:hover {
-    box-shadow: 0 0 40px 40px orange inset;
-  }
-}
-
-.client-button {
-  background-color: $blue;
-  &:hover {
-    box-shadow: 0 0 40px 40px blue inset;
-  }
+.icon {
+  font-size: large;
+  display: block
 }
 
 .permissions-section {

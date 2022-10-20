@@ -54,7 +54,7 @@ const CreateApplicationForm: React.FC = () => {
         placeholder={'Enter description'}
         onChange={handleDescriptionChange}
       ></DescriptionFieldset>
-      <NavigationButton to={routes.dashboard.applications} onClick={handleSubmit} className="btn-create w-40">
+      <NavigationButton to={routes.dashboard.applications} onClick={handleSubmit} className="button-primary w-40">
         Create
       </NavigationButton>
     </Form>

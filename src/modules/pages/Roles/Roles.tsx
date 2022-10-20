@@ -1,26 +1,34 @@
 import React from 'react';
-import { NavigationButton } from 'modules/shared';
+import { ButtonContent, Description, NavigationButton, Title } from 'modules/shared';
 import { routes } from 'appConstants';
 import { useRoles } from 'hooks';
 import Role from './Role';
+import { BsShieldFillPlus } from 'react-icons/bs';
 
 const Roles: React.FC = () => {
   const { rolesCollection } = useRoles();
 
   return (
-    <div className="roles p-2">
-      <h3 className="mb-05">Roles Page</h3>
-      <div className="roles-description mb-1">
-        A role is a group of permissions that you can assign to principals.
+    <div className="role-page">
+      <Title>Roles:</Title>
+      <Description>
+        A role is a group of permissions for specific application area.
         <br />
-        You can create a role and add permissions to it, or copy an existing role and adjust its permissions.
-      </div>
-      <div className="d-flex justify-content-center mb-1">
-        <NavigationButton to={routes.dashboard.createRole} title="Create role" className="btn-create" />
-      </div>
-      <div className="d-flex justify-content-center">
-        <table className="roles-table w-80 p-1">
-          <thead>
+        You can create/update a role and add permissions to it, or update existing permissions.
+        <br />
+        When you create a role, default permissions are automatically created for all application areas.
+        <br />
+        You can see list of existing roles in list below.
+      </Description>
+      <NavigationButton className="button-primary" to={routes.dashboard.createRole} title="Create role">
+        <ButtonContent>
+          Create role <BsShieldFillPlus className="icon ml-03" />
+        </ButtonContent>
+      </NavigationButton>
+      <hr />
+      <div className="mt-1">
+        <table className="roles">
+          <thead className="roles-header">
             <tr>
               <th className="text-align-left">Name</th>
               <th className="text-align-left">Actions</th>

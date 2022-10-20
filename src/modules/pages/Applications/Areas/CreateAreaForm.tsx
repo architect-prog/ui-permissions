@@ -45,7 +45,11 @@ const CreateAreaForm: React.FC = () => {
         isValid={nameValidationResult.success}
         validationErrors={nameValidationResult.errorMessages}
       ></NameFieldset>
-      <NavigationButton to={routes.dashboard.areas(applicationId)} onClick={handleSubmit} className="btn-create w-40">
+      <NavigationButton
+        to={routes.dashboard.areas(applicationId)}
+        onClick={handleSubmit}
+        className="button-primary w-40"
+      >
         Create
       </NavigationButton>
     </Form>

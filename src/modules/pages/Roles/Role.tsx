@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import { routes } from 'appConstants';
-import { Button, NavigationButton } from 'modules/shared';
-import { FaEdit, FaTrash } from 'react-icons/fa';
 import { useRoles } from 'hooks';
 import { RoleProps } from 'types/frontend';
+import { Button, ButtonContent, NavigationButton } from 'modules/shared';
+import { RiEdit2Fill, RiDeleteBin2Fill } from 'react-icons/ri';
 
 const Role: React.FC<RoleProps> = ({ id, name }) => {
   const { deleteRole } = useRoles();
@@ -13,14 +13,18 @@ const Role: React.FC<RoleProps> = ({ id, name }) => {
   }, [deleteRole, id]);
 
   return (
-    <tr>
+    <tr className="role">
       <td>{name}</td>
       <td>
-        <NavigationButton to={routes.dashboard.updateRole(id)} className="btn-update">
-          <FaEdit />
+        <NavigationButton className="button-warning" to={routes.dashboard.updateRole(id)}>
+          <ButtonContent>
+            Update role <RiEdit2Fill className="icon ml-03" />
+          </ButtonContent>
         </NavigationButton>
-        <Button onClick={handleDelete} className="btn-delete ml-2">
-          <FaTrash />
+        <Button className="button-danger ml-05" onClick={handleDelete}>
+          <ButtonContent>
+            Delete role <RiDeleteBin2Fill className="icon ml-03" />
+          </ButtonContent>
         </Button>
       </td>
     </tr>
