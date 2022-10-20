@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CheckboxProps } from 'types/frontend';
 
-const Checkbox: React.FC<CheckboxProps> = ({ value, label, onChange }) => {
+const Checkbox: React.FC<CheckboxProps> = ({ id, value, label, onChange }) => {
   const [checked, setChecked] = useState<boolean>(value);
-
+  useEffect(() => {
+    setChecked(value);
+  }, [value, id]);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.target.checked;
     setChecked(checked);
