@@ -5,3 +5,30 @@
   border: 1px solid $border-color;
   background-color: $sidebar-background;
 }
+
+.navbar {
+  width: 180px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.navbar-item-link {
+  width: 100%;
+  height: 100%;
+  color: $secondary;
+  background-color: $sidebar-background;
+  border-radius: 0 !important;
+  padding: 1rem !important;
+  outline: none;
+
+  &:hover {
+    color: $primary;
+    background-color: $sidebar-hover-background;
+  }
+
+  &-active {
+    color: $primary;
+  }
+}

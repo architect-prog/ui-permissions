@@ -3,7 +3,7 @@ export * from './ValidationResult';
 export * from './CollectionExtensions';
 
 export * from './props/NavigationButtonProps';
-export * from './props/NavbarItemProps';
+export * from './props/NavbarLinkProps';
 export * from './props/CheckboxProps';
 export * from './props/ButtonProps';
 export * from './props/ButtonContentProps';
