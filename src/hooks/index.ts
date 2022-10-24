@@ -1,7 +1,10 @@
 export { default as useApiErrorHandling } from './common/useApiErrorHandling';
 export { default as useParamNumber } from './common/useParamNumber';
 export { default as useValidation } from './common/useValidation';
-export { default as useApplications } from './applications/useApplications';
-export { default as useAreas } from './areas/useAreas';
-export { default as useRoles } from './roles/useRoles';
 export { default as usePermissionCollection } from './permissions/usePermissionCollection';
+export { default as useApplication } from './applications/useApplication';
+export { default as useApplications } from './applications/useApplications';
+export { default as useArea } from './areas/useArea';
+export { default as useAreas } from './areas/useAreas';
+export { default as useRole } from './roles/useRole';
+export { default as useRoles } from './roles/useRoles';

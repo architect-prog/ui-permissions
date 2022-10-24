@@ -8,6 +8,25 @@ import { BsShieldFillPlus } from 'react-icons/bs';
 const Roles: React.FC = () => {
   const { rolesCollection } = useRoles();
 
+  const roles =
+    rolesCollection.items.length == 0 ? (
+      <div className="text-md">There are no created roles yet</div>
+    ) : (
+      <table className="roles">
+        <thead className="roles-header">
+          <tr>
+            <th className="text-align-left">Name</th>
+            <th className="text-align-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rolesCollection.items.map((x) => (
+            <Role key={x.id} id={x.id} name={x.name}></Role>
+          ))}
+        </tbody>
+      </table>
+    );
+
   return (
     <div className="role-page">
       <Title>Roles:</Title>
@@ -26,19 +45,7 @@ const Roles: React.FC = () => {
         </ButtonContent>
       </NavigationButton>
       <hr />
-      <table className="roles">
-        <thead className="roles-header">
-          <tr>
-            <th className="text-align-left">Name</th>
-            <th className="text-align-left">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rolesCollection.items.map((x) => (
-            <Role key={x.id} id={x.id} name={x.name}></Role>
-          ))}
-        </tbody>
-      </table>
+      {roles}
     </div>
   );
 };

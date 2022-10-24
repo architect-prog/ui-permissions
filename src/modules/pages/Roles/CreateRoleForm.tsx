@@ -2,36 +2,31 @@ import React, { useCallback } from 'react';
 import { CreateRoleRequest } from 'types/api';
 import { useRoles, useValidation } from 'hooks';
 import { NameFieldset } from 'modules/fieldset';
-import { validatorFactory } from 'utils';
-import { nonEmptyValidation } from 'validation';
+import { toaster, validatorFactory } from 'utils';
+import { containsData, required } from 'validation';
 import { routes } from 'appConstants';
 import { useNavigate } from 'react-router';
-import { Button, Description, Form, FormContent, FormFooter, Title } from 'modules/shared';
+import { Description, Form, FormContent, FormFooter, SubmitButton, Title } from 'modules/shared';
 
 const CreateRoleForm: React.FC = () => {
   const navigate = useNavigate();
   const { createRole } = useRoles();
-  const [name, setName, nameValidationResult, validateCurrentName] = useValidation<string>(
+  const [name, setName, validationResult, validateName] = useValidation<string>(
     '',
-    validatorFactory.create('Please provide a role name.', nonEmptyValidation),
+    validatorFactory.create('Role name is required!', required),
+    validatorFactory.create('Role name should contain not only whitespace characters!', containsData),
   );
 
-  const handleNameChange = (name: string) => {
-    setName(name);
-  };
-
   const handleSubmit = useCallback(async () => {
-    const result = validateCurrentName();
-    if (result.success) {
-      const request: CreateRoleRequest = {
-        name: name,
-      };
+    const request: CreateRoleRequest = {
+      name: name,
+    };
 
-      if (await createRole(request)) {
-        navigate(routes.dashboard.roles);
-      }
+    if (await createRole(request)) {
+      navigate(routes.dashboard.roles);
+      toaster.success('Role successfully created!');
     }
-  }, [name, createRole, navigate, validateCurrentName]);
+  }, [name, createRole, navigate]);
 
   return (
     <Form className="role-form">
@@ -40,17 +35,18 @@ const CreateRoleForm: React.FC = () => {
         <Description>To create role you need to fill name field. Name is required for role.</Description>
         <hr />
         <NameFieldset
+          value={name}
           label="Name*"
           placeholder="Enter role name..."
-          onChange={handleNameChange}
-          isValid={nameValidationResult.success}
-          validationErrors={nameValidationResult.errorMessages}
+          onChange={setName}
+          isValid={validationResult.success}
+          validationErrors={validationResult.errorMessages}
         ></NameFieldset>
       </FormContent>
       <FormFooter>
-        <Button className="button-primary w-30" type="button" onClick={handleSubmit}>
+        <SubmitButton onSubmit={handleSubmit} validationChecks={[() => validateName(name)]}>
           Create role
-        </Button>
+        </SubmitButton>
       </FormFooter>
     </Form>
   );

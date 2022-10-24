@@ -1,40 +1,35 @@
 import React, { useCallback } from 'react';
 import { params, routes } from 'appConstants';
-import { useAreas, useParamNumber, useValidation } from 'hooks';
+import { useArea, useAreas, useParamNumber, useValidation } from 'hooks';
 import { NameFieldset } from 'modules/fieldset';
-import { UpdateAreaRequest } from 'types/api';
-import { validatorFactory } from 'utils';
-import { nonEmptyValidation } from 'validation';
-import { Button, Description, Form, FormContent, FormFooter, Title } from 'modules/shared';
 import { useNavigate } from 'react-router';
+import { containsData, required } from 'validation';
+import { toaster, validatorFactory } from 'utils';
+import { Description, Form, FormContent, FormFooter, SubmitButton, Title } from 'modules/shared';
 
 const UpdateAreaForm: React.FC = () => {
+  const navigate = useNavigate();
   const areaId = useParamNumber(params.areaId);
   const applicationId = useParamNumber(params.applicationId);
-  const navigate = useNavigate();
   const { updateArea } = useAreas(applicationId);
-  const [name, setName, nameValidationResult, validateCurrentName] = useValidation<string>(
+  const [name, setName, nameValidationResult, validateName] = useValidation<string>(
     '',
-    validatorFactory.create('Please provide an area name.', nonEmptyValidation),
+    validatorFactory.create('Area name is required!', required),
+    validatorFactory.create('Area name should contain not only whitespace characters!', containsData),
   );
 
-  const handleNameChange = (name: string) => {
-    setName(name);
-  };
+  useArea(applicationId, areaId, (x) => {
+    setName(x.name);
+  });
 
   const handleSubmit = useCallback(async () => {
-    const result = validateCurrentName();
-    if (result.success) {
-      const request: UpdateAreaRequest = {
-        name: name,
-        applicationId: applicationId,
-      };
+    const request = { name: name, applicationId: applicationId };
 
-      if (await updateArea(areaId, request)) {
-        navigate(routes.dashboard.areas(applicationId));
-      }
+    if (await updateArea(areaId, request)) {
+      navigate(routes.dashboard.areas(applicationId));
+      toaster.success('Area successfully updated!');
     }
-  }, [applicationId, areaId, name, navigate, updateArea, validateCurrentName]);
+  }, [applicationId, areaId, name, navigate, updateArea]);
 
   return (
     <Form className="area-form">
@@ -43,17 +38,18 @@ const UpdateAreaForm: React.FC = () => {
         <Description>To update area you need to fill name field. Name is required for area.</Description>
         <hr />
         <NameFieldset
+          value={name}
           label="Name*"
           placeholder="Enter area name..."
-          onChange={handleNameChange}
+          onChange={setName}
           isValid={nameValidationResult.success}
           validationErrors={nameValidationResult.errorMessages}
         ></NameFieldset>
       </FormContent>
       <FormFooter>
-        <Button className="button-warning w-30" type="button" onClick={handleSubmit}>
+        <SubmitButton onSubmit={handleSubmit} validationChecks={[() => validateName(name)]}>
           Update area
-        </Button>
+        </SubmitButton>
       </FormFooter>
     </Form>
   );

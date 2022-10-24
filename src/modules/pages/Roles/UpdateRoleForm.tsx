@@ -1,38 +1,34 @@
 import React, { useCallback } from 'react';
 import { params, routes } from 'appConstants';
-import { UpdateRoleRequest } from 'types/api';
 import { NameFieldset } from 'modules/fieldset';
-import { nonEmptyValidation } from 'validation';
-import { validatorFactory } from 'utils';
+import { toaster, validatorFactory } from 'utils';
 import { useNavigate } from 'react-router';
-import { useParamNumber, useRoles, useValidation } from 'hooks';
-import { Button, Description, Form, FormContent, FormFooter, Title } from 'modules/shared';
+import { useParamNumber, useRole, useRoles, useValidation } from 'hooks';
+import { Description, Form, FormContent, FormFooter, SubmitButton, Title } from 'modules/shared';
+import { containsData, required } from 'validation';
 
 const UpdateRoleForm: React.FC = () => {
-  const { updateRole } = useRoles();
   const navigate = useNavigate();
   const roleId = useParamNumber(params.roleId);
-  const [name, setName, nameValidationResult, validateCurrentName] = useValidation<string>(
+  const { updateRole } = useRoles();
+
+  const [name, setName, validationResult, validateName] = useValidation<string>(
     '',
-    validatorFactory.create('Please provide a role name.', nonEmptyValidation),
+    validatorFactory.create('Role name is required!', required),
+    validatorFactory.create('Role name should contain not only whitespace characters!', containsData),
   );
 
-  const handleNameChange = (name: string) => {
-    setName(name);
-  };
+  useRole(roleId, (x) => {
+    setName(x.name);
+  });
 
   const handleSubmit = useCallback(async () => {
-    const result = validateCurrentName();
-    if (result.success) {
-      const request: UpdateRoleRequest = {
-        name: name,
-      };
-
-      if (await updateRole(roleId, request)) {
-        navigate(routes.dashboard.roles);
-      }
+    const request = { name: name };
+    if (await updateRole(roleId, request)) {
+      navigate(routes.dashboard.roles);
+      toaster.success('Role successfully updated!');
     }
-  }, [roleId, name, updateRole, navigate, validateCurrentName]);
+  }, [roleId, name, updateRole, navigate]);
 
   return (
     <Form className="role-form">
@@ -41,17 +37,18 @@ const UpdateRoleForm: React.FC = () => {
         <Description>To update role you need to fill name field. Name is required for role.</Description>
         <hr />
         <NameFieldset
+          value={name}
           label="Name*"
           placeholder="Enter role name..."
-          onChange={handleNameChange}
-          isValid={nameValidationResult.success}
-          validationErrors={nameValidationResult.errorMessages}
+          onChange={setName}
+          isValid={validationResult.success}
+          validationErrors={validationResult.errorMessages}
         ></NameFieldset>
       </FormContent>
       <FormFooter>
-        <Button className="button-warning w-30" type="button" onClick={handleSubmit}>
+        <SubmitButton onSubmit={handleSubmit} validationChecks={[() => validateName(name)]}>
           Update role
-        </Button>
+        </SubmitButton>
       </FormFooter>
     </Form>
   );

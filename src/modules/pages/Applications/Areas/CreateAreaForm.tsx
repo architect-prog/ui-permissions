@@ -1,39 +1,30 @@
 import React, { useCallback } from 'react';
 import { params, routes } from 'appConstants';
-import { useAreas, useParamNumber, useValidation } from 'hooks';
-import { CreateAreaRequest } from 'types/api';
 import { NameFieldset } from 'modules/fieldset';
-import { validatorFactory } from 'utils';
-import { nonEmptyValidation } from 'validation';
+import { toaster, validatorFactory } from 'utils';
 import { useNavigate } from 'react-router';
-import { Button, Description, Form, FormContent, FormFooter, Title } from 'modules/shared';
+import { containsData, required } from 'validation';
+import { useAreas, useParamNumber, useValidation } from 'hooks';
+import { Description, Form, FormContent, FormFooter, SubmitButton, Title } from 'modules/shared';
 
 const CreateAreaForm: React.FC = () => {
   const navigate = useNavigate();
   const applicationId = useParamNumber(params.applicationId);
   const { createArea } = useAreas(applicationId);
-  const [name, setName, nameValidationResult, validateCurrentName] = useValidation<string>(
+  const [name, setName, nameValidationResult, validateName] = useValidation<string>(
     '',
-    validatorFactory.create('Please provide an area name.', nonEmptyValidation),
+    validatorFactory.create('Area name is required!', required),
+    validatorFactory.create('Area name should contain not only whitespace characters!', containsData),
   );
 
-  const handleNameChange = (name: string) => {
-    setName(name);
-  };
-
   const handleSubmit = useCallback(async () => {
-    const result = validateCurrentName();
-    if (result.success) {
-      const request: CreateAreaRequest = {
-        name: name,
-        applicationId: applicationId,
-      };
+    const request = { name: name, applicationId: applicationId };
 
-      if (await createArea(request)) {
-        navigate(routes.dashboard.areas(applicationId));
-      }
+    if (await createArea(request)) {
+      navigate(routes.dashboard.areas(applicationId));
+      toaster.success('Area successfully created!');
     }
-  }, [name, applicationId, createArea, validateCurrentName, navigate]);
+  }, [name, applicationId, createArea, navigate]);
 
   return (
     <Form className="area-form">
@@ -42,17 +33,18 @@ const CreateAreaForm: React.FC = () => {
         <Description>To create area you need to fill name field. Name is required for area.</Description>
         <hr />
         <NameFieldset
+          value={name}
           label="Name*"
           placeholder="Enter area name..."
-          onChange={handleNameChange}
+          onChange={setName}
           isValid={nameValidationResult.success}
           validationErrors={nameValidationResult.errorMessages}
         ></NameFieldset>
       </FormContent>
       <FormFooter>
-        <Button className="button-primary w-30" type="button" onClick={handleSubmit}>
+        <SubmitButton onSubmit={handleSubmit} validationChecks={[() => validateName(name)]}>
           Create area
-        </Button>
+        </SubmitButton>
       </FormFooter>
     </Form>
   );

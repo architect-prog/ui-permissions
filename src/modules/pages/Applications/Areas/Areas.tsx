@@ -1,24 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { params, routes } from 'appConstants';
-import { useAreas } from 'hooks';
+import { useApplication, useAreas } from 'hooks';
 import { ButtonContent, Description, NavigationButton, Title } from 'modules/shared';
 import { useParamNumber } from 'hooks';
 import { BiLayerPlus } from 'react-icons/bi';
+import { ApplicationResponse } from 'types/api';
 import Area from './Area';
 
 const Areas: React.FC = () => {
   const applicationId = useParamNumber(params.applicationId);
   const { areasCollection } = useAreas(applicationId);
+  const [application, setApplication] = useState<ApplicationResponse>();
+
+  useApplication(applicationId, (x) => {
+    setApplication(x);
+  });
+
+  const areas =
+    areasCollection.items.length == 0 ? (
+      <div className="text-md">This application has no areas yet</div>
+    ) : (
+      <table className="areas">
+        <thead className="roles-header">
+          <tr>
+            <th className="text-align-left">Name</th>
+            <th className="text-align-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {areasCollection.items.map((area) => (
+            <Area key={area.id} id={area.id} applicationId={area.applicationId} name={area.name}></Area>
+          ))}
+        </tbody>
+      </table>
+    );
 
   return (
     <div className="area-page">
       <Title>Application info:</Title>
       <Description>
-        Application id: xxx.
+        <b>ApplicationId:</b> {application?.id}
         <br />
-        Application: xxxxxxxx.
+        <b>Application:</b> {application?.name}
         <br />
-        Description: xxxxxxxxxxxxxxxxxxx.
+        <b>Description:</b> {application?.description}
       </Description>
       <Title>Areas:</Title>
       <Description>
@@ -36,19 +61,7 @@ const Areas: React.FC = () => {
         </ButtonContent>
       </NavigationButton>
       <hr />
-      <table className="areas">
-        <thead className="roles-header">
-          <tr>
-            <th className="text-align-left">Name</th>
-            <th className="text-align-left">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {areasCollection.items.map((area) => (
-            <Area key={area.id} id={area.id} applicationId={area.applicationId} name={area.name}></Area>
-          ))}
-        </tbody>
-      </table>
+      {areas}
     </div>
   );
 };

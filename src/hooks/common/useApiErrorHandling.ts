@@ -10,9 +10,9 @@ const useApiErrorHandling = (): ApiErrorHandlingActions => {
 
   const handleApiError = useCallback(
     (error: ApiError) => {
-      const statusCodePage = statusCodePages.find((x) => x.statusCode === error.statusCode);
+      const statusCodePage = statusCodePages[error.statusCode];
       if (statusCodePage) {
-        navigate(statusCodePage.path);
+        navigate(statusCodePage);
         return;
       }
 

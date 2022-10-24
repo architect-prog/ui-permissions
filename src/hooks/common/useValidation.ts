@@ -8,12 +8,12 @@ const useValidation = <T>(
   value: T,
   setValue: (updatedValue: T) => void,
   validationResult: ValidationResult,
-  validateCurrent: () => ValidationResult,
+  validate: (updatedValue: T) => ValidationResult,
 ] => {
   const [value, setValue] = useState<T>(initialValue);
   const [validationResult, setValidationResult] = useState<ValidationResult>({ success: true, errorMessages: [] });
 
-  const validate = useCallback(
+  const getValidationResult = useCallback(
     (updatedValue: T): ValidationResult => {
       const errorMessages = validators.filter((x) => !x.validationFunction(updatedValue)).map((x) => x.errorMessage);
 
@@ -25,24 +25,27 @@ const useValidation = <T>(
     [validators],
   );
 
-  const validateCurrent = useCallback((): ValidationResult => {
-    const validationResult = validate(value);
-    setValidationResult(validationResult);
+  const validate = useCallback(
+    (updatedValue: T): ValidationResult => {
+      const result = getValidationResult(updatedValue);
+      setValidationResult(result);
 
-    return validationResult;
-  }, [value, validate]);
+      return result;
+    },
+    [getValidationResult],
+  );
 
   const setValidatedValue = useCallback(
     (updatedValue: T) => {
-      const validationResult = validate(updatedValue);
+      const result = getValidationResult(updatedValue);
 
+      setValidationResult(result);
       setValue(updatedValue);
-      setValidationResult(validationResult);
     },
-    [validate],
+    [getValidationResult],
   );
 
-  return [value, setValidatedValue, validationResult, validateCurrent];
+  return [value, setValidatedValue, validationResult, validate];
 };
 
 export default useValidation;

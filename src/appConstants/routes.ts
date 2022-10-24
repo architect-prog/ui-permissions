@@ -1,4 +1,3 @@
-import { StatusCodePage } from 'types/frontend';
 import { controllers } from './controllers';
 import { operations } from './operations';
 import { params } from './params';
@@ -33,18 +32,12 @@ export const routes = Object.freeze({
     updateRole: (roleId: param = `:${params.roleId}`) => `/${controllers.roles}/${roleId}/${operations.update}`,
 
     /* Errors */
-    notFoundError: '*',
-    internalServerError: '*',
+    notFoundError: '/notFound',
+    internalServerError: '/internalServerError',
   },
 });
 
-export const statusCodePages: StatusCodePage[] = [
-  {
-    path: routes.dashboard.notFoundError,
-    statusCode: 404,
-  },
-  {
-    path: routes.dashboard.internalServerError,
-    statusCode: 500,
-  },
-];
+export const statusCodePages: { [key: number]: string } = {
+  404: routes.dashboard.notFoundError,
+  500: routes.dashboard.internalServerError,
+};

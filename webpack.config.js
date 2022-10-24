@@ -140,7 +140,7 @@ const configureRules = () => {
 const configureCopyPluginPatterns = () => {
   const patterns = [
     {
-      from: path.resolve(__dirname, 'src/assets/static/favicon.ico'),
+      from: path.resolve(__dirname, 'src/assets/static/favicon.png'),
       to: path.resolve(__dirname, 'dist'),
     },
     {
@@ -183,9 +183,7 @@ module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: process.env.NODE_ENV,
   entry: {
-    app: isDev
-      ? ['core-js/stable', './index.tsx', './importDevAssets.tsx']
-      : ['core-js/stable', './index.tsx'],
+    app: isDev ? ['core-js/stable', './index.tsx', './importDevAssets.tsx'] : ['core-js/stable', './index.tsx'],
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],

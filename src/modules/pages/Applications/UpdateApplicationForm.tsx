@@ -1,46 +1,36 @@
 import React, { useCallback, useState } from 'react';
-import { useApplications, useValidation } from 'hooks';
-import { UpdateApplicationRequest } from 'types/api';
 import { params, routes } from 'appConstants';
 import { useParamNumber } from 'hooks';
 import { DescriptionFieldset, NameFieldset } from 'modules/fieldset';
-import { nonEmptyValidation } from 'validation';
-import { validatorFactory } from 'utils';
+import { containsData, required } from 'validation';
+import { toaster, validatorFactory } from 'utils';
 import { useNavigate } from 'react-router';
-import { Button, Description, Form, FormContent, FormFooter, Title } from 'modules/shared';
+import { useApplication, useApplications, useValidation } from 'hooks';
+import { Description, Form, FormContent, FormFooter, SubmitButton, Title } from 'modules/shared';
 
 const UpdateApplicationForm: React.FC = () => {
-  const applicationId = useParamNumber(params.applicationId);
-
   const navigate = useNavigate();
+  const applicationId = useParamNumber(params.applicationId);
   const { updateApplication } = useApplications();
   const [description, setDescription] = useState<string>('');
-  const [name, setName, nameValidationResult, validateCurrentName] = useValidation<string>(
+  const [name, setName, nameValidationResult, validateName] = useValidation<string>(
     '',
-    validatorFactory.create('Please provide an application name.', nonEmptyValidation),
+    validatorFactory.create('Application name is required!', required),
+    validatorFactory.create('Application name should contain not only whitespace characters!', containsData),
   );
 
-  const handleNameChange = (name: string) => {
-    setName(name);
-  };
-
-  const handleDescriptionChange = (description: string) => {
-    setDescription(description);
-  };
+  useApplication(applicationId, (x) => {
+    setName(x.name);
+    setDescription(x.description ?? '');
+  });
 
   const handleSubmit = useCallback(async () => {
-    const result = validateCurrentName();
-    if (result.success) {
-      const request: UpdateApplicationRequest = {
-        name: name,
-        description: description,
-      };
-
-      if (await updateApplication(applicationId, request)) {
-        navigate(routes.dashboard.applications);
-      }
+    const request = { name: name, description: description };
+    if (await updateApplication(applicationId, request)) {
+      navigate(routes.dashboard.applications);
+      toaster.success('Application successfully updated!');
     }
-  }, [applicationId, name, description, updateApplication, validateCurrentName, navigate]);
+  }, [applicationId, name, description, updateApplication, navigate]);
 
   return (
     <Form className="application-form">
@@ -49,23 +39,24 @@ const UpdateApplicationForm: React.FC = () => {
         <Description>To update application you need to fill name field below.</Description>
         <hr />
         <NameFieldset
+          value={name}
           label="Name*"
           placeholder="Enter application name..."
-          onChange={handleNameChange}
+          onChange={setName}
           isValid={nameValidationResult.success}
           validationErrors={nameValidationResult.errorMessages}
         ></NameFieldset>
-        <div className="mt-1"></div>
         <DescriptionFieldset
+          value={description}
           label="Description"
           placeholder="Enter application description..."
-          onChange={handleDescriptionChange}
+          onChange={setDescription}
         ></DescriptionFieldset>
       </FormContent>
       <FormFooter>
-        <Button className="button-warning w-30" type="button" onClick={handleSubmit}>
+        <SubmitButton onSubmit={handleSubmit} validationChecks={[() => validateName(name)]}>
           Update application
-        </Button>
+        </SubmitButton>
       </FormFooter>
     </Form>
   );

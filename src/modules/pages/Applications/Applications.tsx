@@ -8,6 +8,22 @@ import { HiSquaresPlus } from 'react-icons/hi2';
 const Applications: React.FC = () => {
   const { applicationsCollection } = useApplications();
 
+  const applications =
+    applicationsCollection.items.length == 0 ? (
+      <div className="text-md">There are no created applications yet</div>
+    ) : (
+      <div className="applications">
+        {applicationsCollection.items.map((application) => (
+          <Application
+            key={application.id}
+            description={application.description}
+            name={application.name}
+            id={application.id}
+          />
+        ))}
+      </div>
+    );
+
   return (
     <div className="application-page">
       <Title>Applications:</Title>
@@ -24,16 +40,7 @@ const Applications: React.FC = () => {
         </ButtonContent>
       </NavigationButton>
       <hr />
-      <div className="applications">
-        {applicationsCollection.items.map((application) => (
-          <Application
-            key={application.id}
-            description={application.description}
-            name={application.name}
-            id={application.id}
-          />
-        ))}
-      </div>
+      {applications}
     </div>
   );
 };
