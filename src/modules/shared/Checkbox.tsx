@@ -1,4 +1,5 @@
 import React from 'react';
+import { input } from 'appConstants';
 import { CheckboxProps } from 'types/frontend';
 
 const Checkbox: React.FC<CheckboxProps> = ({ id, value, label, onChange }) => {
@@ -12,7 +13,7 @@ const Checkbox: React.FC<CheckboxProps> = ({ id, value, label, onChange }) => {
   return (
     <div className="checkbox-wrapper">
       <label>
-        <input id={id} type="checkbox" onChange={handleChange} checked={value} />
+        <input id={id} type={input.checkbox} onChange={handleChange} checked={value} />
         {label}
       </label>
     </div>
