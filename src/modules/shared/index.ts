@@ -10,3 +10,4 @@ export { default as SubmitButton } from './SubmitButton';
 export { default as NavigationButton } from './NavigationButton';
 export { default as Label } from './Common/Label';
 export { default as TextArea } from './TextArea';
+export { default as Spinner } from './Spinner';

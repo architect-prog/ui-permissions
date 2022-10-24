@@ -1,3 +1,4 @@
+import { Spinner } from 'modules/shared';
 import React, { Suspense } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { DashboardRouter } from 'routers';
@@ -13,7 +14,7 @@ const App: React.FC = () => {
       <Dashboard>
         <Sidebar></Sidebar>
         <Page>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Spinner />}>
             <DashboardRouter></DashboardRouter>
           </Suspense>
         </Page>

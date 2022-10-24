@@ -2,8 +2,8 @@ import React from 'react';
 import Application from './Application';
 import { routes } from 'appConstants';
 import { useApplications } from 'hooks';
-import { ButtonContent, Description, NavigationButton, Title } from 'modules/shared';
 import { HiSquaresPlus } from 'react-icons/hi2';
+import { ButtonContent, Description, NavigationButton, Title } from 'modules/shared';
 
 const Applications: React.FC = () => {
   const { applicationsCollection } = useApplications();
