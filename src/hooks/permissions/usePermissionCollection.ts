@@ -12,22 +12,30 @@ const usePermissionCollection = (areaId: number): PermissionCollectionActions =>
   const { handleApiError } = useApiErrorHandling();
   const { rolesCollection } = useRoles();
   const [role, setRole] = useState<RoleResponse>();
+  const [nextRole, setNextRole] = useState<RoleResponse>();
   const [query, setQuery] = useState<PermissionsQuery>();
+  const [permissionCollectionState, setPermissionCollectionState] = useState<
+    PermissionCollectionResponse | undefined
+  >();
+  const [permissionCollection, setPermissionCollection] = useRecoilState(permissionsAtom(query));
 
   useEffect(() => {
     if (!role) {
       const fetchedRole = rolesCollection.items[0];
       setRole(fetchedRole);
+      setNextRole(fetchedRole);
       const newQuery: PermissionsQuery = { areaIds: [areaId], roleIds: [fetchedRole.id] };
       setQuery(newQuery);
       return;
     }
-  }, [areaId, role, rolesCollection.items]);
-
-  const [permissionCollection, setPermissionCollection] = useRecoilState(permissionsAtom(query));
-  const [permissionCollectionState, setPermissionCollectionState] = useState<PermissionCollectionResponse | undefined>(
-    permissionCollection,
-  );
+    if (role.id !== nextRole?.id) {
+      setRole(nextRole);
+      setPermissionCollectionState(permissionCollection);
+    }
+    if (!permissionCollectionState) {
+      setPermissionCollectionState(permissionCollection);
+    }
+  }, [areaId, nextRole, permissionCollection, permissionCollectionState, role, rolesCollection.items]);
 
   const updatePermissionCollection = useCallback(
     async (request: UpdatePermissionRequest) => {
@@ -58,20 +66,22 @@ const usePermissionCollection = (areaId: number): PermissionCollectionActions =>
       roleId: permissionCollectionState?.roleId ?? 0,
       customPermissions: [...customPermissions],
     };
-
     const index = newPermissionCollectionState.customPermissions.findIndex((permission) => permission.name == label);
+    console.log('checked', checked, label, index);
     newPermissionCollectionState.customPermissions[index] = {
       name: customPermissions[index].name,
       haveAccess: checked,
       isDefault: customPermissions[index].isDefault,
     };
+    console.log(newPermissionCollectionState.customPermissions[index]);
+
     setPermissionCollectionState(newPermissionCollectionState);
   };
 
   const onChangeRole = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const roleId = +e.target.value;
     const roleItem = rolesCollection.items.find((t) => t.id == roleId);
-    setRole(roleItem);
+    setNextRole(roleItem);
     const newQuery: PermissionsQuery = {
       areaIds: [areaId],
       roleIds: !roleItem?.id ? [] : [roleItem.id],
@@ -106,7 +116,7 @@ const usePermissionCollection = (areaId: number): PermissionCollectionActions =>
     onChangeRole: onChangeRole,
     role: role,
     // deletePermission: deletePermission,
-    permissionCollection: permissionCollection,
+    permissionCollection: permissionCollectionState,
   };
 };
 

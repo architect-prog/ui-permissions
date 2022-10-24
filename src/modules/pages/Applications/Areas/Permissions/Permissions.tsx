@@ -15,7 +15,7 @@ const Permissions: React.FC = () => {
     usePermissionCollection(areaId);
   const mappedCheckboxes = permissionCollection?.customPermissions.map((customPermission) => (
     <Checkbox
-      key={customPermission.name}
+      key={`${role?.id}-${customPermission.name}`}
       onChange={(checked) => onChecked(customPermission.name, checked)}
       value={customPermission.haveAccess}
       label={customPermission.name}
