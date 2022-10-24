@@ -7,6 +7,8 @@ import CreateRoleForm from 'modules/pages/Roles/CreateRoleForm';
 import CreateApplicationForm from 'modules/pages/Applications/CreateApplicationForm';
 import UpdateApplicationForm from 'modules/pages/Applications/UpdateApplicationForm';
 import AreaDetails from 'modules/pages/Applications/Areas/AreaDetails';
+import NotFound from 'modules/pages/Common/NotFound';
+import InternalServerError from 'modules/pages/Common/InternalServerError';
 
 const DashboardRouter: React.FC = () => {
   return (
@@ -26,7 +28,8 @@ const DashboardRouter: React.FC = () => {
       <Route path={routes.dashboard.area()} element={<AreaDetails />} />
       <Route path={routes.dashboard.createArea()} element={<CreateAreaForm />} />
       <Route path={routes.dashboard.updateArea()} element={<UpdateAreaForm />} />
-      <Route path={routes.dashboard.notFoundError} element={<>error</>} />
+      <Route path={routes.dashboard.notFoundError} element={<NotFound />} />
+      <Route path={routes.dashboard.internalServerError} element={<InternalServerError />} />
     </Routes>
   );
 };
