@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { CheckboxProps } from 'types/frontend';
 
 const Checkbox: React.FC<CheckboxProps> = ({ id, value, label, onChange }) => {
-  const [checked, setChecked] = useState<boolean>(value);
-  useEffect(() => {
-    setChecked(value);
-  }, [value, id]);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.target.checked;
-    setChecked(checked);
     if (onChange) {
       onChange(checked);
     }
@@ -17,7 +12,7 @@ const Checkbox: React.FC<CheckboxProps> = ({ id, value, label, onChange }) => {
   return (
     <div className="checkbox-wrapper">
       <label>
-        <input type="checkbox" onChange={handleChange} checked={checked} />
+        <input id={id} type="checkbox" onChange={handleChange} checked={value} />
         {label}
       </label>
     </div>
