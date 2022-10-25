@@ -22,7 +22,6 @@ const Permissions: React.FC = () => {
       id={`${role?.id}-${customPermission.name}`}
     />
   ));
-  console.log(JSON.stringify(permissionCollection?.customPermissions));
   return (
     <div className="permissions">
       <section className="permissions-section">
@@ -51,7 +50,6 @@ const Permissions: React.FC = () => {
                 roleId: permissionCollection?.roleId ?? 0,
                 permissions: customPermissionRequest,
               };
-              console.log(request);
               await updatePermissionCollection(request);
               toaster.success('updated');
             }}

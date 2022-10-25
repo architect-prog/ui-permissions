@@ -1,3 +1,7 @@
+# Tech Debt
+
+- Need to fix bug for low resolution with page and sidebar (examples: try to decrease through dev tools size of page) :x:
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

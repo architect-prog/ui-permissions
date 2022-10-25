@@ -67,13 +67,11 @@ const usePermissionCollection = (areaId: number): PermissionCollectionActions =>
       customPermissions: [...customPermissions],
     };
     const index = newPermissionCollectionState.customPermissions.findIndex((permission) => permission.name == label);
-    console.log('checked', checked, label, index);
     newPermissionCollectionState.customPermissions[index] = {
       name: customPermissions[index].name,
       haveAccess: checked,
       isDefault: customPermissions[index].isDefault,
     };
-    console.log(newPermissionCollectionState.customPermissions[index]);
 
     setPermissionCollectionState(newPermissionCollectionState);
   };
@@ -88,7 +86,6 @@ const usePermissionCollection = (areaId: number): PermissionCollectionActions =>
     };
     setQuery(newQuery);
   };
-  console.log(permissionCollection);
   //   const onChangeRole = (e: React.ChangeEvent<HTMLSelectElement>) => {
   //     const roleId = +e.target.value;
   //     const roleItem = roles.items.find((t) => t.id == roleId);
