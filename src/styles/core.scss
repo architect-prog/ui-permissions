@@ -5,8 +5,22 @@
 }
 
 .icon {
-  font-size: large;
-  display: block
+  font-size: 1.25rem;
+  display: block;
+}
+
+.icon-md {
+  font-size: 1.75rem;
+  display: block;
+}
+
+.icon-lg {
+  font-size: 2.25rem;
+  display: block;
+}
+
+.icon-danger {
+  color: $danger;
 }
 
 .permissions-section {

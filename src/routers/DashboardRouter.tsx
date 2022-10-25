@@ -2,13 +2,13 @@ import React from 'react';
 import { routes } from 'appConstants';
 import { Route, Routes } from 'react-router-dom';
 import { Applications, Permissions, Areas, Roles, CreateAreaForm, UpdateAreaForm } from 'modules/pages';
-import UpdateRoleForm from 'modules/pages/Roles/UpdateRoleForm';
-import CreateRoleForm from 'modules/pages/Roles/CreateRoleForm';
-import CreateApplicationForm from 'modules/pages/Applications/CreateApplicationForm';
-import UpdateApplicationForm from 'modules/pages/Applications/UpdateApplicationForm';
-import AreaDetails from 'modules/pages/Applications/Areas/AreaDetails';
-import NotFound from 'modules/pages/Common/NotFound';
-import InternalServerError from 'modules/pages/Common/InternalServerError';
+import UpdateRoleForm from 'modules/pages/roles/UpdateRoleForm';
+import CreateRoleForm from 'modules/pages/roles/CreateRoleForm';
+import CreateApplicationForm from 'modules/pages/applications/CreateApplicationForm';
+import UpdateApplicationForm from 'modules/pages/applications/UpdateApplicationForm';
+import AreaDetails from 'modules/pages/applications/areas/AreaDetails';
+import NotFound from 'modules/pages/common/NotFound';
+import InternalServerError from 'modules/pages/common/InternalServerError';
 
 const DashboardRouter: React.FC = () => {
   return (

@@ -21,7 +21,7 @@ const Areas: React.FC = () => {
       <div className="text-md">This application has no areas yet</div>
     ) : (
       <table className="areas">
-        <thead className="roles-header">
+        <thead className="areas-header">
           <tr>
             <th className="text-align-left">Name</th>
             <th className="text-align-left">Actions</th>

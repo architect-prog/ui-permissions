@@ -16,6 +16,7 @@ export * from './props/ApplicationProps';
 export * from './props/AreaProps';
 export * from './props/RoleProps';
 export * from './props/SubmitButtonProps';
+export * from './props/ModalProps';
 
 export * from './hooks/ApiErrorHandlingActions';
 export * from './hooks/RoleActions';

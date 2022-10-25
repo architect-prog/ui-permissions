@@ -1,5 +1,5 @@
 import React from 'react';
-import { Permissions } from './Permissions';
+import { Permissions } from './permissions';
 
 const AreaDetails: React.FC = () => {
   return (
