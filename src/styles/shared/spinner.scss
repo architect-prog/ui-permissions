@@ -1,3 +1,10 @@
+.spinner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .lds-roller {
   display: inline-block;
   position: relative;
