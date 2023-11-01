@@ -34,13 +34,13 @@ const configureOptimization = () => {
   (config.splitChunks = {
     minSize: 1,
     cacheGroups: {
-      vendorIntelliflo: {
-        test: /[\\/]node_modules[\\/]@intelliflo[\\/]/,
-        name: 'vendors.intelliflo',
+      vendor: {
+        test: /[\\/]node_modules[\\/][\\/]/,
+        name: 'vendors',
         chunks: 'all',
       },
       commons: {
-        test: /[\\/]node_modules[\\/](?!@intelliflo)(.[a-zA-Z0-9.\-_]+)[\\/]/,
+        test: /[\\/]node_modules[\\/](.[a-zA-Z0-9.\-_]+)[\\/]/,
         name: 'vendors.global',
         chunks: 'all',
       },
@@ -226,7 +226,3 @@ module.exports = {
   stats: 'normal',
   devtool: isDev ? 'eval-source-map' : undefined,
 };
-
-// This is needed for .NET SpaProxy to understand that webpack is up
-// https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/Spa/SpaServices.Extensions/src/ReactDevelopmentServer/ReactDevelopmentServerMiddleware.cs#L99
-console.log('Starting the development server');
